@@ -309,7 +309,7 @@ export function coloredConsoleLog(
 }
 
 export enum TEAM_NUMBER {
-  TIE = 0,
+  UNKNOWN = 0,
   FRIENDLY = 1,
   ENEMY = 2,
 }

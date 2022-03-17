@@ -1,10 +1,10 @@
-import { CardDetail, CardStats } from './types';
+import { CardDetail, CardStats, TEAM_NUMBER } from './types';
 import { Ability } from './types';
 
 export abstract class GameCard {
   private readonly cardDetail: CardDetail;
   private readonly cardLevel: number;
-  private readonly team: number;
+  private team: number = TEAM_NUMBER.UNKNOWN;
 
   abilities: Set<Ability> = new Set();
   speed = 0;
@@ -17,16 +17,19 @@ export abstract class GameCard {
   ranged = 0;
   mana = 0;
 
-  constructor(cardDetail: CardDetail, cardLevel: number, team: number) {
+  constructor(cardDetail: CardDetail, cardLevel: number) {
     this.cardDetail = cardDetail;
     this.cardLevel = cardLevel - 1;
-    this.team = team;
 
     this.setStats(cardDetail.stats);
   }
 
   /** To be overwritten */
   onSelfDeath(): void {}
+
+  public setTeam(teamNumber: TEAM_NUMBER) {
+    this.team = teamNumber;
+  }
 
   public getCardDetail(): CardDetail {
     return this.cardDetail;

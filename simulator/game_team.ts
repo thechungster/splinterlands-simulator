@@ -1,12 +1,18 @@
 import { GameMonster } from './game_monster';
 import { GameSummoner } from './game_summoner';
-import { Ability } from './types';
+import { Ability, TEAM_NUMBER } from './types';
 
 export class GameTeam {
   private readonly summoner: GameSummoner;
   private readonly monsterList: GameMonster[];
 
-  constructor(summoner: GameSummoner, monsterList: GameMonster[]) {
+  constructor(
+    summoner: GameSummoner,
+    monsterList: GameMonster[],
+    teamNumber: TEAM_NUMBER
+  ) {
+    summoner.setTeam(teamNumber);
+    monsterList.forEach((monster) => monster.setTeam(teamNumber));
     this.summoner = summoner;
     this.monsterList = monsterList;
     if (this.monsterList.length === 1) {

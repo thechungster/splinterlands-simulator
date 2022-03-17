@@ -967,7 +967,7 @@ export class Game {
     const team2AliveMonsters = this.team2.getAliveMonsters().length;
     if (team1AliveMonsters === 0 && team2AliveMonsters === 0) {
       coloredConsoleLog('Tie game!', 'green', 'yellow');
-      this.winner = TEAM_NUMBER.TIE;
+      this.winner = TEAM_NUMBER.UNKNOWN;
     } else if (team2AliveMonsters === 0) {
       coloredConsoleLog('Team 1 wins!', 'green', 'yellow');
       this.winner = TEAM_NUMBER.FRIENDLY;

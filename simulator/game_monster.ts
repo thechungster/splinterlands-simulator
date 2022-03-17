@@ -17,8 +17,8 @@ export class GameMonster extends GameCard {
   private summonerRanged = 0;
   private summonerMagic = 0;
 
-  constructor(cardDetail: CardDetail, cardLevel: number, team: number) {
-    super(cardDetail, cardLevel, team);
+  constructor(cardDetail: CardDetail, cardLevel: number) {
+    super(cardDetail, cardLevel);
   }
 
   setCardPosition(pos: number) {
