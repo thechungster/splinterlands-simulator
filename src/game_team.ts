@@ -6,11 +6,7 @@ export class GameTeam {
   private readonly summoner: GameSummoner;
   private readonly monsterList: GameMonster[];
 
-  constructor(
-    summoner: GameSummoner,
-    monsterList: GameMonster[],
-    teamNumber: TEAM_NUMBER
-  ) {
+  constructor(summoner: GameSummoner, monsterList: GameMonster[], teamNumber: TEAM_NUMBER) {
     summoner.setTeam(teamNumber);
     monsterList.forEach((monster) => monster.setTeam(teamNumber));
     this.summoner = summoner;
@@ -53,9 +49,7 @@ export class GameTeam {
   }
 
   public getUnmovedMonsters() {
-    return this.getAliveMonsters().filter(
-      (monster) => !monster.getHasTurnPassed()
-    );
+    return this.getAliveMonsters().filter((monster) => !monster.getHasTurnPassed());
   }
 
   public maybeSetLastStand() {
@@ -85,9 +79,7 @@ export class GameTeam {
     const backLineMonsters = this.getBacklineAliveMonsters();
     return (
       backLineMonsters.find(
-        (m) =>
-          !m.hasAbility(Ability.CAMOUFLAGE) &&
-          (!m.hasAttack() || m.ranged > 0 || m.magic > 0)
+        (m) => !m.hasAbility(Ability.CAMOUFLAGE) && (!m.hasAttack() || m.ranged > 0 || m.magic > 0),
       ) || this.getFirstAliveMonster()
     );
   }
@@ -140,9 +132,8 @@ export class GameTeam {
   public getRepairTarget(): GameMonster | null {
     let largestArmorDiff = 0;
     let monsterToRepair = null;
-    for (let currentMonster of this.getAliveMonsters()) {
-      const armorDiff =
-        currentMonster.getPostAbilityMaxArmor() - currentMonster.armor;
+    for (const currentMonster of this.getAliveMonsters()) {
+      const armorDiff = currentMonster.getPostAbilityMaxArmor() - currentMonster.armor;
       if (armorDiff > largestArmorDiff) {
         largestArmorDiff = armorDiff;
         monsterToRepair = currentMonster;
@@ -159,8 +150,7 @@ export class GameTeam {
 
     for (let i = 1; i < aliveMonsters.length; i++) {
       const currMonster = aliveMonsters[i];
-      const healthDiff =
-        currMonster.getPostAbilityMaxHealth() - currMonster.health;
+      const healthDiff = currMonster.getPostAbilityMaxHealth() - currMonster.health;
       if (healthDiff > largestHealthDiff) {
         largestHealthDiff = healthDiff;
         monsterToTriage = currMonster;
@@ -170,8 +160,6 @@ export class GameTeam {
   }
 
   public getTauntMonster(): GameMonster | null {
-    return (
-      this.getAliveMonsters().find((m) => m.hasAbility(Ability.TAUNT)) || null
-    );
+    return this.getAliveMonsters().find((m) => m.hasAbility(Ability.TAUNT)) || null;
   }
 }

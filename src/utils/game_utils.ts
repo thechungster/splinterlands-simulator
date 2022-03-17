@@ -1,33 +1,24 @@
 import { GameMonster } from '../game_monster';
 import { Ability, AttackType, Ruleset } from '../types';
-import {
-  BLIND_DODGE_CHANCE,
-  DODGE_CHANCE,
-  FLYING_DODGE_CHANCE,
-} from './ability_utils';
+import { BLIND_DODGE_CHANCE, DODGE_CHANCE, FLYING_DODGE_CHANCE } from './ability_utils';
 
 export function getDidDodge(
   rulesets: Set<Ruleset>,
   attackingMonster: GameMonster,
   attackTarget: GameMonster,
-  attackType: AttackType
+  attackType: AttackType,
 ): boolean {
-  if (
-    attackType === AttackType.MAGIC &&
-    !attackTarget.hasAbility(Ability.PHASE)
-  ) {
+  if (attackType === AttackType.MAGIC && !attackTarget.hasAbility(Ability.PHASE)) {
     return false;
   }
   if (attackingMonster.hasAbility(Ability.TRUE_STRIKE)) {
     return false;
   }
-  let speedDifference =
-    attackTarget.getPostAbilitySpeed() - attackingMonster.getPostAbilitySpeed();
+  let speedDifference = attackTarget.getPostAbilitySpeed() - attackingMonster.getPostAbilitySpeed();
   if (rulesets.has(Ruleset.REVERSE_SPEED)) {
     speedDifference *= -1;
   }
-  let dodgeChance =
-    speedDifference > 0 ? speedDifference * SPEED_DODGE_CHANCE : 0;
+  let dodgeChance = speedDifference > 0 ? speedDifference * SPEED_DODGE_CHANCE : 0;
   // _ 25% for Dodge
   if (attackTarget.hasAbility(Ability.DODGE)) {
     dodgeChance += DODGE_CHANCE;
@@ -48,10 +39,7 @@ export function getDidDodge(
   return getSuccessBelow(dodgeChance * 100);
 }
 
-export function monsterTurnComparator(
-  monster1: GameMonster,
-  monster2: GameMonster
-) {
+export function monsterTurnComparator(monster1: GameMonster, monster2: GameMonster) {
   const normalCompareDiff = normalCompare(monster1, monster2);
 
   // Descending order
@@ -60,15 +48,9 @@ export function monsterTurnComparator(
   }
   // Resolve ties by order if same team, else randomly
   // TODO(bug): This doesn't seem right. Why does monster 1 go first if it doesn't have attack
-  if (
-    !monster1.hasAttack() &&
-    monster1.getTeamNumber() === monster2.getTeamNumber()
-  ) {
+  if (!monster1.hasAttack() && monster1.getTeamNumber() === monster2.getTeamNumber()) {
     return 1;
-  } else if (
-    !monster2.hasAttack() &&
-    monster1.getTeamNumber() === monster2.getTeamNumber()
-  ) {
+  } else if (!monster2.hasAttack() && monster1.getTeamNumber() === monster2.getTeamNumber()) {
     return -1;
   }
   // If same team and back line monsters don't have opportunity or sneak or reach, front goes first
@@ -86,8 +68,7 @@ export function getSuccessBelow(chance: number) {
 const SPEED_DODGE_CHANCE = 0.1;
 
 function normalCompare(monster1: GameMonster, monster2: GameMonster) {
-  const speedDiff =
-    monster1.getPostAbilitySpeed() - monster2.getPostAbilitySpeed();
+  const speedDiff = monster1.getPostAbilitySpeed() - monster2.getPostAbilitySpeed();
   if (speedDiff !== 0) {
     return speedDiff;
   }

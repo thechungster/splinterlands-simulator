@@ -1,7 +1,7 @@
 import { GameCard } from './game_card';
 import { Ability, AttackType } from './types';
 import * as abilityUtils from './utils/ability_utils';
-import { CardDetail, coloredConsoleLog } from './types';
+import { CardDetail } from './types';
 
 export class GameMonster extends GameCard {
   // Should be set when put in a team.
@@ -30,10 +30,7 @@ export class GameMonster extends GameCard {
     if (!this.isAlive()) {
       return;
     }
-    let finalHealth = Math.min(
-      this.health + amt,
-      this.getPostAbilityMaxHealth()
-    );
+    let finalHealth = Math.min(this.health + amt, this.getPostAbilityMaxHealth());
     finalHealth = Math.max(finalHealth, 0);
     this.setHealth(finalHealth);
   }
@@ -67,11 +64,6 @@ export class GameMonster extends GameCard {
     this.hasTurnPassed = false;
     if (this.hasDebuff(Ability.POISON)) {
       this.health = this.health - abilityUtils.POISON_DAMAGE;
-      coloredConsoleLog(
-        `${this.getName()} poison damage, now have ${this.health}`,
-        'green',
-        'black'
-      );
     }
   }
 
@@ -120,7 +112,7 @@ export class GameMonster extends GameCard {
     if (this.magic > 0 || this.ranged > 0) {
       return true;
     }
-    for (let actionAbility of abilityUtils.ACTION_ABILITIES) {
+    for (const actionAbility of abilityUtils.ACTION_ABILITIES) {
       if (this.hasAbility(actionAbility)) {
         return true;
       }
@@ -244,7 +236,6 @@ export class GameMonster extends GameCard {
 
   removeBuff(buff: Ability) {
     if (!this.hasBuff(buff)) {
-      console.error('No buff found ' + buff);
       return;
     }
     const newBuffAmt = this.getBuffAmt(buff) - 1;
@@ -378,8 +369,9 @@ export class GameMonster extends GameCard {
       const crippleAmt = this.getDebuffAmt(Ability.CRIPPLE);
       maxHealth = maxHealth - abilityUtils.CRIPPLE_AMOUNT * crippleAmt;
     }
+    // The summoner skill made this starting health 0 or negative
     if (this.startingHealth < 1) {
-      maxHealth - this.startingHealth - 1;
+      maxHealth = maxHealth + this.startingHealth - 1;
     }
 
     return Math.max(maxHealth, 1);
@@ -395,9 +387,6 @@ export class GameMonster extends GameCard {
     if (attackType === AttackType.MELEE) {
       return this.getPostAbilityMelee();
     }
-    console.error(
-      `No attack of AttackType ${attackType} found.  This should never happen.`
-    );
     return 0;
   }
 
@@ -488,9 +477,6 @@ export class GameMonster extends GameCard {
 
   /********************* Things regarding abilities? ********************/
   private isEnraged() {
-    return (
-      this.hasAbility(Ability.ENRAGE) &&
-      this.health < this.getPostAbilityMaxHealth()
-    );
+    return this.hasAbility(Ability.ENRAGE) && this.health < this.getPostAbilityMaxHealth();
   }
 }

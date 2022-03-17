@@ -10,11 +10,11 @@ import {
   CardDetail,
   Ruleset,
   TEAM_NUMBER,
-} from './simulator/types';
-import { Game } from './simulator/game';
-import { GameTeam } from './simulator/game_team';
-import { GameSummoner } from './simulator/game_summoner';
-import { GameMonster } from './simulator/game_monster';
+} from './src/types';
+import { Game } from './src/game';
+import { GameTeam } from './src/game_team';
+import { GameSummoner } from './src/game_summoner';
+import { GameMonster } from './src/game_monster';
 
 const SPLINTERLANDS_API_URL = 'https://api2.splinterlands.com/';
 const GET_ALL_CARDS_ENDPOINT = 'cards/get_details';
@@ -33,14 +33,6 @@ export async function exampleHistoricBattle() {
   const game = createGame(allCards, battleDetails, rulesetSet);
 
   game.playGame();
-
-  if (game.getWinner() === TEAM_NUMBER.UNKNOWN) {
-    console.log('Tie!');
-  } else if (game.getWinner() === TEAM_NUMBER.FRIENDLY) {
-    console.log(`${battleDetails.team1.player} wins!`);
-  } else {
-    console.log(`${battleDetails.team2.player} wins!`);
-  }
 }
 
 /** An example of a custom battle using cards and rules that you set */

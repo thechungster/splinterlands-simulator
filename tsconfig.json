@@ -1,9 +1,12 @@
 {
-    "compilerOptions": {
-      "target": "es2017",
-      "module": "es2022",
-      "outDir": "out",
-      "strict": true,
-        "lib": ["es2019", "dom"]
-    },
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "outDir": "./lib",
+    "strict": true,
+    "lib": ["es2015"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "**/__tests__/*"]
 }

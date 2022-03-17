@@ -1,0 +1,36 @@
+{
+  "name": "splinterlands-simulator",
+  "version": "1.0.0",
+  "description": "Simulator for battles in the Splinterlands game",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare" : "npm run build",
+    "prepublishOnly" : "npm run lint",
+    "preversion" : "npm run lint",
+    "version" : "npm run format && git add -A src",
+    "postversion" : "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thechungster/splinterlands-simulator.git"
+  },
+  "keywords": ["splinterlands", "battle simulator"],
+  "author": "",
+  "license": "GPL-3.0+",
+  "bugs": {
+    "url": "https://github.com/thechungster/splinterlands-simulator/issues"
+  },
+  "homepage": "https://github.com/thechungster/splinterlands-simulator#readme",
+  "devDependencies": {
+    "prettier": "^2.6.0",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.6.2"
+  },
+  "files": ["lib/**/*"]
+}

@@ -1,12 +1,9 @@
 import { GameMonster } from '../game_monster';
-import { Ability, BattleDamage, coloredConsoleLog } from '../types';
+import { Ability, BattleDamage } from '../types';
 
 // TODO: Should this return the reduced damage or normal? Life steal against void?
 /** Hits the monster with magic damage. Returns the remainder damage. */
-export function hitMonsterWithMagic(
-  attackTarget: GameMonster,
-  magicDamage: number
-): BattleDamage {
+export function hitMonsterWithMagic(attackTarget: GameMonster, magicDamage: number): BattleDamage {
   if (attackTarget.hasAbility(Ability.FORCEFIELD) && magicDamage >= 5) {
     magicDamage = 1;
   }
@@ -60,10 +57,7 @@ export function hitMonsterWithMagic(
 }
 
 /** Hits the monster with physical damage. Returns the remainder damage. */
-export function hitMonsterWithPhysical(
-  attackTarget: GameMonster,
-  damageAmt: number
-): BattleDamage {
+export function hitMonsterWithPhysical(attackTarget: GameMonster, damageAmt: number): BattleDamage {
   if (attackTarget.hasAbility(Ability.FORCEFIELD) && damageAmt >= 5) {
     damageAmt = 1;
   }
@@ -111,25 +105,12 @@ export function hitMonsterWithPhysical(
 
 /** Returns remainder damage after hitting armor. */
 function hitArmor(attackTarget: GameMonster, damageAmt: number): number {
-  coloredConsoleLog(
-    `Hitting armor of ${attackTarget.getName()} for ${damageAmt}`
-  );
   const remainderArmor = attackTarget.armor - damageAmt;
   if (remainderArmor < 0) {
     attackTarget.armor = 0;
-    coloredConsoleLog(
-      `${attackTarget.getName()} now has ${attackTarget.health} health, ${
-        attackTarget.armor
-      } armor`
-    );
     return remainderArmor * -1;
   }
   attackTarget.armor = remainderArmor;
-  coloredConsoleLog(
-    `${attackTarget.getName()} now has ${attackTarget.health} health, ${
-      attackTarget.armor
-    } armor`
-  );
   return 0;
 }
 
@@ -144,10 +125,5 @@ function hitHealth(attackTarget: GameMonster, damageAmt: number) {
   if (attackTarget.health === 0) {
     return damageAmt - preHitHealth;
   }
-  coloredConsoleLog(
-    `${attackTarget.getName()} now has ${attackTarget.health} health, ${
-      attackTarget.armor
-    } armor`
-  );
   return 0;
 }

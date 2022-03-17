@@ -1,5 +1,5 @@
 import { GameMonster } from '../game_monster';
-import { Ability, coloredConsoleLog } from '../types';
+import { Ability } from '../types';
 
 export const EARTHQUAKE_DAMAGE = 2;
 export const RUST_AMOUNT = 2;
@@ -104,12 +104,6 @@ export function tankHealMonster(monster: GameMonster): number {
   const maxHealth = monster.getPostAbilityMaxHealth();
   const healAmount = Math.max(Math.floor(maxHealth * TANK_HEAL_MULTIPLIER), 2);
   monster.addHealth(healAmount);
-
-  coloredConsoleLog(
-    `Tank healing ${monster.getName()}, now have ${monster.health}`,
-    'white',
-    'green'
-  );
   return previousHealth - monster.health;
 }
 
@@ -121,10 +115,6 @@ export function repairMonsterArmor(monster: GameMonster | null): number {
   const maxArmor = monster.getPostAbilityMaxArmor();
   const newArmorAmt = Math.min(maxArmor, monster.armor + REPAIR_AMOUNT);
   monster.armor = newArmorAmt;
-  coloredConsoleLog(
-    `Repairing armor to ${monster.getName()}. Now have ${monster.armor} armor`,
-    '#03f8fc'
-  );
   return newArmorAmt - previousArmor;
 }
 
@@ -134,10 +124,7 @@ export function triageHealMonster(monster: GameMonster | null): number {
   }
   const previousHealth = monster.health;
   const maxHealth = monster.getPostAbilityMaxHealth();
-  const healAmt = Math.max(
-    Math.floor(maxHealth * TRIAGE_HEAL_MULTIPLIER),
-    MINIMUM_TRIAGE_HEAL
-  );
+  const healAmt = Math.max(Math.floor(maxHealth * TRIAGE_HEAL_MULTIPLIER), MINIMUM_TRIAGE_HEAL);
   monster.addHealth(healAmt);
   return previousHealth - monster.health;
 }
@@ -150,11 +137,6 @@ export function selfHeal(self: GameMonster): number {
   const maxHealth = self.getPostAbilityMaxHealth();
   const healAmount = Math.max(Math.floor(maxHealth / 3), MINIMUM_SELF_HEAL);
   self.addHealth(healAmount);
-  coloredConsoleLog(
-    `${self.getName()} self healing now have ${self.health}`,
-    'white',
-    'green'
-  );
   return previousHealth - self.health;
 }
 

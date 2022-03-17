@@ -5,11 +5,7 @@ import { Ability, Ruleset } from '../types';
 import { EARTHQUAKE_DAMAGE } from './ability_utils';
 import { hitMonsterWithPhysical } from './damage_utils';
 
-export function doRulesetPreGameBuff(
-  rulesets: Set<Ruleset>,
-  team1: GameTeam,
-  team2: GameTeam
-) {
+export function doRulesetPreGameBuff(rulesets: Set<Ruleset>, team1: GameTeam, team2: GameTeam) {
   if (rulesets.has(Ruleset.ARMORED_UP)) {
     applyToBothTeamMonsters(team1, team2, applyArmorUpRuleset);
   }
@@ -63,11 +59,7 @@ export function doRulesetPreGameBuff(
   }
 }
 
-export function doRulesetPreGamePostBuff(
-  rulesets: Set<Ruleset>,
-  team1: GameTeam,
-  team2: GameTeam
-) {
+export function doRulesetPreGamePostBuff(rulesets: Set<Ruleset>, team1: GameTeam, team2: GameTeam) {
   if (rulesets.has(Ruleset.UNPROTECTED)) {
     applyToBothTeamMonsters(team1, team2, applyUnprotected);
   }
@@ -76,7 +68,7 @@ export function doRulesetPreGamePostBuff(
 function applyToBothTeamMonsters(
   team1: GameTeam,
   team2: GameTeam,
-  fn: (monster: GameMonster) => void
+  fn: (monster: GameMonster) => void,
 ) {
   team1.getMonstersList().forEach(fn);
   team2.getMonstersList().forEach(fn);
@@ -110,10 +102,7 @@ export function applyEarthquake(monster: GameMonster) {
  * All monsters have Opportunity.
  */
 function applyEqualOpportunity(monster: GameMonster) {
-  if (
-    !monster.hasAbility(Ability.SNEAK) &&
-    !monster.hasAbility(Ability.SNIPE)
-  ) {
+  if (!monster.hasAbility(Ability.SNEAK) && !monster.hasAbility(Ability.SNIPE)) {
     monster.addAbility(Ability.OPPORTUNITY);
   }
 }
@@ -122,9 +111,7 @@ function applyEqualOpportunity(monster: GameMonster) {
 function applyEqualizer(team1: GameTeam, team2: GameTeam) {
   const allMonsters = team1.getMonstersList().concat(team2.getMonstersList());
   let highestHp = 0;
-  allMonsters.forEach(
-    (monster) => (highestHp = Math.max(monster.health, highestHp))
-  );
+  allMonsters.forEach((monster) => (highestHp = Math.max(monster.health, highestHp)));
   allMonsters.forEach((monster) => {
     monster.health = highestHp;
     monster.startingHealth = highestHp;
@@ -192,7 +179,7 @@ function applySpreadingFury(monster: GameMonster) {
 
 /**
  * All melee monsters have sneak
- * */
+ */
 function applySuperSneak(monster: GameMonster) {
   if (monster.melee > 0) {
     monster.addAbility(Ability.SNEAK);

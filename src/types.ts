@@ -222,18 +222,15 @@ export interface CollectionCard {
 
 export interface CustomCardStats extends CardDetail {
   created_num_block: number;
-  //distribution
   drop_rate: number;
   gold: boolean;
   id: number;
   is_promo: boolean;
   is_starter: boolean;
-  //last_update_tx
   level: number;
   name: string;
   rarity: number;
   stats: CardStats;
-  //sub_type
   tier: number;
   total_printed: number;
   uid: string;
@@ -298,14 +295,6 @@ export enum CardAttackType {
 export enum FoilType {
   STANDARD = 'standard',
   GOLD = 'gold',
-}
-
-export function coloredConsoleLog(
-  text: string,
-  color?: string,
-  backgroundColor?: string
-) {
-  console.log(`%c ${text}.`, `background: ${backgroundColor}; color: ${color}`);
 }
 
 export enum TEAM_NUMBER {

@@ -24,9 +24,6 @@ export abstract class GameCard {
     this.setStats(cardDetail.stats);
   }
 
-  /** To be overwritten */
-  onSelfDeath(): void {}
-
   public setTeam(teamNumber: TEAM_NUMBER) {
     this.team = teamNumber;
   }
@@ -78,10 +75,14 @@ export abstract class GameCard {
     }
     // For monster
     if (Array.isArray(abilities[0])) {
-      const relevantAbilities = (abilities as Ability[][])
-        .slice(0, this.cardLevel + 1)
-        .flat();
-      relevantAbilities.forEach((ability) => {
+      const relevantAbilities = (abilities as Ability[][]).slice(0, this.cardLevel + 1);
+      const relevantAbilitiesArr: Ability[] = [];
+      relevantAbilities.forEach((abilityArr) => {
+        abilityArr.forEach((ability) => {
+          relevantAbilitiesArr.push(ability);
+        });
+      });
+      relevantAbilitiesArr.forEach((ability) => {
         this.abilities.add(ability);
       });
     } else {
