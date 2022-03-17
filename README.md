@@ -2,7 +2,7 @@
 
 Simulator for battles in the Splinterlands game, written in TS. Sorry if it's messy, the entire thing was written in one weekend :relaxed:
 
-This simulator is used to simulate the battles in [Splintertools](splintertools.com).
+This simulator is used to simulate the battles in [Splintertools](https://splintertools.io).
 
 ## Samples
 
