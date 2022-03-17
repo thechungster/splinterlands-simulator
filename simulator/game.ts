@@ -27,7 +27,6 @@ const FATIGUE_ROUND_NUMBER = 20;
 export class Game {
   private readonly team1: GameTeam;
   private readonly team2: GameTeam;
-  private readonly tier: number;
   private readonly rulesets: Set<Ruleset>;
   // 0 = tie
   // 1 = team1
@@ -35,15 +34,9 @@ export class Game {
   private winner: number | undefined;
   private deadMonsters: GameMonster[] = [];
   private roundNumber = 0;
-  constructor(
-    team1: GameTeam,
-    team2: GameTeam,
-    tier: number,
-    rulesets: Set<Ruleset>
-  ) {
+  constructor(team1: GameTeam, team2: GameTeam, rulesets: Set<Ruleset>) {
     this.team1 = team1;
     this.team2 = team2;
-    this.tier = tier;
     this.rulesets = rulesets;
   }
 
