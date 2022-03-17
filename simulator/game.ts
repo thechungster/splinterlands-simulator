@@ -1065,14 +1065,19 @@ export class Game {
     }
   }
 
+  // TODO: We currently always do earthquake/postround to team 1, and then team 2.
+  // But it's probably random or something?
   private doPostRound() {
     const aliveTeam1 = this.team1.getAliveMonsters();
     const aliveTeam2 = this.team2.getAliveMonsters();
 
+    // TODO: Does this always go before poison?
     if (this.rulesets.has(Ruleset.EARTHQUAKE)) {
       this.doPostRoundEarthquake(aliveTeam1);
       this.doPostRoundEarthquake(aliveTeam2);
     }
+    // TODO: This is wrong, we should be checking maybeDead after each individual
+    // onPostRound damage done.
     this.team1.monstersOnPostRound();
     this.team2.monstersOnPostRound();
     aliveTeam1.forEach((monster) => this.maybeDead(monster));
