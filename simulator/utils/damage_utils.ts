@@ -67,8 +67,7 @@ export function hitMonsterWithPhysical(
   if (attackTarget.hasAbility(Ability.FORCEFIELD) && damageAmt >= 5) {
     damageAmt = 1;
   }
-  // For things like thorns
-  // TODO: Put this in the battle logger.
+  // For things like thorns, this returns 1 to show a successful attack.
   if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
     attackTarget.removeAbility(Ability.DIVINE_SHIELD);
     return {

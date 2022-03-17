@@ -191,7 +191,6 @@ function applySpreadingFury(monster: GameMonster) {
 }
 
 /**
- * TODO(bug) This has the same issue as Equal Opportunity
  * All melee monsters have sneak
  * */
 function applySuperSneak(monster: GameMonster) {

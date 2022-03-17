@@ -547,7 +547,6 @@ export class Game {
     ) {
       multiplier *= 2;
     }
-    // TODO: Enrage here or at post ability?
     return multiplier;
   }
 
