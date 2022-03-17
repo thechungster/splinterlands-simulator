@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "AMD",
-    "outFile": "index.js",
+    "module": "CommonJS",
+    "outDir": "./lib",
     "declaration": true,
     "strict": true,
     "lib": ["es2015"]
-  },
-  "include": ["src"],
+  },  
+  "include": ["src", "index.ts"],
   "exclude": ["node_modules", "**/__tests__/*"]
 }

@@ -2,8 +2,8 @@
   "name": "splinterlands-simulator",
   "version": "1.0.4",
   "description": "Simulator for battles in the Splinterlands game",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
@@ -36,7 +36,6 @@
     "typescript": "^4.6.2"
   },
   "files": [
-    "index.js",
-    "index.d.ts"
+    "lib/**/*"
   ]
 }
