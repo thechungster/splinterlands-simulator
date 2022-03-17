@@ -1,5 +1,6 @@
 /**
- * This file shows an example of how to use the simulator with a historic battle.
+ * This file shows an example of how to use the simulator with a historic battle,
+ * and an example using custom rules and cards.
  */
 
 import {
