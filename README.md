@@ -2,6 +2,10 @@
 
 Simulator for battles in the [Splinterlands](https://splinterlands.com) game.
 
+[NPM package](https://www.npmjs.com/package/splinterlands-simulator)
+
+[GitHub](https://github.com/thechungster/splinterlands-simulator)
+
 This simulator is used to simulate the battles in [Splintertools](https://splintertools.io).
 
 ## Samples
