@@ -14,6 +14,9 @@ export function getDidDodge(
   if (attackingMonster.hasAbility(Ability.TRUE_STRIKE)) {
     return false;
   }
+  if (attackingMonster.hasAbility(Ability.SNARE) && attackTarget.hasAbility(Ability.FLYING)) {
+    return false;
+  }
   let speedDifference = attackTarget.getPostAbilitySpeed() - attackingMonster.getPostAbilitySpeed();
   if (rulesets.has(Ruleset.REVERSE_SPEED)) {
     speedDifference *= -1;
