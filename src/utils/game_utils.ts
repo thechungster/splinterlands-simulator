@@ -30,7 +30,6 @@ export function getDidDodge(
   if (
     attackTarget.hasAbility(Ability.FLYING) &&
     !attackingMonster.hasAbility(Ability.FLYING) &&
-    !attackingMonster.hasAbility(Ability.SNARE) &&
     !attackTarget.hasDebuff(Ability.SNARE)
   ) {
     dodgeChance += FLYING_DODGE_CHANCE;
