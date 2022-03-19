@@ -52,6 +52,10 @@ export class GameCard {
     return this.cardDetail.name;
   }
 
+  public getLevel(): number {
+    return this.cardLevel;
+  }
+
   public clone(): GameCard {
     const clonedCard = new GameCard(this.cardDetail, this.cardLevel);
     clonedCard.abilities = new Set(this.abilities);

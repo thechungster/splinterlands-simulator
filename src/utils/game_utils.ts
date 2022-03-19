@@ -41,6 +41,7 @@ export function getDidDodge(
   return getSuccessBelow(dodgeChance * 100);
 }
 
+// https://support.splinterlands.com/hc/en-us/articles/4414334269460-Attack-Order
 export function monsterTurnComparator(monster1: GameMonster, monster2: GameMonster) {
   const normalCompareDiff = normalCompare(monster1, monster2);
 
@@ -69,6 +70,7 @@ export function getSuccessBelow(chance: number) {
 
 const SPEED_DODGE_CHANCE = 0.1;
 
+// https://support.splinterlands.com/hc/en-us/articles/4414334269460-Attack-Order
 function normalCompare(monster1: GameMonster, monster2: GameMonster) {
   const speedDiff = monster1.getPostAbilitySpeed() - monster2.getPostAbilitySpeed();
   if (speedDiff !== 0) {
@@ -87,7 +89,10 @@ function normalCompare(monster1: GameMonster, monster2: GameMonster) {
   if (monster2.ranged > 0 && monster1.ranged === 0) {
     return -1;
   }
-  return monster1.getRarity() - monster2.getRarity();
+  if (monster1.getRarity() !== monster2.getRarity()) {
+    return monster1.getRarity() - monster2.getRarity();
+  }
+  return monster1.getLevel() - monster2.getLevel();
 }
 
 function resolveFriendlyTies(monster1: GameMonster, monster2: GameMonster) {
