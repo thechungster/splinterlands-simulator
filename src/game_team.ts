@@ -23,10 +23,6 @@ export class GameTeam {
     }
   }
 
-  public monstersOnPostRound() {
-    this.monsterList.forEach((monster) => monster.onPostRound());
-  }
-
   /** Position of the alive monsters */
   public getMonsterPosition(monster: GameMonster): number {
     return this.getAliveMonsters().findIndex((m) => m === monster);

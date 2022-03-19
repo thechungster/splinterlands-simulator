@@ -57,16 +57,6 @@ export class GameMonster extends GameCard {
     return this.cardPosition;
   }
 
-  onPostRound() {
-    if (this.health <= 0) {
-      return;
-    }
-    this.hasTurnPassed = false;
-    if (this.hasDebuff(Ability.POISON)) {
-      this.health = this.health - abilityUtils.POISON_DAMAGE;
-    }
-  }
-
   isAlive() {
     return this.health > 0;
   }

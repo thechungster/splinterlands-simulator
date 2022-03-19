@@ -931,23 +931,19 @@ export class Game {
     }
   }
 
-  // TODO: We currently always do earthquake/postround to team 1, and then team 2.
-  // But it's probably random or something?
   private doPostRound() {
-    const aliveTeam1 = this.team1.getAliveMonsters();
-    const aliveTeam2 = this.team2.getAliveMonsters();
+    let aliveTeam1 = this.team1.getAliveMonsters();
+    let aliveTeam2 = this.team2.getAliveMonsters();
 
-    // TODO: Does this always go before poison?
     if (this.rulesets.has(Ruleset.EARTHQUAKE)) {
       this.doPostRoundEarthquake(aliveTeam1);
       this.doPostRoundEarthquake(aliveTeam2);
+      aliveTeam1 = this.team1.getAliveMonsters();
+      aliveTeam2 = this.team2.getAliveMonsters();
     }
-    // TODO: This is wrong, we should be checking maybeDead after each individual
-    // onPostRound damage done.
-    this.team1.monstersOnPostRound();
-    this.team2.monstersOnPostRound();
-    aliveTeam1.forEach((monster) => this.maybeDead(monster));
-    aliveTeam2.forEach((monster) => this.maybeDead(monster));
+
+    this.monstersOnPostRound(aliveTeam1);
+    this.monstersOnPostRound(aliveTeam2);
   }
 
   private doPostRoundEarthquake(aliveMonsters: GameMonster[]) {
@@ -964,6 +960,16 @@ export class Game {
       this.checkAndSetGameWinner();
       if (this.winner !== undefined) {
         return;
+      }
+    }
+  }
+
+  private monstersOnPostRound(aliveMonsters: GameMonster[]) {
+    for (const monster of aliveMonsters) {
+      if (monster.hasDebuff(Ability.POISON)) {
+        monster.health = monster.health - abilityUtils.POISON_DAMAGE;
+        this.createAndAddBattleLog(monster, Ability.POISON, undefined, abilityUtils.POISON_DAMAGE);
+        monster.setHasTurnPassed(false);
       }
     }
   }
@@ -1051,6 +1057,4 @@ export class Game {
     };
     this.battleLogs.push(log);
   }
-
-  private addMultipleBattleLogs(logs: BattleLog[]) {}
 }
