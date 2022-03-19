@@ -1,3 +1,5 @@
+import { GameCard } from './game_card';
+
 // Things for the battle
 export interface Team {
   summoner: CardDetail;
@@ -301,4 +303,26 @@ export enum TEAM_NUMBER {
   UNKNOWN = 0,
   FRIENDLY = 1,
   ENEMY = 2,
+}
+
+export enum AdditionalBattleAction {
+  DEATH = 3,
+  EARTHQUAKE,
+  FATIGUE,
+  MELEE,
+  RANGED,
+  MAGIC,
+}
+
+export type BattleLogAction = Ability | AdditionalBattleAction | AttackType;
+
+export interface BattleLog {
+  /** The summoner or monster performing the action. This is a snapshot of the actor AFTER the action has been performed. */
+  actor: GameCard;
+  /** The target of the action. This is a snapshot of the target AFTER the action has been performed. */
+  target?: GameCard;
+  /** The action */
+  action: BattleLogAction;
+  /** The value, can be the amount of damage, or heal, etc. Based on the action */
+  value?: number;
 }
