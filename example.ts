@@ -35,7 +35,7 @@ export async function exampleHistoricBattle() {
   game.playGame();
 }
 
-/** An example of a custom battle using cards and rules that you set */
+/** An example of a custom battle using cards and rules that you set. Returns the battle logs. */
 export async function exampleCustomBattle() {
   const allCards = await getAllCards();
   const rules = new Set<Ruleset>();
@@ -51,39 +51,40 @@ export async function exampleCustomBattle() {
   const team1 = new GameTeam(
     new GameSummoner(scarredLlamaMageCard, /* cardLevel */ 1),
     [kronGameMonster],
-    TEAM_NUMBER.FRIENDLY
+    TEAM_NUMBER.FRIENDLY,
   );
   const team2 = new GameTeam(
     new GameSummoner(scarredLlamaMageCard, /* cardLevel */ 3),
     [fleshGolemMonster],
-    TEAM_NUMBER.FRIENDLY
+    TEAM_NUMBER.FRIENDLY,
   );
 
-  const game = new Game(team1, team2, rules);
+  const game = new Game(team1, team2, rules, /* shouldLog */ true);
   game.playGame();
+  return game.getBattleLogs();
 }
 
 // You should store the cards locally so this doesn't need to be called all the time.
 async function getAllCards(): Promise<CardDetail[]> {
   return await fetch(SPLINTERLANDS_API_URL + GET_ALL_CARDS_ENDPOINT).then(
-    (response) => response.json() as Promise<CardDetail[]>
+    (response) => response.json() as Promise<CardDetail[]>,
   );
 }
 
 async function getHistoricBattle(battleId: string): Promise<BattleHistory> {
-  return await fetch(
-    SPLINTERLANDS_API_URL + BATTLE_HISTORY_ENDPOINT + battleId
-  ).then((response) => response.json() as Promise<BattleHistory>);
+  return await fetch(SPLINTERLANDS_API_URL + BATTLE_HISTORY_ENDPOINT + battleId).then(
+    (response) => response.json() as Promise<BattleHistory>,
+  );
 }
 
 function createGameTeam(
   allCards: CardDetail[],
   battleTeam: BattleTeam,
-  teamNumber: TEAM_NUMBER
+  teamNumber: TEAM_NUMBER,
 ): GameTeam {
   const gameSummoner = new GameSummoner(
     allCards[battleTeam.summoner.card_detail_id - 1],
-    battleTeam.summoner.level
+    battleTeam.summoner.level,
   );
   const gameMonsters = battleTeam.monsters.map((monster) => {
     const monsterCard = allCards[monster.card_detail_id - 1];
@@ -95,18 +96,10 @@ function createGameTeam(
 function createGame(
   allCards: CardDetail[],
   battleDetails: BattleDetails,
-  rulesets: Set<Ruleset>
+  rulesets: Set<Ruleset>,
 ): Game {
-  const gameTeam1 = createGameTeam(
-    allCards,
-    battleDetails.team1,
-    TEAM_NUMBER.FRIENDLY
-  );
-  const gameTeam2 = createGameTeam(
-    allCards,
-    battleDetails.team2,
-    TEAM_NUMBER.ENEMY
-  );
+  const gameTeam1 = createGameTeam(allCards, battleDetails.team1, TEAM_NUMBER.FRIENDLY);
+  const gameTeam2 = createGameTeam(allCards, battleDetails.team2, TEAM_NUMBER.ENEMY);
 
   return new Game(gameTeam1, gameTeam2, rulesets);
 }
