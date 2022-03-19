@@ -18,6 +18,7 @@ export const TRIAGE_HEAL_MULTIPLIER = 1 / 3;
 export const MINIMUM_TRIAGE_HEAL = 2;
 export const MINIMUM_SELF_HEAL = 2;
 export const BLAST_MULTIPLIER = 1 / 2;
+export const FORCEFIELD_MIN_DAMAGE = 5;
 
 // https://splinterlands.fandom.com/wiki/Category:Ability
 export const AFFLICTION_CHANCE = 1 / 2;
