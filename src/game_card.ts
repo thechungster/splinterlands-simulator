@@ -53,7 +53,7 @@ export class GameCard {
   }
 
   public clone(): GameCard {
-    const clonedCard = new GameCard(this.cardDetail, this.cardLevel);
+    const clonedCard = new GameCard(this.cardDetail, this.cardLevel + 1);
     clonedCard.abilities = new Set(this.abilities);
     clonedCard.speed = this.speed;
     clonedCard.startingArmor = this.startingArmor;
