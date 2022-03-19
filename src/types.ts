@@ -178,6 +178,16 @@ export interface BattleTeam {
   rating: number;
 }
 
+export interface CardDetailDistribution {
+  card_detail_id: number;
+  gold: boolean;
+  edition: number;
+  num_cards: string;
+  total_xp: string;
+  num_burned: string;
+  total_burned_xp: string;
+}
+
 export interface CardDetail {
   // 1 indexed.
   id: number;
@@ -185,9 +195,17 @@ export interface CardDetail {
   color: CardColor;
   type: CardType;
   rarity: number;
-  isStarter: boolean;
+  is_starter: boolean;
   editions: string;
   stats: CardStats;
+  drop_rate: number;
+  sub_type: any;
+  created_block_num: any;
+  last_update_tx: string | null;
+  total_printed: number;
+  is_promo: boolean;
+  tier: any;
+  distribution: CardDetailDistribution[];
 }
 
 export interface PlayerCardDetail {
@@ -299,10 +317,11 @@ export enum FoilType {
   GOLD = 'gold',
 }
 
-export enum TEAM_NUMBER {
-  UNKNOWN = 0,
-  FRIENDLY = 1,
-  ENEMY = 2,
+export enum TeamNumber {
+  UNKNOWN,
+  ONE,
+  TWO,
+  TIE,
 }
 
 export enum AdditionalBattleAction {
