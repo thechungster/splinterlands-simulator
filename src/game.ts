@@ -196,25 +196,25 @@ export class Game {
     if (summoner.hasAbility(Ability.CLEANSE)) {
       const firstMonster = team.getFirstAliveMonster();
       firstMonster.cleanseDebuffs();
-      this.createAndAddBattleLog(summoner, Ability.CLEANSE, firstMonster);
+      this.createAndAddBattleLog(Ability.CLEANSE, summoner, firstMonster);
     }
     if (summoner.hasAbility(Ability.REPAIR)) {
       const repairTarget = team.getRepairTarget();
       if (repairTarget) {
         abilityUtils.repairMonsterArmor(repairTarget);
-        this.createAndAddBattleLog(summoner, Ability.REPAIR, repairTarget || undefined);
+        this.createAndAddBattleLog(Ability.REPAIR, summoner, repairTarget || undefined);
       }
     }
     if (summoner.hasAbility(Ability.TANK_HEAL)) {
       const firstMonster = team.getFirstAliveMonster();
       abilityUtils.tankHealMonster(firstMonster);
-      this.createAndAddBattleLog(summoner, Ability.TANK_HEAL, firstMonster || undefined);
+      this.createAndAddBattleLog(Ability.TANK_HEAL, summoner, firstMonster || undefined);
     }
     if (summoner.hasAbility(Ability.TRIAGE)) {
       const healTarget = team.getTriageHealTarget();
       if (healTarget) {
         const healAmt = abilityUtils.triageHealMonster(healTarget);
-        this.createAndAddBattleLog(summoner, Ability.TRIAGE, healTarget, healAmt);
+        this.createAndAddBattleLog(Ability.TRIAGE, summoner, healTarget, healAmt);
       }
     }
   }
@@ -226,19 +226,19 @@ export class Game {
     if (monster.hasAbility(Ability.CLEANSE)) {
       const cleanseTarget = friendlyTeam.getFirstAliveMonster();
       cleanseTarget.cleanseDebuffs();
-      this.createAndAddBattleLog(monster, Ability.CLEANSE, cleanseTarget);
+      this.createAndAddBattleLog(Ability.CLEANSE, monster, cleanseTarget);
     }
     if (monster.hasAbility(Ability.TANK_HEAL)) {
       const tankHealTarget = friendlyTeam.getFirstAliveMonster();
       const healAmt = abilityUtils.tankHealMonster(tankHealTarget);
-      this.createAndAddBattleLog(monster, Ability.TANK_HEAL, tankHealTarget, healAmt);
+      this.createAndAddBattleLog(Ability.TANK_HEAL, monster, tankHealTarget, healAmt);
     }
     if (monster.hasAbility(Ability.REPAIR)) {
       const friendlyGameTeam = this.getTeamOfMonster(monster);
       const repairTarget = friendlyGameTeam.getRepairTarget();
       if (repairTarget) {
         const repairAmt = abilityUtils.repairMonsterArmor(repairTarget);
-        this.createAndAddBattleLog(monster, Ability.REPAIR, repairTarget, repairAmt);
+        this.createAndAddBattleLog(Ability.REPAIR, monster, repairTarget, repairAmt);
       }
     }
     if (monster.hasAbility(Ability.TRIAGE)) {
@@ -246,12 +246,12 @@ export class Game {
       const triageTarget = friendlyGameTeam.getTriageHealTarget();
       if (triageTarget) {
         const healAmt = abilityUtils.triageHealMonster(triageTarget);
-        this.createAndAddBattleLog(monster, Ability.TRIAGE, triageTarget, healAmt);
+        this.createAndAddBattleLog(Ability.TRIAGE, monster, triageTarget, healAmt);
       }
     }
     if (monster.hasAbility(Ability.HEAL)) {
       const healAmt = abilityUtils.selfHeal(monster);
-      this.createAndAddBattleLog(monster, Ability.HEAL, monster, healAmt);
+      this.createAndAddBattleLog(Ability.HEAL, monster, monster, healAmt);
     }
   }
 
@@ -328,17 +328,17 @@ export class Game {
       !this.rulesets.has(Ruleset.AIM_TRUE) &&
       gameUtils.getDidDodge(this.rulesets, attackingMonster, attackTarget, attackType)
     ) {
-      this.createAndAddBattleLog(attackingMonster, Ability.DODGE, attackTarget);
+      this.createAndAddBattleLog(Ability.DODGE, attackingMonster, attackTarget);
       if (attackTarget.hasAbility(Ability.BACKFIRE)) {
-        const battleDamage = damageUtils.hitMonsterWithPhysical(
+        const backfireBattleDamage = damageUtils.hitMonsterWithPhysical(
           attackingMonster,
           abilityUtils.BACKFIRE_DAMAGE,
         );
         this.createAndAddBattleLog(
-          attackingMonster,
           Ability.BACKFIRE,
+          attackingMonster,
           attackTarget,
-          battleDamage.damageDone,
+          backfireBattleDamage.damageDone,
         );
       }
       this.maybeDead(attackingMonster);
@@ -388,7 +388,7 @@ export class Game {
     }
 
     const battleDamage = this.actuallyHitMonster(attackingMonster, attackTarget, attackType);
-    this.createAndAddBattleLog(attackingMonster, attackType, attackTarget, battleDamage.damageDone);
+    this.createAndAddBattleLog(attackType, attackingMonster, attackTarget, battleDamage.damageDone);
 
     // Pierce
     if (attackingMonster.hasAbility(Ability.PIERCING) && battleDamage.remainder > 0) {
@@ -434,8 +434,8 @@ export class Game {
       gameUtils.getSuccessBelow(abilityUtils.AFFLICTION_CHANCE * 100)
     ) {
       this.createAndAddBattleLog(
-        attackingMonster,
         Ability.AFFLICTION,
+        attackingMonster,
         attackTarget,
         battleDamage.damageDone,
       );
@@ -588,8 +588,8 @@ export class Game {
     if (attackType === AttackType.MAGIC) {
       const battleDamage = damageUtils.hitMonsterWithMagic(monsterToBlast, blastDamage);
       this.createAndAddBattleLog(
-        attackingMonster,
         Ability.BLAST,
+        attackingMonster,
         monsterToBlast,
         battleDamage.damageDone,
       );
@@ -603,8 +603,8 @@ export class Game {
     } else {
       const battleDamage = damageUtils.hitMonsterWithPhysical(monsterToBlast, blastDamage);
       this.createAndAddBattleLog(
-        attackingMonster,
         Ability.BLAST,
+        attackingMonster,
         monsterToBlast,
         battleDamage.damageDone,
       );
@@ -619,7 +619,7 @@ export class Game {
       return;
     }
 
-    this.createAndAddBattleLog(monster, AdditionalBattleAction.DEATH);
+    this.createAndAddBattleLog(AdditionalBattleAction.DEATH, monster);
     this.deadMonsters.push(monster);
     monster.setHasTurnPassed(true);
     // Monster just died!
@@ -678,14 +678,14 @@ export class Game {
       const deadMonsterIndex = this.deadMonsters.findIndex((deadMon) => deadMon === deadMonster);
       deadMonster.armor = deadMonster.startingArmor;
       this.deadMonsters.splice(deadMonsterIndex, 1);
-      this.createAndAddBattleLog(monster, Ability.RESURRECT, monster);
+      this.createAndAddBattleLog(Ability.RESURRECT, monster, monster);
     }
   }
 
   private onDeath(monster: GameMonster, deadMonster: GameMonster) {
     if (monster.hasAbility(Ability.SCAVENGER)) {
       monster.addBuff(Ability.SCAVENGER);
-      this.createAndAddBattleLog(monster, Ability.SCAVENGER, deadMonster);
+      this.createAndAddBattleLog(Ability.SCAVENGER, monster, deadMonster);
     }
   }
 
@@ -700,8 +700,8 @@ export class Game {
         : abilityUtils.THORNS_DAMAGE;
       const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, thornsDamage);
       this.createAndAddBattleLog(
-        attackTarget,
         Ability.THORNS,
+        attackTarget,
         attackingMonster,
         battleDamage.damageDone,
       );
@@ -727,8 +727,8 @@ export class Game {
     }
     const battleDamage = damageUtils.hitMonsterWithMagic(attackingMonster, reflectDamage);
     this.createAndAddBattleLog(
-      attackTarget,
       Ability.MAGIC_REFLECT,
+      attackTarget,
       attackingMonster,
       battleDamage.damageDone,
     );
@@ -753,8 +753,8 @@ export class Game {
     }
     const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, reflectDamage);
     this.createAndAddBattleLog(
-      attackTarget,
       Ability.RETURN_FIRE,
+      attackTarget,
       attackingMonster,
       battleDamage.damageDone,
     );
@@ -772,7 +772,7 @@ export class Game {
     ) {
       return;
     }
-    this.createAndAddBattleLog(attackTarget, Ability.RETALIATE, attackingMonster);
+    this.createAndAddBattleLog(Ability.RETALIATE, attackTarget, attackingMonster);
     this.attackMonsterPhase(attackTarget, attackingMonster, AttackType.MELEE);
   }
 
@@ -799,14 +799,14 @@ export class Game {
   private maybeApplyCripple(attackingMonster: GameMonster, attackTarget: GameMonster) {
     if (attackingMonster.hasAbility(Ability.CRIPPLE) && attackTarget.isAlive()) {
       this.addMonsterToMonsterDebuff(attackingMonster, attackTarget, Ability.CRIPPLE);
-      this.createAndAddBattleLog(attackingMonster, Ability.CRIPPLE, attackTarget);
+      this.createAndAddBattleLog(Ability.CRIPPLE, attackingMonster, attackTarget);
     }
   }
 
   private maybeApplyHalving(attackingMonster: GameMonster, attackTarget: GameMonster) {
     if (attackingMonster.hasAbility(Ability.HALVING) && !attackTarget.hasDebuff(Ability.HALVING)) {
       this.addMonsterToMonsterDebuff(attackingMonster, attackTarget, Ability.HALVING);
-      this.createAndAddBattleLog(attackingMonster, Ability.HALVING, attackTarget);
+      this.createAndAddBattleLog(Ability.HALVING, attackingMonster, attackTarget);
     }
   }
 
@@ -830,7 +830,7 @@ export class Game {
     const speedChange = isReverseSpeed ? -1 : 1;
     attackingMonster.speed += speedChange;
     attackingMonster.health += 1;
-    this.createAndAddBattleLog(attackingMonster, Ability.BLOODLUST);
+    this.createAndAddBattleLog(Ability.BLOODLUST, attackingMonster);
   }
 
   private maybeLifeLeech(attackingMonster: GameMonster, damage: number) {
@@ -839,7 +839,7 @@ export class Game {
       for (let i = 0; i < lifeLeechAmt; i++) {
         attackingMonster.addBuff(Ability.LIFE_LEECH);
       }
-      this.createAndAddBattleLog(attackingMonster, Ability.LIFE_LEECH, undefined, lifeLeechAmt);
+      this.createAndAddBattleLog(Ability.LIFE_LEECH, attackingMonster, undefined, lifeLeechAmt);
     }
   }
 
@@ -863,7 +863,7 @@ export class Game {
     }
     // If round >= 50, game is tie.
     if (roundNumber >= 50) {
-      this.winner = 0;
+      this.winner = TEAM_NUMBER.UNKNOWN;
       return;
     }
     // True damage that hits health on 20 rounds
@@ -898,6 +898,12 @@ export class Game {
    * 3e. (If dead) Trigger onDeath on all alive monsters and summoners
    */
   private playSingleRound() {
+    this.createAndAddBattleLog(
+      AdditionalBattleAction.ROUND_START,
+      undefined,
+      undefined,
+      this.roundNumber + 1,
+    );
     this.deadMonsters = [];
     this.doGamePreRound();
     this.doSummonerPreRound(this.team1);
@@ -955,8 +961,8 @@ export class Game {
     for (const monster of aliveMonsters) {
       const battleDamage = rulesetUtils.applyEarthquake(monster);
       this.createAndAddBattleLog(
-        monster,
         AdditionalBattleAction.EARTHQUAKE,
+        monster,
         undefined,
         battleDamage.damageDone,
       );
@@ -973,9 +979,9 @@ export class Game {
     for (const monster of aliveMonsters) {
       if (monster.hasDebuff(Ability.POISON)) {
         monster.health = monster.health - abilityUtils.POISON_DAMAGE;
-        this.createAndAddBattleLog(monster, Ability.POISON, undefined, abilityUtils.POISON_DAMAGE);
-        monster.setHasTurnPassed(false);
+        this.createAndAddBattleLog(Ability.POISON, monster, undefined, abilityUtils.POISON_DAMAGE);
       }
+      monster.setHasTurnPassed(false);
     }
   }
 
@@ -1005,7 +1011,7 @@ export class Game {
     debuff: Ability,
   ) {
     monsterAffected.addDebuff(debuff);
-    this.createAndAddBattleLog(monsterThatApplied, debuff, monsterAffected);
+    this.createAndAddBattleLog(debuff, monsterThatApplied, monsterAffected);
   }
 
   private applyDebuffToMonsters(monsters: GameMonster[], debuff: Ability) {
@@ -1025,7 +1031,7 @@ export class Game {
     const fatigueDamage = roundNumber - FATIGUE_ROUND_NUMBER + 1;
     const allAliveMonsters = this.team1.getAliveMonsters().concat(this.team2.getAliveMonsters());
     for (const monster of allAliveMonsters) {
-      this.createAndAddBattleLog(monster, AdditionalBattleAction.FATIGUE, undefined, fatigueDamage);
+      this.createAndAddBattleLog(AdditionalBattleAction.FATIGUE, monster, undefined, fatigueDamage);
       monster.hitHealth(fatigueDamage);
       this.maybeDead(monster);
     }
@@ -1044,15 +1050,15 @@ export class Game {
   }
 
   private createAndAddBattleLog(
-    cardOne: GameCard,
     action: BattleLogAction,
+    cardOne?: GameCard,
     cardTwo?: GameCard,
     value?: number,
   ) {
     if (!this.shouldLog) {
       return;
     }
-    const actor = cardOne.clone();
+    const actor = cardOne ? cardOne.clone() : undefined;
     const target = cardTwo ? cardTwo.clone() : undefined;
     const log = {
       actor,

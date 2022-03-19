@@ -312,13 +312,14 @@ export enum AdditionalBattleAction {
   MELEE,
   RANGED,
   MAGIC,
+  ROUND_START,
 }
 
 export type BattleLogAction = Ability | AdditionalBattleAction | AttackType;
 
 export interface BattleLog {
   /** The summoner or monster performing the action. This is a snapshot of the actor AFTER the action has been performed. */
-  actor: GameCard;
+  actor?: GameCard;
   /** The target of the action. This is a snapshot of the target AFTER the action has been performed. */
   target?: GameCard;
   /** The action */
