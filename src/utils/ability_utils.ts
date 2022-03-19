@@ -18,6 +18,7 @@ export const TRIAGE_HEAL_MULTIPLIER = 1 / 3;
 export const MINIMUM_TRIAGE_HEAL = 2;
 export const MINIMUM_SELF_HEAL = 2;
 export const BLAST_MULTIPLIER = 1 / 2;
+export const FORCEFIELD_MIN_DAMAGE = 5;
 
 // https://splinterlands.fandom.com/wiki/Category:Ability
 export const AFFLICTION_CHANCE = 1 / 2;
@@ -104,7 +105,7 @@ export function tankHealMonster(monster: GameMonster): number {
   const maxHealth = monster.getPostAbilityMaxHealth();
   const healAmount = Math.max(Math.floor(maxHealth * TANK_HEAL_MULTIPLIER), 2);
   monster.addHealth(healAmount);
-  return previousHealth - monster.health;
+  return monster.health - previousHealth;
 }
 
 export function repairMonsterArmor(monster: GameMonster | null): number {
@@ -126,7 +127,7 @@ export function triageHealMonster(monster: GameMonster | null): number {
   const maxHealth = monster.getPostAbilityMaxHealth();
   const healAmt = Math.max(Math.floor(maxHealth * TRIAGE_HEAL_MULTIPLIER), MINIMUM_TRIAGE_HEAL);
   monster.addHealth(healAmt);
-  return previousHealth - monster.health;
+  return monster.health - previousHealth;
 }
 
 export function selfHeal(self: GameMonster): number {
@@ -137,7 +138,7 @@ export function selfHeal(self: GameMonster): number {
   const maxHealth = self.getPostAbilityMaxHealth();
   const healAmount = Math.max(Math.floor(maxHealth / 3), MINIMUM_SELF_HEAL);
   self.addHealth(healAmount);
-  return previousHealth - self.health;
+  return self.health - previousHealth;
 }
 
 export function lifeLeechMonster(monster: GameMonster) {

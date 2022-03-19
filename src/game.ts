@@ -492,6 +492,23 @@ export class Game {
     return multiplier;
   }
 
+  private getPostBlastDamageMultiplier(attackingMonster: GameMonster, attackTarget: GameMonster) {
+    let multiplier = 1;
+    if (attackingMonster.hasAbility(Ability.RECHARGE)) {
+      multiplier *= 3;
+    }
+    if (attackingMonster.hasAbility(Ability.GIANT_KILLER) && attackTarget.mana >= 10) {
+      multiplier *= 2;
+    }
+    if (attackTarget.hasDebuff(Ability.STUN) && attackingMonster.hasAbility(Ability.KNOCK_OUT)) {
+      multiplier *= 2;
+    }
+    if (!attackTarget.hasAttack() && attackingMonster.hasAbility(Ability.OPPRESS)) {
+      multiplier *= 2;
+    }
+    return multiplier;
+  }
+
   private getTargetForNonMelee(monster: GameMonster): GameMonster | null {
     const enemyTeam = this.getEnemyTeamOfMonster(monster);
     if (monster.hasAbility(Ability.SCATTERSHOT)) {
@@ -575,6 +592,7 @@ export class Game {
     return null;
   }
 
+  // Blast has a ton of edge cases... https://support.splinterlands.com/hc/en-us/articles/4414966685332-Abilities-Status-Effects
   private maybeBlast(
     attackingMonster: GameMonster,
     monsterToBlast: GameMonster,
@@ -584,7 +602,25 @@ export class Game {
     if (!attackingMonster.hasAbility(Ability.BLAST) || monsterToBlast === null) {
       return;
     }
-    const blastDamage = Math.ceil(damageDone / 2);
+    const baseBlastDamage = Math.ceil(damageDone / 2);
+    const damageMultiplier = this.getPostBlastDamageMultiplier(attackingMonster, monsterToBlast);
+    let blastDamage = baseBlastDamage * damageMultiplier;
+
+    if (
+      monsterToBlast.hasAbility(Ability.FORCEFIELD) &&
+      baseBlastDamage >= abilityUtils.FORCEFIELD_MIN_DAMAGE
+    ) {
+      blastDamage = 1;
+    }
+    // Blasted monsters get snared
+    if (
+      monsterToBlast.hasAbility(Ability.FLYING) &&
+      attackingMonster.hasAbility(Ability.SNARE) &&
+      !monsterToBlast.hasDebuff(Ability.SNARE)
+    ) {
+      this.addMonsterToMonsterDebuff(attackingMonster, monsterToBlast, Ability.SNARE);
+    }
+
     if (attackType === AttackType.MAGIC) {
       const battleDamage = damageUtils.hitMonsterWithMagic(monsterToBlast, blastDamage);
       this.createAndAddBattleLog(
