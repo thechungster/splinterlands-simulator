@@ -1,14 +1,12 @@
 import { GameMonster } from './game_monster';
 import { GameSummoner } from './game_summoner';
-import { Ability, TEAM_NUMBER } from './types';
+import { Ability, TeamNumber } from './types';
 
 export class GameTeam {
   private readonly summoner: GameSummoner;
   private readonly monsterList: GameMonster[];
 
-  constructor(summoner: GameSummoner, monsterList: GameMonster[], teamNumber: TEAM_NUMBER) {
-    summoner.setTeam(teamNumber);
-    monsterList.forEach((monster) => monster.setTeam(teamNumber));
+  constructor(summoner: GameSummoner, monsterList: GameMonster[]) {
     this.summoner = summoner;
     this.monsterList = monsterList;
     if (this.monsterList.length === 1) {
@@ -21,6 +19,11 @@ export class GameTeam {
     for (let i = 0; i < this.monsterList.length; i++) {
       this.monsterList[i].setCardPosition(i);
     }
+  }
+
+  public setTeam(teamNumber: TeamNumber) {
+    this.summoner.setTeam(teamNumber);
+    this.monsterList.forEach((monster) => monster.setTeam(teamNumber));
   }
 
   /** Position of the alive monsters */

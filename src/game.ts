@@ -22,7 +22,7 @@ import * as abilityUtils from './utils/ability_utils';
 import * as gameUtils from './utils/game_utils';
 import * as damageUtils from './utils/damage_utils';
 import { GameCard } from './game_card';
-import { TEAM_NUMBER } from './types';
+import { TeamNumber } from './types';
 
 const FATIGUE_ROUND_NUMBER = 20;
 
@@ -48,6 +48,9 @@ export class Game {
     this.team2 = team2;
     this.rulesets = rulesets;
     this.shouldLog = shouldLog;
+
+    this.team1.setTeam(TeamNumber.ONE);
+    this.team2.setTeam(TeamNumber.TWO);
   }
 
   public getWinner() {
@@ -883,11 +886,11 @@ export class Game {
     const team1AliveMonsters = this.team1.getAliveMonsters().length;
     const team2AliveMonsters = this.team2.getAliveMonsters().length;
     if (team1AliveMonsters === 0 && team2AliveMonsters === 0) {
-      this.winner = TEAM_NUMBER.UNKNOWN;
+      this.winner = TeamNumber.UNKNOWN;
     } else if (team2AliveMonsters === 0) {
-      this.winner = TEAM_NUMBER.FRIENDLY;
+      this.winner = TeamNumber.ONE;
     } else if (team1AliveMonsters === 0) {
-      this.winner = TEAM_NUMBER.ENEMY;
+      this.winner = TeamNumber.TWO;
     }
   }
 
@@ -899,7 +902,7 @@ export class Game {
     }
     // If round >= 50, game is tie.
     if (roundNumber >= 50) {
-      this.winner = TEAM_NUMBER.UNKNOWN;
+      this.winner = TeamNumber.UNKNOWN;
       return;
     }
     // True damage that hits health on 20 rounds

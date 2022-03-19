@@ -1,10 +1,11 @@
-import { CardDetail, CardStats, TEAM_NUMBER } from './types';
+import { CardDetail, CardStats, TeamNumber } from './types';
 import { Ability } from './types';
+import { getCardDetailFromId } from './utils/card_utils';
 
 export class GameCard {
   private readonly cardDetail: CardDetail;
   private readonly cardLevel: number;
-  private team: number = TEAM_NUMBER.UNKNOWN;
+  private team: number = TeamNumber.UNKNOWN;
 
   abilities: Set<Ability> = new Set();
   speed = 0;
@@ -17,14 +18,18 @@ export class GameCard {
   ranged = 0;
   mana = 0;
 
-  constructor(cardDetail: CardDetail, cardLevel: number) {
-    this.cardDetail = cardDetail;
+  constructor(cardDetail: CardDetail | number, cardLevel: number) {
+    if (typeof cardDetail === 'number') {
+      this.cardDetail = getCardDetailFromId(cardDetail);
+    } else {
+      this.cardDetail = cardDetail;
+    }
     this.cardLevel = cardLevel - 1;
 
-    this.setStats(cardDetail.stats);
+    this.setStats(this.cardDetail.stats);
   }
 
-  public setTeam(teamNumber: TEAM_NUMBER) {
+  public setTeam(teamNumber: TeamNumber) {
     this.team = teamNumber;
   }
 
@@ -57,7 +62,7 @@ export class GameCard {
   }
 
   public clone(): GameCard {
-    const clonedCard = new GameCard(this.cardDetail, this.cardLevel);
+    const clonedCard = new GameCard(this.cardDetail, this.cardLevel + 1);
     clonedCard.abilities = new Set(this.abilities);
     clonedCard.speed = this.speed;
     clonedCard.startingArmor = this.startingArmor;
