@@ -88,6 +88,11 @@ export class Game {
   }
 
   public getBattleLogs() {
+    if (!this.shouldLog) {
+      throw new Error(
+        'You must instantiate the Game with enableLogs as true in the constructor in order to have logs',
+      );
+    }
     return this.battleLogs;
   }
 
