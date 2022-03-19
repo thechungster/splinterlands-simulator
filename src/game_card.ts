@@ -1,7 +1,7 @@
 import { CardDetail, CardStats, TEAM_NUMBER } from './types';
 import { Ability } from './types';
 
-export abstract class GameCard {
+export class GameCard {
   private readonly cardDetail: CardDetail;
   private readonly cardLevel: number;
   private team: number = TEAM_NUMBER.UNKNOWN;
@@ -44,12 +44,29 @@ export abstract class GameCard {
     return this.team;
   }
 
-  getRarity(): number {
+  public getRarity(): number {
     return this.cardDetail.rarity;
   }
 
   public getName(): string {
     return this.cardDetail.name;
+  }
+
+  public clone(): GameCard {
+    const clonedCard = new GameCard(this.cardDetail, this.cardLevel);
+    clonedCard.abilities = new Set(this.abilities);
+    clonedCard.speed = this.speed;
+    clonedCard.startingArmor = this.startingArmor;
+    clonedCard.armor = this.armor;
+    clonedCard.startingHealth = this.startingHealth;
+    clonedCard.health = this.health;
+    clonedCard.magic = this.magic;
+    clonedCard.melee = this.melee;
+    clonedCard.ranged = this.ranged;
+    clonedCard.mana = this.mana;
+    clonedCard.setTeam(this.team);
+
+    return clonedCard;
   }
 
   private setStats(stats: CardStats) {
