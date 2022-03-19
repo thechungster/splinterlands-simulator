@@ -330,7 +330,7 @@ export class Game {
     ) {
       this.createAndAddBattleLog(attackingMonster, Ability.DODGE, attackTarget);
       if (attackTarget.hasAbility(Ability.BACKFIRE)) {
-        const battleDamage = damageUtils.hitMonsterWithPhysical(
+        const backfireBattleDamage = damageUtils.hitMonsterWithPhysical(
           attackingMonster,
           abilityUtils.BACKFIRE_DAMAGE,
         );
@@ -338,7 +338,7 @@ export class Game {
           attackingMonster,
           Ability.BACKFIRE,
           attackTarget,
-          battleDamage.damageDone,
+          backfireBattleDamage.damageDone,
         );
       }
       this.maybeDead(attackingMonster);
