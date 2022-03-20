@@ -24,7 +24,8 @@ const chicken = new GameMonster(/* id */ 131, /* level */ 1);
 const forgottenOne = new GameMonster(/* id */ 404, /* level */ 1);
 const teamTwo = new GameTeam(tarsa, [chicken, forgottenOne]);
 
-const game = new Game(teamOne, teamTwo, /* shouldLog */ true);
+const rules = new Set([Ruleset.BACK_TO_BASICS, Ruleset.LOST_LEGENDARIES]);
+const game = new Game(teamOne, teamTwo, rules, /* shouldLog */ true);
 game.playGame();
 
 const winner = game.getWinner();
@@ -33,7 +34,7 @@ const logs = game.getBattleLogs();
 
 # Configuration
 
-The Game constructor optionally takes in **shouldLog** as a third parameter. If set to true, the game logs can be retrieved using `game.getBattleLogs()`. This returns an array of `BattleLogs`. The logs will contain the action, and the snapshot of the relevant monsters after the action has taken place.
+The Game constructor takes in **shouldLog** as an optional fourth parameter. If set to true, the game logs can be retrieved using `game.getBattleLogs()`. This returns an array of `BattleLogs`. The logs will contain the action, and the snapshot of the relevant monsters after the action has taken place.
 
 # Samples
 
