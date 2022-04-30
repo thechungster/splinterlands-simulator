@@ -326,6 +326,9 @@ export class Game {
     attackTarget: GameMonster,
     attackType: AttackType,
   ) {
+    if (attackingMonster.hasAbility(Ability.RECHARGE) && this.roundNumber % 2 === 0) {
+      return;
+    }
     // See if it dodged.
     if (
       !this.rulesets.has(Ruleset.AIM_TRUE) &&
@@ -975,12 +978,10 @@ export class Game {
 
   private doGamePreRound(): void {
     // On odd number rounds, recharge monsters don't do anything.
-    // TODO: This might go in damage multiplier function instead if the monster should still use skills.
     if (this.roundNumber % 2 === 0) {
       this.team1
         .getAliveMonsters()
         .concat(this.team2.getAliveMonsters())
-        .filter((aliveMonsters) => aliveMonsters.hasAbility(Ability.RECHARGE))
         .forEach((rechargeMonsters) => rechargeMonsters.setHasTurnPassed(true));
     }
   }
