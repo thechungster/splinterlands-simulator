@@ -976,15 +976,7 @@ export class Game {
     });
   }
 
-  private doGamePreRound(): void {
-    // On odd number rounds, recharge monsters don't do anything.
-    if (this.roundNumber % 2 === 0) {
-      this.team1
-        .getAliveMonsters()
-        .concat(this.team2.getAliveMonsters())
-        .forEach((rechargeMonsters) => rechargeMonsters.setHasTurnPassed(true));
-    }
-  }
+  private doGamePreRound(): void {}
 
   private doPostRound() {
     let aliveTeam1 = this.team1.getAliveMonsters();
