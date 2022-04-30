@@ -947,6 +947,7 @@ export class Game {
     this.doGamePreRound();
     this.doSummonerPreRound(this.team1);
     this.doSummonerPreRound(this.team2);
+    const stunnedMonsters = [];
 
     let currentMonster = this.getNextMonsterTurn();
     while (currentMonster !== null) {
@@ -954,8 +955,8 @@ export class Game {
         continue;
       }
       if (currentMonster.hasDebuff(Ability.STUN)) {
+        stunnedMonsters.push(currentMonster);
         currentMonster.setHasTurnPassed(true);
-        currentMonster.removeAllDebuff(Ability.STUN);
         currentMonster = this.getNextMonsterTurn();
         continue;
       }
@@ -967,6 +968,9 @@ export class Game {
       }
       currentMonster = this.getNextMonsterTurn();
     }
+    stunnedMonsters.forEach((monster) => {
+      monster.removeAllDebuff(Ability.STUN);
+    });
   }
 
   private doGamePreRound(): void {
@@ -1018,6 +1022,7 @@ export class Game {
     for (const monster of aliveMonsters) {
       if (monster.hasDebuff(Ability.POISON)) {
         monster.health = monster.health - abilityUtils.POISON_DAMAGE;
+        this.maybeDead(monster);
         this.createAndAddBattleLog(Ability.POISON, monster, undefined, abilityUtils.POISON_DAMAGE);
       }
       monster.setHasTurnPassed(false);
