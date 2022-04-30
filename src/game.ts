@@ -976,7 +976,9 @@ export class Game {
     });
   }
 
-  private doGamePreRound(): void {}
+  private doGamePreRound(): void {
+    // Add pre round things.
+  }
 
   private doPostRound() {
     let aliveTeam1 = this.team1.getAliveMonsters();
