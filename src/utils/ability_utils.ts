@@ -153,15 +153,7 @@ export function protectMonster(monster: GameMonster) {
   monster.armor = monster.armor + 2;
 }
 
-export function resurrectMonster(monster: GameMonster) {
-  monster.health = 1;
-  monster.armor = monster.startingArmor;
-  monster.cleanseDebuffs();
-}
 
-export function removeDivineShield(monster: GameMonster) {
-  monster.removeAbility(Ability.DIVINE_SHIELD);
-}
 
 export function dispelBuffs(monster: GameMonster) {
   const buffsSet = monster.getAllBuffs();

@@ -370,7 +370,7 @@ export class Game {
 
     // No damage if there's divine shield, but it will still trigger stun, thorns, poison, blast,
     if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
-      attackTarget.removeAbility(Ability.DIVINE_SHIELD);
+      attackTarget.removeDivineShield();
       if (attackType === AttackType.MAGIC) {
         this.maybeApplyMagicReflect(attackingMonster, attackTarget, attackType);
       } else {
@@ -716,7 +716,7 @@ export class Game {
   private maybeResurrect(monster: GameCard, deadMonster: GameMonster) {
     if (monster.hasAbility(Ability.RESURRECT) && !deadMonster.isAlive()) {
       monster.removeAbility(Ability.RESURRECT);
-      abilityUtils.resurrectMonster(deadMonster);
+      deadMonster.resurrect();
       const deadMonsterIndex = this.deadMonsters.findIndex((deadMon) => deadMon === deadMonster);
       deadMonster.armor = deadMonster.startingArmor;
       this.deadMonsters.splice(deadMonsterIndex, 1);

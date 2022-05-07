@@ -10,7 +10,7 @@ export function hitMonsterWithMagic(attackTarget: GameMonster, magicDamage: numb
   }
   // For things like magic reflect
   if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
-    attackTarget.removeAbility(Ability.DIVINE_SHIELD);
+    attackTarget.removeDivineShield();
     return {
       attack: 1,
       damageDone: 0,
@@ -64,7 +64,7 @@ export function hitMonsterWithPhysical(attackTarget: GameMonster, damageAmt: num
   }
   // For things like thorns, this returns 1 to show a successful attack.
   if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
-    attackTarget.removeAbility(Ability.DIVINE_SHIELD);
+    attackTarget.removeDivineShield();
     return {
       attack: 1,
       damageDone: 0,
