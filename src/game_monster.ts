@@ -474,7 +474,9 @@ export class GameMonster extends GameCard {
   resurrect() {
     this.health = 1;
     this.armor = this.startingArmor;
-    if (this.hadDivineShield) { this.addAbility(Ability.DIVINE_SHIELD) }
+    if (this.hadDivineShield) {
+      this.addAbility(Ability.DIVINE_SHIELD);
+    }
     this.cleanseDebuffs();
   }
 
