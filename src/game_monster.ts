@@ -16,6 +16,7 @@ export class GameMonster extends GameCard {
   private summonerMelee = 0;
   private summonerRanged = 0;
   private summonerMagic = 0;
+  private hadDivineShield = false;
 
   constructor(cardDetail: CardDetail | number, cardLevel: number) {
     super(cardDetail, cardLevel);
@@ -267,6 +268,11 @@ export class GameMonster extends GameCard {
     }
   }
 
+  removeDivineShield() {
+    this.hadDivineShield = true
+    this.removeAbility(Ability.DIVINE_SHIELD);
+  }
+
   addSummonerArmor(stat: number) {
     this.summonerArmor += stat;
     this.armor = Math.max(this.armor + stat, 0);
@@ -463,6 +469,15 @@ export class GameMonster extends GameCard {
       return Math.ceil(currentMelee * abilityUtils.ENRAGE_MULTIPLIER);
     }
     return currentMelee;
+  }
+
+  resurrect() {
+    this.health = 1;
+    this.armor = this.startingArmor;
+    if (this.hadDivineShield) {
+      this.addAbility(Ability.DIVINE_SHIELD);
+    }
+    this.cleanseDebuffs();
   }
 
   /********************* Things regarding abilities? ********************/
