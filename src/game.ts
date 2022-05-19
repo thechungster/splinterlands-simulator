@@ -720,7 +720,7 @@ export class Game {
       const deadMonsterIndex = this.deadMonsters.findIndex((deadMon) => deadMon === deadMonster);
       deadMonster.armor = deadMonster.startingArmor;
       this.deadMonsters.splice(deadMonsterIndex, 1);
-      this.createAndAddBattleLog(Ability.RESURRECT, monster, monster);
+      this.createAndAddBattleLog(Ability.RESURRECT, monster, deadMonster);
     }
   }
 
