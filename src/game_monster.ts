@@ -6,8 +6,6 @@ import { CardDetail } from './types';
 export class GameMonster extends GameCard {
   // Should be set when put in a team.
   private cardPosition = 0;
-  private debuffsMap: Map<Ability, number> = new Map();
-  private buffsMap: Map<Ability, number> = new Map();
 
   private isOnlyMonster = false;
   private hasTurnPassed = false;

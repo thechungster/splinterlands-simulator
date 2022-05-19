@@ -7,6 +7,8 @@ export class GameCard {
   private readonly cardLevel: number;
   private team: number = TeamNumber.UNKNOWN;
 
+  protected debuffsMap: Map<Ability, number> = new Map();
+  protected buffsMap: Map<Ability, number> = new Map();
   abilities: Set<Ability> = new Set();
   speed = 0;
   startingArmor = 0;
@@ -61,6 +63,14 @@ export class GameCard {
     return this.cardLevel;
   }
 
+  public getDebuffs(): Map<Ability, number> {
+    return this.debuffsMap;
+  }
+
+  public getBuffs(): Map<Ability, number> {
+    return this.buffsMap;
+  }
+
   public clone(): GameCard {
     const clonedCard = new GameCard(this.cardDetail, this.cardLevel + 1);
     clonedCard.abilities = new Set(this.abilities);
@@ -73,6 +83,8 @@ export class GameCard {
     clonedCard.melee = this.melee;
     clonedCard.ranged = this.ranged;
     clonedCard.mana = this.mana;
+    clonedCard.buffsMap = new Map(this.buffsMap);
+    clonedCard.debuffsMap = new Map(this.debuffsMap);
     clonedCard.setTeam(this.team);
 
     return clonedCard;
