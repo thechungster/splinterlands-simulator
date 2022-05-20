@@ -6,13 +6,16 @@ export interface Team {
   monsters: CardDetail[];
 }
 
+// Clean this up
 export interface BattleDamage {
   // Some things care about if actually hit or not. Don't use this to check damage
   attack: number;
-  // Actual damage done after modifiers
+  // Actual damage done after modifiers, overkills. So 10 dmg to a 1 health is still 10 dmg.
   damageDone: number;
   // Remainder damage after modifiers
   remainder: number;
+  // Actual damage done after modifiers, but does not overkill. 10 dmg to a 1 health is 1 dmg.
+  actualDamageDone: number;
 }
 
 /**
