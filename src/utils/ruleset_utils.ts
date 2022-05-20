@@ -100,6 +100,7 @@ export function applyEarthquake(monster: GameMonster): BattleDamage {
     attack: 0,
     damageDone: 0,
     remainder: 0,
+    actualDamageDone: 0,
   };
 }
 
