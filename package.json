@@ -1,6 +1,6 @@
 {
   "name": "splinterlands-simulator",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Simulator for battles in the Splinterlands game",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
