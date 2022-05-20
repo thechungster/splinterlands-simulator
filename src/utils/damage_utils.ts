@@ -15,6 +15,7 @@ export function hitMonsterWithMagic(attackTarget: GameMonster, magicDamage: numb
       attack: 1,
       damageDone: 0,
       remainder: 0,
+      actualDamageDone: 0,
     };
   }
   if (magicDamage < 1) {
@@ -22,6 +23,7 @@ export function hitMonsterWithMagic(attackTarget: GameMonster, magicDamage: numb
       attack: 0,
       damageDone: 0,
       remainder: 0,
+      actualDamageDone: 0,
     };
   }
   if (attackTarget.hasAbility(Ability.VOID)) {
@@ -30,29 +32,36 @@ export function hitMonsterWithMagic(attackTarget: GameMonster, magicDamage: numb
         attack: 1,
         damageDone: 0,
         remainder: 1,
+        actualDamageDone: 0,
       };
     }
     magicDamage = Math.floor((magicDamage + 1) / 2);
   }
   if (attackTarget.hasAbility(Ability.VOID_ARMOR)) {
     if (attackTarget.armor > 0) {
+      const remainder = hitArmor(attackTarget, magicDamage);
       return {
         attack: magicDamage,
         damageDone: magicDamage,
-        remainder: hitArmor(attackTarget, magicDamage),
+        remainder,
+        actualDamageDone: magicDamage - remainder,
       };
     } else {
+      const remainder = hitHealth(attackTarget, magicDamage);
       return {
         attack: magicDamage,
         damageDone: magicDamage,
-        remainder: hitHealth(attackTarget, magicDamage),
+        remainder,
+        actualDamageDone: magicDamage - remainder,
       };
     }
   } else {
+    const remainder = hitHealth(attackTarget, magicDamage);
     return {
       attack: magicDamage,
       damageDone: magicDamage,
-      remainder: hitHealth(attackTarget, magicDamage),
+      remainder,
+      actualDamageDone: magicDamage - remainder,
     };
   }
 }
@@ -69,6 +78,7 @@ export function hitMonsterWithPhysical(attackTarget: GameMonster, damageAmt: num
       attack: 1,
       damageDone: 0,
       remainder: 0,
+      actualDamageDone: 0,
     };
   }
   if (damageAmt < 1) {
@@ -76,6 +86,7 @@ export function hitMonsterWithPhysical(attackTarget: GameMonster, damageAmt: num
       attack: 0,
       damageDone: 0,
       remainder: 0,
+      actualDamageDone: 0,
     };
   }
   if (attackTarget.hasAbility(Ability.SHIELD)) {
@@ -84,23 +95,27 @@ export function hitMonsterWithPhysical(attackTarget: GameMonster, damageAmt: num
         attack: 1,
         damageDone: 0,
         remainder: 1,
+        actualDamageDone: 0,
       };
     }
     damageAmt = Math.floor((damageAmt + 1) / 2);
   }
   if (attackTarget.armor > 0) {
+    const remainder = hitArmor(attackTarget, damageAmt);
     return {
       attack: damageAmt,
       damageDone: damageAmt,
-      remainder: hitArmor(attackTarget, damageAmt),
+      remainder,
+      actualDamageDone: damageAmt - remainder,
     };
   }
-  hitHealth(attackTarget, damageAmt);
+  const remainderDmg = hitHealth(attackTarget, damageAmt);
   // Overkill is fine
   return {
     attack: damageAmt,
     damageDone: damageAmt,
-    remainder: 0,
+    remainder: remainderDmg,
+    actualDamageDone: damageAmt - remainderDmg,
   };
 }
 
@@ -122,7 +137,6 @@ function hitHealth(attackTarget: GameMonster, damageAmt: number) {
   if (attackTarget.health < 0) {
     return attackTarget.health * -1;
   }
-  // Do we even need this??
   if (attackTarget.health === 0) {
     return damageAmt - preHitHealth;
   }

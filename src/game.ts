@@ -406,7 +406,7 @@ export class Game {
     }
 
     // TODO: This doesn't account for the pierce.
-    this.maybeLifeLeech(attackingMonster, battleDamage.attack);
+    this.maybeLifeLeech(attackingMonster, battleDamage.actualDamageDone);
     this.maybeApplyThorns(attackingMonster, attackTarget, attackType);
     this.maybeApplyMagicReflect(attackingMonster, attackTarget, attackType);
     this.maybeApplyReturnFire(attackingMonster, attackTarget, attackType);
@@ -462,10 +462,11 @@ export class Game {
   ): BattleDamage {
     const damageMultipliers = this.getDamageMultiplier(attackingMonster, attackTarget);
     const damageAmt = attackingMonster.getPostAbilityAttackOfType(attackType) * damageMultipliers;
-    let battleDamage = {
+    let battleDamage: BattleDamage = {
       attack: 0,
       damageDone: 0,
       remainder: 0,
+      actualDamageDone: 0,
     };
     if (attackType === AttackType.MAGIC) {
       battleDamage = damageUtils.hitMonsterWithMagic(attackTarget, damageAmt);
