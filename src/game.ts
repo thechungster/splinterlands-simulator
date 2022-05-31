@@ -628,6 +628,9 @@ export class Game {
       this.addMonsterToMonsterDebuff(attackingMonster, monsterToBlast, Ability.SNARE);
     }
 
+    if (monsterToBlast.hasAbility(Ability.REFLECTION_SHIELD)) {
+      blastDamage = 0;
+    }
     if (attackType === AttackType.MAGIC) {
       const battleDamage = damageUtils.hitMonsterWithMagic(monsterToBlast, blastDamage);
       this.createAndAddBattleLog(
