@@ -737,18 +737,22 @@ export class Game {
     attackTarget: GameMonster,
     attackType: AttackType,
   ) {
-    if (attackTarget.hasAbility(Ability.THORNS) && attackType === AttackType.MELEE) {
-      const thornsDamage = attackTarget.hasBuff(Ability.AMPLIFY)
-        ? abilityUtils.THORNS_DAMAGE + 1
-        : abilityUtils.THORNS_DAMAGE;
-      const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, thornsDamage);
-      this.createAndAddBattleLog(
-        Ability.THORNS,
-        attackTarget,
-        attackingMonster,
-        battleDamage.damageDone,
-      );
+    if (!attackTarget.hasAbility(Ability.THORNS) || attackType !== AttackType.MELEE) {
+      return;
     }
+    let thornsDamage = attackTarget.hasBuff(Ability.AMPLIFY)
+      ? abilityUtils.THORNS_DAMAGE + 1
+      : abilityUtils.THORNS_DAMAGE;
+    if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
+      thornsDamage = 0;
+    }
+    const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, thornsDamage);
+    this.createAndAddBattleLog(
+      Ability.THORNS,
+      attackTarget,
+      attackingMonster,
+      battleDamage.damageDone,
+    );
   }
 
   private maybeApplyMagicReflect(
@@ -767,6 +771,9 @@ export class Game {
         : Math.ceil(attackingMonster.getPostAbilityMagic() / 2);
     if (attackTarget.hasBuff(Ability.AMPLIFY)) {
       reflectDamage++;
+    }
+    if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
+      reflectDamage = 0;
     }
     const battleDamage = damageUtils.hitMonsterWithMagic(attackingMonster, reflectDamage);
     this.createAndAddBattleLog(
@@ -793,6 +800,9 @@ export class Game {
         : Math.ceil(attackingMonster.getPostAbilityRanged() / 2);
     if (attackTarget.hasBuff(Ability.AMPLIFY)) {
       reflectDamage++;
+    }
+    if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
+      reflectDamage = 0;
     }
     const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, reflectDamage);
     this.createAndAddBattleLog(
