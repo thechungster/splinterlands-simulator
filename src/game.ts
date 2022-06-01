@@ -745,6 +745,7 @@ export class Game {
     }
     let reflectDamage = abilityUtils.THORNS_DAMAGE;
     if (attackTarget.hasDebuff(Ability.AMPLIFY)) {
+      // Amplify only increases by 1 no matter how many amplifies there are.
       reflectDamage++;
     }
     if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
