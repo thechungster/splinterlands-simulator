@@ -743,12 +743,15 @@ export class Game {
     if (!attackTarget.hasAbility(Ability.THORNS) || attackType !== AttackType.MELEE) {
       return;
     }
-    const amplifyAmount = attackTarget.getDebuffAmt(Ability.AMPLIFY);
-    let thornsDamage = abilityUtils.THORNS_DAMAGE + amplifyAmount;
-    if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
-      thornsDamage = 0;
+    let reflectDamage = abilityUtils.THORNS_DAMAGE;
+    if (attackTarget.hasDebuff(Ability.AMPLIFY)) {
+      // Amplify only increases by 1 no matter how many amplifies there are.
+      reflectDamage++;
     }
-    const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, thornsDamage);
+    if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
+      reflectDamage = 0;
+    }
+    const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, reflectDamage);
     this.createAndAddBattleLog(
       Ability.THORNS,
       attackTarget,
@@ -771,8 +774,9 @@ export class Game {
       attackDamage !== undefined
         ? Math.ceil(attackDamage / 2)
         : Math.ceil(attackingMonster.getPostAbilityMagic() / 2);
-    const amplifyAmount = attackTarget.getDebuffAmt(Ability.AMPLIFY);
-    reflectDamage += amplifyAmount;
+    if (attackTarget.hasDebuff(Ability.AMPLIFY)) {
+      reflectDamage++;
+    }
     if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
@@ -799,8 +803,9 @@ export class Game {
       attackDamage !== undefined
         ? Math.ceil(attackDamage / 2)
         : Math.ceil(attackingMonster.getPostAbilityRanged() / 2);
-    const amplifyAmount = attackTarget.getDebuffAmt(Ability.AMPLIFY);
-    reflectDamage += amplifyAmount;
+    if (attackTarget.hasDebuff(Ability.AMPLIFY)) {
+      reflectDamage++;
+    }
     if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
