@@ -743,9 +743,8 @@ export class Game {
     if (!attackTarget.hasAbility(Ability.THORNS) || attackType !== AttackType.MELEE) {
       return;
     }
-    let thornsDamage = attackTarget.hasBuff(Ability.AMPLIFY)
-      ? abilityUtils.THORNS_DAMAGE + 1
-      : abilityUtils.THORNS_DAMAGE;
+    const amplifyAmount = attackTarget.getDebuffAmt(Ability.AMPLIFY);
+    let thornsDamage = abilityUtils.THORNS_DAMAGE + amplifyAmount;
     if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
       thornsDamage = 0;
     }
@@ -772,9 +771,8 @@ export class Game {
       attackDamage !== undefined
         ? Math.ceil(attackDamage / 2)
         : Math.ceil(attackingMonster.getPostAbilityMagic() / 2);
-    if (attackTarget.hasBuff(Ability.AMPLIFY)) {
-      reflectDamage++;
-    }
+    const amplifyAmount = attackTarget.getDebuffAmt(Ability.AMPLIFY);
+    reflectDamage += amplifyAmount;
     if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
@@ -801,9 +799,8 @@ export class Game {
       attackDamage !== undefined
         ? Math.ceil(attackDamage / 2)
         : Math.ceil(attackingMonster.getPostAbilityRanged() / 2);
-    if (attackTarget.hasBuff(Ability.AMPLIFY)) {
-      reflectDamage++;
-    }
+    const amplifyAmount = attackTarget.getDebuffAmt(Ability.AMPLIFY);
+    reflectDamage += amplifyAmount;
     if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
