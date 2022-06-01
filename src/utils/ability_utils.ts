@@ -59,7 +59,6 @@ export const SUMMONER_DEBUFF_ABILITIES = [Ability.BLIND];
 
 /** Abilities that monsters apply to friendly team at the start of the game */
 export const MONSTER_BUFF_ABILITIES = [
-  Ability.AMPLIFY,
   Ability.PROTECT,
   Ability.STRENGTHEN,
   Ability.SWIFTNESS,
@@ -152,8 +151,6 @@ export function strengthenMonster(monster: GameMonster) {
 export function protectMonster(monster: GameMonster) {
   monster.armor = monster.armor + 2;
 }
-
-
 
 export function dispelBuffs(monster: GameMonster) {
   const buffsSet = monster.getAllBuffs();
