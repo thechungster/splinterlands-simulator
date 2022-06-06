@@ -306,14 +306,15 @@ export class GameMonster extends GameCard {
     if (this.getIsLastStand()) {
       maxArmor = Math.ceil(maxArmor * abilityUtils.LAST_STAND_MULTIPLIER);
     }
-    if (this.hasDebuff(Ability.RUST)) {
-      maxArmor = Math.max(maxArmor - abilityUtils.RUST_AMOUNT, 0);
-    }
     if (this.hasBuff(Ability.PROTECT)) {
       const protectAmt = this.getBuffAmt(Ability.PROTECT);
       maxArmor = maxArmor + abilityUtils.PROTECT_AMOUNT * protectAmt;
     }
     maxArmor = Math.max(maxArmor + this.summonerArmor, 0);
+    if (this.hasDebuff(Ability.RUST)) {
+      const rustAmt = this.getDebuffAmt(Ability.RUST);
+      maxArmor = Math.max(maxArmor - abilityUtils.RUST_AMOUNT * rustAmt, 0);
+    }
     return maxArmor;
   }
 
