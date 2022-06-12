@@ -32,9 +32,9 @@ export class Game {
   private readonly rulesets: Set<Ruleset>;
   private readonly battleLogs: BattleLog[] = [];
   private readonly shouldLog: boolean;
-  // 0 = tie
   // 1 = team1
   // 2 = team2
+  // 3 = tie
   private winner: number | undefined;
   private deadMonsters: GameMonster[] = [];
   private roundNumber = 0;
@@ -744,11 +744,11 @@ export class Game {
       return;
     }
     let reflectDamage = abilityUtils.THORNS_DAMAGE;
-    if (attackTarget.hasDebuff(Ability.AMPLIFY)) {
+    if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       // Amplify only increases by 1 no matter how many amplifies there are.
       reflectDamage++;
     }
-    if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
+    if (attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
     const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, reflectDamage);
@@ -774,10 +774,10 @@ export class Game {
       attackDamage !== undefined
         ? Math.ceil(attackDamage / 2)
         : Math.ceil(attackingMonster.getPostAbilityMagic() / 2);
-    if (attackTarget.hasDebuff(Ability.AMPLIFY)) {
+    if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       reflectDamage++;
     }
-    if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
+    if (attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
     const battleDamage = damageUtils.hitMonsterWithMagic(attackingMonster, reflectDamage);
@@ -803,10 +803,10 @@ export class Game {
       attackDamage !== undefined
         ? Math.ceil(attackDamage / 2)
         : Math.ceil(attackingMonster.getPostAbilityRanged() / 2);
-    if (attackTarget.hasDebuff(Ability.AMPLIFY)) {
+    if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       reflectDamage++;
     }
-    if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
+    if (attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
     const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, reflectDamage);
