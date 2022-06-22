@@ -38,6 +38,7 @@ export class Game {
   private winner: number | undefined;
   private deadMonsters: GameMonster[] = [];
   private roundNumber = 0;
+
   constructor(
     team1: GameTeam,
     team2: GameTeam,
@@ -337,6 +338,7 @@ export class Game {
       this.createAndAddBattleLog(Ability.DODGE, attackingMonster, attackTarget);
       if (attackTarget.hasAbility(Ability.BACKFIRE)) {
         const backfireBattleDamage = damageUtils.hitMonsterWithPhysical(
+          this,
           attackingMonster,
           abilityUtils.BACKFIRE_DAMAGE,
         );
@@ -371,6 +373,7 @@ export class Game {
     // No damage if there's divine shield, but it will still trigger stun, thorns, poison, blast,
     if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
       attackTarget.removeDivineShield();
+      this.createAndAddBattleLog(Ability.DIVINE_SHIELD, attackingMonster, attackTarget, 0);
       if (attackType === AttackType.MAGIC) {
         this.maybeApplyMagicReflect(attackingMonster, attackTarget, attackType);
       } else {
@@ -399,9 +402,9 @@ export class Game {
     // Pierce
     if (attackingMonster.hasAbility(Ability.PIERCING) && battleDamage.remainder > 0) {
       if (attackType === AttackType.MAGIC) {
-        damageUtils.hitMonsterWithMagic(attackTarget, battleDamage.remainder);
+        damageUtils.hitMonsterWithMagic(this, attackTarget, battleDamage.remainder);
       } else {
-        damageUtils.hitMonsterWithPhysical(attackTarget, battleDamage.remainder);
+        damageUtils.hitMonsterWithPhysical(this, attackTarget, battleDamage.remainder);
       }
     }
 
@@ -469,11 +472,11 @@ export class Game {
       actualDamageDone: 0,
     };
     if (attackType === AttackType.MAGIC) {
-      battleDamage = damageUtils.hitMonsterWithMagic(attackTarget, damageAmt);
+      battleDamage = damageUtils.hitMonsterWithMagic(this, attackTarget, damageAmt);
     } else if (attackType === AttackType.RANGED) {
-      battleDamage = damageUtils.hitMonsterWithPhysical(attackTarget, damageAmt);
+      battleDamage = damageUtils.hitMonsterWithPhysical(this, attackTarget, damageAmt);
     } else if (attackType === AttackType.MELEE) {
-      battleDamage = damageUtils.hitMonsterWithPhysical(attackTarget, damageAmt);
+      battleDamage = damageUtils.hitMonsterWithPhysical(this, attackTarget, damageAmt);
     }
 
     return battleDamage;
@@ -632,7 +635,7 @@ export class Game {
       blastDamage = 0;
     }
     if (attackType === AttackType.MAGIC) {
-      const battleDamage = damageUtils.hitMonsterWithMagic(monsterToBlast, blastDamage);
+      const battleDamage = damageUtils.hitMonsterWithMagic(this, monsterToBlast, blastDamage);
       this.createAndAddBattleLog(
         Ability.BLAST,
         attackingMonster,
@@ -647,7 +650,7 @@ export class Game {
       );
       this.maybeLifeLeech(attackingMonster, blastDamage - battleDamage.remainder);
     } else {
-      const battleDamage = damageUtils.hitMonsterWithPhysical(monsterToBlast, blastDamage);
+      const battleDamage = damageUtils.hitMonsterWithPhysical(this, monsterToBlast, blastDamage);
       this.createAndAddBattleLog(
         Ability.BLAST,
         attackingMonster,
@@ -677,6 +680,7 @@ export class Game {
     if (monster.hasAbility(Ability.REDEMPTION)) {
       enemyTeam.forEach((enemy: GameMonster) => {
         const battleDamage = damageUtils.hitMonsterWithPhysical(
+          this,
           enemy,
           abilityUtils.REDEMPTION_DAMAGE,
         );
@@ -751,7 +755,7 @@ export class Game {
     if (attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
-    const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, reflectDamage);
+    const battleDamage = damageUtils.hitMonsterWithPhysical(this, attackingMonster, reflectDamage);
     this.createAndAddBattleLog(
       Ability.THORNS,
       attackTarget,
@@ -780,7 +784,7 @@ export class Game {
     if (attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
-    const battleDamage = damageUtils.hitMonsterWithMagic(attackingMonster, reflectDamage);
+    const battleDamage = damageUtils.hitMonsterWithMagic(this, attackingMonster, reflectDamage);
     this.createAndAddBattleLog(
       Ability.MAGIC_REFLECT,
       attackTarget,
@@ -809,7 +813,7 @@ export class Game {
     if (attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
-    const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, reflectDamage);
+    const battleDamage = damageUtils.hitMonsterWithPhysical(this, attackingMonster, reflectDamage);
     this.createAndAddBattleLog(
       Ability.RETURN_FIRE,
       attackTarget,
@@ -1013,7 +1017,7 @@ export class Game {
 
   private doPostRoundEarthquake(aliveMonsters: GameMonster[]) {
     for (const monster of aliveMonsters) {
-      const battleDamage = rulesetUtils.applyEarthquake(monster);
+      const battleDamage = rulesetUtils.applyEarthquake(this, monster);
       this.createAndAddBattleLog(
         AdditionalBattleAction.EARTHQUAKE,
         monster,
@@ -1104,7 +1108,7 @@ export class Game {
     return monster.getTeamNumber() === 1 ? this.team2 : this.team1;
   }
 
-  private createAndAddBattleLog(
+  createAndAddBattleLog(
     action: BattleLogAction,
     cardOne?: GameCard,
     cardTwo?: GameCard,

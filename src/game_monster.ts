@@ -267,7 +267,7 @@ export class GameMonster extends GameCard {
   }
 
   removeDivineShield() {
-    this.hadDivineShield = true
+    this.hadDivineShield = true;
     this.removeAbility(Ability.DIVINE_SHIELD);
   }
 

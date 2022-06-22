@@ -36,6 +36,8 @@ const logs = game.getBattleLogs();
 
 The Game constructor takes in **shouldLog** as an optional fourth parameter. If set to true, the game logs can be retrieved using `game.getBattleLogs()`. This returns an array of `BattleLogs`. The logs will contain the action, and the snapshot of the relevant monsters after the action has taken place.
 
+Instantiating a GameSummoner/GameMonster using card ID relies on a [local version of the cards](./src/cards.json). If you would like to retrieve the cards yourself in these cards get out of date you can instantiate the GameCards using the cards directly. `const summoner = new GameSummoner(card, /* level */ 2);`
+
 # Samples
 
 - [example.ts](/example.ts) for code samples.
