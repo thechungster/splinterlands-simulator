@@ -247,7 +247,7 @@ export class GameMonster extends GameCard {
 
   // TODO: Maybe this is true for everything?? idk.
   removeStrengthenHealth(healthAmt: number) {
-    if (this.health === this.getPostAbilityMaxHealth()) {
+    if (this.health > this.getPostAbilityMaxHealth()) {
       this.removeBuffHealth(healthAmt);
     }
   }
