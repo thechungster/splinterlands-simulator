@@ -689,28 +689,34 @@ export class Game {
       });
     }
 
-    // Remove debuffs from enemy team
-    MONSTER_DEBUFF_ABILITIES.forEach((debuff: Ability) => {
-      if (monster.hasAbility(debuff)) {
-        enemyTeam.forEach((enemy: GameMonster) => {
-          enemy.removeDebuff(debuff);
-        });
+    let wasResurrected = false;
+    wasResurrected = this.maybeResurrect(friendlyTeam.getSummoner(), monster);
+    for (const friendlyMonster of aliveFriendlyTeam) {
+      if (wasResurrected === true) {
+        break;
       }
-    });
+      wasResurrected = this.maybeResurrect(friendlyMonster, monster);
+    }
 
-    // Remove buffs from friendly
-    MONSTER_BUFF_ABILITIES.forEach((buff: Ability) => {
-      if (monster.hasAbility(buff)) {
-        aliveFriendlyTeam.forEach((friendly: GameMonster) => {
-          friendly.removeBuff(buff);
-        });
-      }
-    });
+    if (!wasResurrected) {
+      // Remove debuffs from enemy team
+      MONSTER_DEBUFF_ABILITIES.forEach((debuff: Ability) => {
+        if (monster.hasAbility(debuff)) {
+          enemyTeam.forEach((enemy: GameMonster) => {
+            enemy.removeDebuff(debuff);
+          });
+        }
+      });
 
-    this.maybeResurrect(friendlyTeam.getSummoner(), monster);
-    aliveFriendlyTeam.forEach((friendly: GameMonster) => {
-      this.maybeResurrect(friendly, monster);
-    });
+      // Remove buffs from friendly
+      MONSTER_BUFF_ABILITIES.forEach((buff: Ability) => {
+        if (monster.hasAbility(buff)) {
+          aliveFriendlyTeam.forEach((friendly: GameMonster) => {
+            friendly.removeBuff(buff);
+          });
+        }
+      });
+    }
     aliveFriendlyTeam.forEach((friendly: GameMonster) => {
       this.onDeath(friendly, monster);
     });
@@ -718,18 +724,22 @@ export class Game {
       this.onDeath(enemy, monster);
     });
 
-    friendlyTeam.maybeSetLastStand();
+    if (!wasResurrected) {
+      friendlyTeam.maybeSetLastStand();
+    }
   }
 
+  // Returns whether the monster was resurrected or not.
   private maybeResurrect(monster: GameCard, deadMonster: GameMonster) {
     if (monster.hasAbility(Ability.RESURRECT) && !deadMonster.isAlive()) {
       monster.removeAbility(Ability.RESURRECT);
       deadMonster.resurrect();
       const deadMonsterIndex = this.deadMonsters.findIndex((deadMon) => deadMon === deadMonster);
-      deadMonster.armor = deadMonster.startingArmor;
       this.deadMonsters.splice(deadMonsterIndex, 1);
       this.createAndAddBattleLog(Ability.RESURRECT, monster, deadMonster);
+      return true;
     }
+    return false;
   }
 
   private onDeath(monster: GameMonster, deadMonster: GameMonster) {

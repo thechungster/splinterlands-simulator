@@ -297,6 +297,10 @@ export class GameMonster extends GameCard {
     this.summonerMagic += stat;
   }
 
+  getSummonerArmor() {
+    return this.summonerArmor;
+  }
+
   hasAttack() {
     return this.melee > 0 || this.ranged > 0 || this.magic > 0;
   }
@@ -472,10 +476,10 @@ export class GameMonster extends GameCard {
 
   resurrect() {
     this.health = 1;
-    this.armor = this.startingArmor;
     if (this.hadDivineShield) {
       this.addAbility(Ability.DIVINE_SHIELD);
     }
+    this.armor = this.getPostAbilityMaxArmor();
     this.cleanseDebuffs();
   }
 
