@@ -344,14 +344,7 @@ export class GameMonster extends GameCard {
 
   getPostAbilityMaxHealth() {
     let maxHealth = Math.max(this.startingHealth, 1);
-    if (this.getIsLastStand()) {
-      maxHealth = Math.ceil(maxHealth * abilityUtils.LAST_STAND_MULTIPLIER);
-    }
-
-    if (this.hasDebuff(Ability.WEAKEN)) {
-      const weakenAmt = this.getDebuffAmt(Ability.WEAKEN);
-      maxHealth = maxHealth - abilityUtils.WEAKEN_AMOUNT * weakenAmt;
-    }
+    // Life leech and scavenger are affected by last stand multiplier
     if (this.hasBuff(Ability.LIFE_LEECH)) {
       const lifeLeechAmt = this.getBuffAmt(Ability.LIFE_LEECH);
       maxHealth = maxHealth + abilityUtils.LIFE_LEECH_AMOUNT * lifeLeechAmt;
@@ -360,13 +353,20 @@ export class GameMonster extends GameCard {
       const scavengerAmt = this.getBuffAmt(Ability.SCAVENGER);
       maxHealth = maxHealth + abilityUtils.SCAVENGER_AMOUNT * scavengerAmt;
     }
-    if (this.hasBuff(Ability.STRENGTHEN)) {
-      const strAmt = this.getBuffAmt(Ability.STRENGTHEN);
-      maxHealth = maxHealth + abilityUtils.STRENGTHEN_AMOUNT * strAmt;
-    }
     if (this.hasDebuff(Ability.CRIPPLE)) {
       const crippleAmt = this.getDebuffAmt(Ability.CRIPPLE);
       maxHealth = maxHealth - abilityUtils.CRIPPLE_AMOUNT * crippleAmt;
+    }
+    if (this.getIsLastStand()) {
+      maxHealth = Math.ceil(maxHealth * abilityUtils.LAST_STAND_MULTIPLIER);
+    }
+    if (this.hasDebuff(Ability.WEAKEN)) {
+      const weakenAmt = this.getDebuffAmt(Ability.WEAKEN);
+      maxHealth = maxHealth - abilityUtils.WEAKEN_AMOUNT * weakenAmt;
+    }
+    if (this.hasBuff(Ability.STRENGTHEN)) {
+      const strAmt = this.getBuffAmt(Ability.STRENGTHEN);
+      maxHealth = maxHealth + abilityUtils.STRENGTHEN_AMOUNT * strAmt;
     }
     // The summoner skill made this starting health 0 or negative
     if (this.startingHealth < 1) {
