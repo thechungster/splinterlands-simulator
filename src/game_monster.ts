@@ -297,6 +297,10 @@ export class GameMonster extends GameCard {
     this.summonerMagic += stat;
   }
 
+  getSummonerArmor() {
+    return this.summonerArmor;
+  }
+
   hasAttack() {
     return this.melee > 0 || this.ranged > 0 || this.magic > 0;
   }
