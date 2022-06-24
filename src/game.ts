@@ -735,7 +735,7 @@ export class Game {
       monster.removeAbility(Ability.RESURRECT);
       deadMonster.resurrect();
       const deadMonsterIndex = this.deadMonsters.findIndex((deadMon) => deadMon === deadMonster);
-      deadMonster.armor = deadMonster.startingArmor;
+      deadMonster.armor = deadMonster.getPostAbilityMaxArmor();
       this.deadMonsters.splice(deadMonsterIndex, 1);
       this.createAndAddBattleLog(Ability.RESURRECT, monster, deadMonster);
       return true;
