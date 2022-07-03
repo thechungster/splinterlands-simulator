@@ -431,9 +431,9 @@ export class GameMonster extends GameCard {
       postRange = Math.ceil(postRange * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     let rangeModifier = 0;
-    // TODO(Headwinds) Does this stack?
     if (this.hasDebuff(Ability.HEADWINDS)) {
-      rangeModifier--;
+      const headwindsAmt = this.getDebuffAmt(Ability.HEADWINDS);
+      rangeModifier -= headwindsAmt;
     }
     if (this.hasDebuff(Ability.HALVING)) {
       // TODO(Halving) is this right?
