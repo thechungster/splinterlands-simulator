@@ -26,9 +26,10 @@ export const RETALIATE_CHANCE = 1 / 2;
 export const STUN_CHANCE = 1 / 2;
 export const POISON_CHANCE = 1 / 2;
 export const POISON_DAMAGE = 2;
-export const DODGE_CHANCE = 1 / 2;
+export const DODGE_CHANCE = 1 / 4;
 export const FLYING_DODGE_CHANCE = 1 / 4;
-export const BLIND_DODGE_CHANCE = 1 / 4;
+// Blind is 15%
+export const BLIND_DODGE_CHANCE = 3 / 20;
 /** Stat multiplier for Last stand */
 export const LAST_STAND_MULTIPLIER = 1.5;
 /** Stat multiplier for enrage */
