@@ -313,7 +313,7 @@ export class GameMonster extends GameCard {
   getPostAbilityMaxArmor() {
     let maxArmor = this.startingArmor;
     if (this.getIsLastStand()) {
-      maxArmor = Math.ceil(maxArmor * abilityUtils.LAST_STAND_MULTIPLIER);
+      maxArmor = Math.floor(maxArmor * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     if (this.hasBuff(Ability.PROTECT)) {
       const protectAmt = this.getBuffAmt(Ability.PROTECT);
@@ -331,7 +331,7 @@ export class GameMonster extends GameCard {
     let speedModifier = 0;
     let speed = this.speed + this.summonerSpeed;
     if (this.getIsLastStand()) {
-      speed = Math.ceil(speed * abilityUtils.LAST_STAND_MULTIPLIER);
+      speed = Math.floor(speed * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     if (this.isEnraged()) {
       speed = Math.ceil(speed * abilityUtils.ENRAGE_MULTIPLIER);
@@ -363,7 +363,7 @@ export class GameMonster extends GameCard {
       maxHealth = maxHealth - abilityUtils.CRIPPLE_AMOUNT * crippleAmt;
     }
     if (this.getIsLastStand()) {
-      maxHealth = Math.ceil(maxHealth * abilityUtils.LAST_STAND_MULTIPLIER);
+      maxHealth = Math.floor(maxHealth * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     if (this.hasDebuff(Ability.WEAKEN)) {
       const weakenAmt = this.getDebuffAmt(Ability.WEAKEN);
@@ -401,10 +401,10 @@ export class GameMonster extends GameCard {
     }
     let postMagic = this.magic;
     if (this.hasDebuff(Ability.HALVING)) {
-      postMagic = Math.floor((postMagic + 1) / 2);
+      postMagic = Math.max(Math.floor(postMagic / 2), 1);
     }
     if (this.getIsLastStand()) {
-      postMagic = Math.ceil(postMagic * abilityUtils.LAST_STAND_MULTIPLIER);
+      postMagic = Math.floor(postMagic * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     let magicModifier = 0;
     for (let i = 0; i < this.getDebuffAmt(Ability.SILENCE); i++) {
@@ -425,15 +425,15 @@ export class GameMonster extends GameCard {
     }
     let postRange = this.ranged;
     if (this.hasDebuff(Ability.HALVING)) {
-      postRange = Math.floor((postRange + 1) / 2);
+      postRange = Math.max(Math.floor(postRange / 2), 1);
     }
     if (this.getIsLastStand()) {
-      postRange = Math.ceil(postRange * abilityUtils.LAST_STAND_MULTIPLIER);
+      postRange = Math.floor(postRange * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     let rangeModifier = 0;
-    // TODO(Headwinds) Does this stack?
     if (this.hasDebuff(Ability.HEADWINDS)) {
-      rangeModifier--;
+      const headwindsAmt = this.getDebuffAmt(Ability.HEADWINDS);
+      rangeModifier -= headwindsAmt;
     }
     if (this.hasDebuff(Ability.HALVING)) {
       // TODO(Halving) is this right?
@@ -451,10 +451,10 @@ export class GameMonster extends GameCard {
       return 0;
     }
     if (this.hasDebuff(Ability.HALVING)) {
-      postMelee = Math.floor((postMelee + 1) / 2);
+      postMelee = Math.max(Math.floor(postMelee / 2), 1);
     }
     if (this.getIsLastStand()) {
-      postMelee = Math.ceil(postMelee * abilityUtils.LAST_STAND_MULTIPLIER);
+      postMelee = Math.floor(postMelee * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     let meleeModifier = 0;
     if (this.hasBuff(Ability.INSPIRE)) {
