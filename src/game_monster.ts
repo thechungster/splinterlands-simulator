@@ -401,7 +401,7 @@ export class GameMonster extends GameCard {
     }
     let postMagic = this.magic;
     if (this.hasDebuff(Ability.HALVING)) {
-      postMagic = Math.floor((postMagic + 1) / 2);
+      postMagic = Math.max(Math.floor(postMagic / 2), 1);
     }
     if (this.getIsLastStand()) {
       postMagic = Math.ceil(postMagic * abilityUtils.LAST_STAND_MULTIPLIER);
@@ -425,7 +425,7 @@ export class GameMonster extends GameCard {
     }
     let postRange = this.ranged;
     if (this.hasDebuff(Ability.HALVING)) {
-      postRange = Math.floor((postRange + 1) / 2);
+      postRange = Math.max(Math.floor(postRange / 2), 1);
     }
     if (this.getIsLastStand()) {
       postRange = Math.ceil(postRange * abilityUtils.LAST_STAND_MULTIPLIER);
@@ -451,7 +451,7 @@ export class GameMonster extends GameCard {
       return 0;
     }
     if (this.hasDebuff(Ability.HALVING)) {
-      postMelee = Math.floor((postMelee + 1) / 2);
+      postMelee = Math.max(Math.floor(postMelee / 2), 1);
     }
     if (this.getIsLastStand()) {
       postMelee = Math.ceil(postMelee * abilityUtils.LAST_STAND_MULTIPLIER);
