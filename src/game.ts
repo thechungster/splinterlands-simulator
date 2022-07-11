@@ -30,11 +30,11 @@ export class Game {
   private readonly team1: GameTeam;
   private readonly team2: GameTeam;
   private readonly rulesets: Set<Ruleset>;
-  private readonly battleLogs: BattleLog[] = [];
   private readonly shouldLog: boolean;
   // 1 = team1
   // 2 = team2
   // 3 = tie
+  private battleLogs: BattleLog[] = [];
   private winner: number | undefined;
   private deadMonsters: GameMonster[] = [];
   private roundNumber = 0;
@@ -104,6 +104,7 @@ export class Game {
   private reset() {
     this.roundNumber = 0;
     this.winner = undefined;
+    this.battleLogs = [];
     this.deadMonsters = [];
     this.stunnedMonsters = new Map();
     this.team1.resetTeam();
