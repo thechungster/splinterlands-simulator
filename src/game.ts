@@ -59,7 +59,7 @@ export class Game {
   }
 
   public playGame() {
-    this.roundNumber = 0;
+    this.reset();
     const team1Summoner = this.team1.getSummoner();
     const team1Monsters = this.team1.getMonstersList();
     const team2Summoner = this.team2.getSummoner();
@@ -98,6 +98,14 @@ export class Game {
       );
     }
     return this.battleLogs;
+  }
+
+  private reset() {
+    this.roundNumber = 0;
+    this.winner = undefined;
+    this.deadMonsters = [];
+    this.team1.resetTeam();
+    this.team2.resetTeam();
   }
 
   // Add all summoner abilities which are in SUMMONER_BUFF_ABILITIES

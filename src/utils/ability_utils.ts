@@ -47,6 +47,7 @@ export const SUMMONER_ABILITY_ABILITIES = [
   Ability.SNARE,
   Ability.THORNS,
   Ability.TRUE_STRIKE,
+  Ability.VOID_ARMOR,
   Ability.VOID,
   Ability.POISON,
 ];

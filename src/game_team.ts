@@ -3,8 +3,9 @@ import { GameSummoner } from './game_summoner';
 import { Ability, TeamNumber } from './types';
 
 export class GameTeam {
-  private readonly summoner: GameSummoner;
-  private readonly monsterList: GameMonster[];
+  private summoner: GameSummoner;
+  private monsterList: GameMonster[];
+  private teamNumber: TeamNumber | undefined;
 
   constructor(summoner: GameSummoner, monsterList: GameMonster[]) {
     this.summoner = summoner;
@@ -21,7 +22,19 @@ export class GameTeam {
     }
   }
 
+  public resetTeam() {
+    this.summoner = this.summoner.getCleanCard();
+    this.monsterList = this.monsterList.map((card) => card.getCleanCard() as GameMonster);
+    this.setMonsterPositions();
+    if (this.teamNumber) {
+      this.setTeam(this.teamNumber);
+    } else {
+      throw new Error('Team must have a team number set');
+    }
+  }
+
   public setTeam(teamNumber: TeamNumber) {
+    this.teamNumber = teamNumber;
     this.summoner.setTeam(teamNumber);
     this.monsterList.forEach((monster) => monster.setTeam(teamNumber));
   }
@@ -64,7 +77,7 @@ export class GameTeam {
     }
   }
 
-  getScattershotTarget(): GameMonster {
+  public getScattershotTarget(): GameMonster {
     const aliveMonsters = this.getAliveMonsters();
     const randomMonsterNum = Math.floor(Math.random() * aliveMonsters.length);
     return aliveMonsters[randomMonsterNum];
