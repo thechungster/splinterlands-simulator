@@ -313,7 +313,7 @@ export class GameMonster extends GameCard {
   getPostAbilityMaxArmor() {
     let maxArmor = this.startingArmor;
     if (this.getIsLastStand()) {
-      maxArmor = Math.floor(maxArmor * abilityUtils.LAST_STAND_MULTIPLIER);
+      maxArmor = Math.ceil(maxArmor * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     if (this.hasBuff(Ability.PROTECT)) {
       const protectAmt = this.getBuffAmt(Ability.PROTECT);
@@ -331,7 +331,7 @@ export class GameMonster extends GameCard {
     let speedModifier = 0;
     let speed = this.speed + this.summonerSpeed;
     if (this.getIsLastStand()) {
-      speed = Math.floor(speed * abilityUtils.LAST_STAND_MULTIPLIER);
+      speed = Math.ceil(speed * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     if (this.isEnraged()) {
       speed = Math.ceil(speed * abilityUtils.ENRAGE_MULTIPLIER);
@@ -363,7 +363,7 @@ export class GameMonster extends GameCard {
       maxHealth = maxHealth - abilityUtils.CRIPPLE_AMOUNT * crippleAmt;
     }
     if (this.getIsLastStand()) {
-      maxHealth = Math.floor(maxHealth * abilityUtils.LAST_STAND_MULTIPLIER);
+      maxHealth = Math.ceil(maxHealth * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     if (this.hasDebuff(Ability.WEAKEN)) {
       const weakenAmt = this.getDebuffAmt(Ability.WEAKEN);
@@ -404,7 +404,7 @@ export class GameMonster extends GameCard {
       postMagic = Math.max(Math.floor(postMagic / 2), 1);
     }
     if (this.getIsLastStand()) {
-      postMagic = Math.floor(postMagic * abilityUtils.LAST_STAND_MULTIPLIER);
+      postMagic = Math.ceil(postMagic * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     let magicModifier = 0;
     for (let i = 0; i < this.getDebuffAmt(Ability.SILENCE); i++) {
@@ -428,7 +428,7 @@ export class GameMonster extends GameCard {
       postRange = Math.max(Math.floor(postRange / 2), 1);
     }
     if (this.getIsLastStand()) {
-      postRange = Math.floor(postRange * abilityUtils.LAST_STAND_MULTIPLIER);
+      postRange = Math.ceil(postRange * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     let rangeModifier = 0;
     if (this.hasDebuff(Ability.HEADWINDS)) {
@@ -454,7 +454,7 @@ export class GameMonster extends GameCard {
       postMelee = Math.max(Math.floor(postMelee / 2), 1);
     }
     if (this.getIsLastStand()) {
-      postMelee = Math.floor(postMelee * abilityUtils.LAST_STAND_MULTIPLIER);
+      postMelee = Math.ceil(postMelee * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     let meleeModifier = 0;
     if (this.hasBuff(Ability.INSPIRE)) {

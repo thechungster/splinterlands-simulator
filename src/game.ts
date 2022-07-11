@@ -401,11 +401,7 @@ export class Game {
 
     // Pierce
     if (attackingMonster.hasAbility(Ability.PIERCING) && battleDamage.remainder > 0) {
-      if (attackType === AttackType.MAGIC) {
-        damageUtils.hitMonsterWithMagic(this, attackTarget, battleDamage.remainder);
-      } else {
-        damageUtils.hitMonsterWithPhysical(this, attackTarget, battleDamage.remainder);
-      }
+      attackTarget.hitHealth(battleDamage.remainder);
     }
 
     // TODO: This doesn't account for the pierce.
