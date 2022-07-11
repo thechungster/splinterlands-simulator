@@ -38,6 +38,7 @@ export class Game {
   private winner: number | undefined;
   private deadMonsters: GameMonster[] = [];
   private roundNumber = 0;
+  private stunnedMonsters: Map<GameMonster, GameMonster[]> = new Map();
 
   constructor(
     team1: GameTeam,
@@ -104,6 +105,7 @@ export class Game {
     this.roundNumber = 0;
     this.winner = undefined;
     this.deadMonsters = [];
+    this.stunnedMonsters = new Map();
     this.team1.resetTeam();
     this.team2.resetTeam();
   }
@@ -667,11 +669,19 @@ export class Game {
     this.maybeDead(attackingMonster);
   }
 
+  private removeStunsThatThisMonsterApplied(monster: GameMonster) {
+    if (this.stunnedMonsters.has(monster)) {
+      const hadStunMonsters = this.stunnedMonsters.get(monster)!;
+      hadStunMonsters.forEach((stunnedMonster) => stunnedMonster.removeAllDebuff(Ability.STUN));
+      this.stunnedMonsters.delete(monster);
+    }
+  }
+
   private maybeDead(monster: GameMonster) {
     if (monster.isAlive() || this.deadMonsters.indexOf(monster) > -1) {
       return;
     }
-
+    this.removeStunsThatThisMonsterApplied(monster);
     this.createAndAddBattleLog(AdditionalBattleAction.DEATH, monster);
     this.deadMonsters.push(monster);
     monster.setHasTurnPassed(true);
@@ -857,6 +867,9 @@ export class Game {
       attackingMonster.hasAbility(Ability.STUN) &&
       gameUtils.getSuccessBelow(abilityUtils.STUN_CHANCE * 100)
     ) {
+      const prevStunnedMonsters = this.stunnedMonsters.get(attackingMonster) || [];
+      prevStunnedMonsters.push(attackTarget);
+      this.stunnedMonsters.set(attackingMonster, prevStunnedMonsters);
       this.addMonsterToMonsterDebuff(attackingMonster, attackTarget, Ability.STUN);
     }
   }
@@ -984,15 +997,14 @@ export class Game {
     this.doGamePreRound();
     this.doSummonerPreRound(this.team1);
     this.doSummonerPreRound(this.team2);
-    const stunnedMonsters = [];
 
     let currentMonster = this.getNextMonsterTurn();
     while (currentMonster !== null) {
       if (!currentMonster.isAlive()) {
         continue;
       }
+      this.removeStunsThatThisMonsterApplied(currentMonster);
       if (currentMonster.hasDebuff(Ability.STUN)) {
-        stunnedMonsters.push(currentMonster);
         currentMonster.setHasTurnPassed(true);
         currentMonster = this.getNextMonsterTurn();
         continue;
@@ -1005,9 +1017,6 @@ export class Game {
       }
       currentMonster = this.getNextMonsterTurn();
     }
-    stunnedMonsters.forEach((monster) => {
-      monster.removeAllDebuff(Ability.STUN);
-    });
   }
 
   private doGamePreRound(): void {
