@@ -488,6 +488,10 @@ export class GameMonster extends GameCard {
     this.cleanseDebuffs();
   }
 
+  public getCleanCard(): GameMonster {
+    return new GameMonster(this.getCardDetail(), this.getCardLevel() + 1);
+  }
+
   /********************* Things regarding abilities? ********************/
   private isEnraged() {
     return this.hasAbility(Ability.ENRAGE) && this.health < this.getPostAbilityMaxHealth();

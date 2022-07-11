@@ -39,6 +39,11 @@ export class GameCard {
     return this.cardDetail;
   }
 
+  /** Returns the card level (0 indexed) */
+  public getCardLevel(): number {
+    return this.cardLevel;
+  }
+
   public hasAbility(ability: Ability) {
     return this.abilities.has(ability);
   }
@@ -69,6 +74,10 @@ export class GameCard {
 
   public getBuffs(): Map<Ability, number> {
     return this.buffsMap;
+  }
+
+  public getCleanCard(): GameCard {
+    return new GameCard(this.cardDetail, this.cardLevel + 1);
   }
 
   public clone(): GameCard {
