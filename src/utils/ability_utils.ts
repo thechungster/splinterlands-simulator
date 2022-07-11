@@ -37,7 +37,6 @@ export const ENRAGE_MULTIPLIER = 1.5;
 
 /** Abilities that summoner gives to friendly team at the start of the game */
 export const SUMMONER_ABILITY_ABILITIES = [
-  Ability.AMPLIFY,
   Ability.BLAST,
   Ability.DIVINE_SHIELD,
   Ability.FLYING,
@@ -56,7 +55,7 @@ export const SUMMONER_ABILITY_ABILITIES = [
 export const SUMMONER_BUFF_ABILITIES = [Ability.STRENGTHEN];
 
 /** Abilities that summoner applies to enemy team at the start of the game */
-export const SUMMONER_DEBUFF_ABILITIES = [Ability.AFFLICTION, Ability.BLIND];
+export const SUMMONER_DEBUFF_ABILITIES = [Ability.AFFLICTION, Ability.AMPLIFY, Ability.BLIND];
 
 /** Abilities that monsters apply to friendly team at the start of the game */
 export const MONSTER_BUFF_ABILITIES = [
