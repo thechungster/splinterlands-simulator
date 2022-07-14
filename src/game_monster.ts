@@ -182,7 +182,7 @@ export class GameMonster extends GameCard {
     // Special case, cleanse only removes 1 cripple
     const crippleAmt = this.getDebuffAmt(Ability.CRIPPLE);
     this.debuffsMap.forEach((value, key) => {
-      if (abilityUtils.UNCLEANSABLE_DEBUFFS.indexOf(key) > -1) {
+      if (abilityUtils.UNCLEANSABLE_DEBUFFS.indexOf(key) === -1) {
         this.removeAllDebuff(key);
       }
     });
