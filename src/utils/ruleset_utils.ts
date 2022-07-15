@@ -1,3 +1,4 @@
+import { Game } from '../game';
 import { GameMonster } from '../game_monster';
 import { GameSummoner } from '../game_summoner';
 import { GameTeam } from '../game_team';
@@ -92,9 +93,9 @@ function applyCloseRangeRuleset(monster: GameMonster) {
 }
 
 /** Do 2 physical damage to monsters that don't have flying ability */
-export function applyEarthquake(monster: GameMonster): BattleDamage {
+export function applyEarthquake(game: Game, monster: GameMonster): BattleDamage {
   if (!monster.hasAbility(Ability.FLYING) || monster.hasDebuff(Ability.SNARE)) {
-    return hitMonsterWithPhysical(monster, EARTHQUAKE_DAMAGE);
+    return hitMonsterWithPhysical(game, monster, EARTHQUAKE_DAMAGE);
   }
   return {
     attack: 0,

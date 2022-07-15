@@ -131,7 +131,10 @@ export class GameMonster extends GameCard {
     if (!this.isAlive()) {
       return;
     }
-    if (this.abilities.has(Ability.IMMUNITY)) {
+    if (
+      this.abilities.has(Ability.IMMUNITY) &&
+      abilityUtils.UNCLEANSABLE_DEBUFFS.indexOf(debuff) < 0
+    ) {
       return;
     }
     if (debuff === Ability.SNARE && this.hasDebuff(Ability.SNARE)) {
@@ -179,7 +182,9 @@ export class GameMonster extends GameCard {
     // Special case, cleanse only removes 1 cripple
     const crippleAmt = this.getDebuffAmt(Ability.CRIPPLE);
     this.debuffsMap.forEach((value, key) => {
-      this.removeAllDebuff(key);
+      if (abilityUtils.UNCLEANSABLE_DEBUFFS.indexOf(key) === -1) {
+        this.removeAllDebuff(key);
+      }
     });
     if (crippleAmt > 1) {
       this.debuffsMap.set(Ability.CRIPPLE, crippleAmt - 1);
@@ -247,7 +252,7 @@ export class GameMonster extends GameCard {
 
   // TODO: Maybe this is true for everything?? idk.
   removeStrengthenHealth(healthAmt: number) {
-    if (this.health === this.getPostAbilityMaxHealth()) {
+    if (this.health > this.getPostAbilityMaxHealth()) {
       this.removeBuffHealth(healthAmt);
     }
   }
@@ -267,7 +272,7 @@ export class GameMonster extends GameCard {
   }
 
   removeDivineShield() {
-    this.hadDivineShield = true
+    this.hadDivineShield = true;
     this.removeAbility(Ability.DIVINE_SHIELD);
   }
 
@@ -297,6 +302,10 @@ export class GameMonster extends GameCard {
     this.summonerMagic += stat;
   }
 
+  getSummonerArmor() {
+    return this.summonerArmor;
+  }
+
   hasAttack() {
     return this.melee > 0 || this.ranged > 0 || this.magic > 0;
   }
@@ -306,14 +315,15 @@ export class GameMonster extends GameCard {
     if (this.getIsLastStand()) {
       maxArmor = Math.ceil(maxArmor * abilityUtils.LAST_STAND_MULTIPLIER);
     }
-    if (this.hasDebuff(Ability.RUST)) {
-      maxArmor = Math.max(maxArmor - abilityUtils.RUST_AMOUNT, 0);
-    }
     if (this.hasBuff(Ability.PROTECT)) {
       const protectAmt = this.getBuffAmt(Ability.PROTECT);
       maxArmor = maxArmor + abilityUtils.PROTECT_AMOUNT * protectAmt;
     }
     maxArmor = Math.max(maxArmor + this.summonerArmor, 0);
+    if (this.hasDebuff(Ability.RUST)) {
+      const rustAmt = this.getDebuffAmt(Ability.RUST);
+      maxArmor = Math.max(maxArmor - abilityUtils.RUST_AMOUNT * rustAmt, 0);
+    }
     return maxArmor;
   }
 
@@ -339,14 +349,7 @@ export class GameMonster extends GameCard {
 
   getPostAbilityMaxHealth() {
     let maxHealth = Math.max(this.startingHealth, 1);
-    if (this.getIsLastStand()) {
-      maxHealth = Math.ceil(maxHealth * abilityUtils.LAST_STAND_MULTIPLIER);
-    }
-
-    if (this.hasDebuff(Ability.WEAKEN)) {
-      const weakenAmt = this.getDebuffAmt(Ability.WEAKEN);
-      maxHealth = maxHealth - abilityUtils.WEAKEN_AMOUNT * weakenAmt;
-    }
+    // Life leech and scavenger are affected by last stand multiplier
     if (this.hasBuff(Ability.LIFE_LEECH)) {
       const lifeLeechAmt = this.getBuffAmt(Ability.LIFE_LEECH);
       maxHealth = maxHealth + abilityUtils.LIFE_LEECH_AMOUNT * lifeLeechAmt;
@@ -355,13 +358,20 @@ export class GameMonster extends GameCard {
       const scavengerAmt = this.getBuffAmt(Ability.SCAVENGER);
       maxHealth = maxHealth + abilityUtils.SCAVENGER_AMOUNT * scavengerAmt;
     }
-    if (this.hasBuff(Ability.STRENGTHEN)) {
-      const strAmt = this.getBuffAmt(Ability.STRENGTHEN);
-      maxHealth = maxHealth + abilityUtils.STRENGTHEN_AMOUNT * strAmt;
-    }
     if (this.hasDebuff(Ability.CRIPPLE)) {
       const crippleAmt = this.getDebuffAmt(Ability.CRIPPLE);
       maxHealth = maxHealth - abilityUtils.CRIPPLE_AMOUNT * crippleAmt;
+    }
+    if (this.getIsLastStand()) {
+      maxHealth = Math.ceil(maxHealth * abilityUtils.LAST_STAND_MULTIPLIER);
+    }
+    if (this.hasDebuff(Ability.WEAKEN)) {
+      const weakenAmt = this.getDebuffAmt(Ability.WEAKEN);
+      maxHealth = maxHealth - abilityUtils.WEAKEN_AMOUNT * weakenAmt;
+    }
+    if (this.hasBuff(Ability.STRENGTHEN)) {
+      const strAmt = this.getBuffAmt(Ability.STRENGTHEN);
+      maxHealth = maxHealth + abilityUtils.STRENGTHEN_AMOUNT * strAmt;
     }
     // The summoner skill made this starting health 0 or negative
     if (this.startingHealth < 1) {
@@ -391,7 +401,7 @@ export class GameMonster extends GameCard {
     }
     let postMagic = this.magic;
     if (this.hasDebuff(Ability.HALVING)) {
-      postMagic = Math.floor((postMagic + 1) / 2);
+      postMagic = Math.max(Math.floor(postMagic / 2), 1);
     }
     if (this.getIsLastStand()) {
       postMagic = Math.ceil(postMagic * abilityUtils.LAST_STAND_MULTIPLIER);
@@ -415,15 +425,15 @@ export class GameMonster extends GameCard {
     }
     let postRange = this.ranged;
     if (this.hasDebuff(Ability.HALVING)) {
-      postRange = Math.floor((postRange + 1) / 2);
+      postRange = Math.max(Math.floor(postRange / 2), 1);
     }
     if (this.getIsLastStand()) {
       postRange = Math.ceil(postRange * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     let rangeModifier = 0;
-    // TODO(Headwinds) Does this stack?
     if (this.hasDebuff(Ability.HEADWINDS)) {
-      rangeModifier--;
+      const headwindsAmt = this.getDebuffAmt(Ability.HEADWINDS);
+      rangeModifier -= headwindsAmt;
     }
     if (this.hasDebuff(Ability.HALVING)) {
       // TODO(Halving) is this right?
@@ -441,7 +451,7 @@ export class GameMonster extends GameCard {
       return 0;
     }
     if (this.hasDebuff(Ability.HALVING)) {
-      postMelee = Math.floor((postMelee + 1) / 2);
+      postMelee = Math.max(Math.floor(postMelee / 2), 1);
     }
     if (this.getIsLastStand()) {
       postMelee = Math.ceil(postMelee * abilityUtils.LAST_STAND_MULTIPLIER);
@@ -471,11 +481,15 @@ export class GameMonster extends GameCard {
 
   resurrect() {
     this.health = 1;
-    this.armor = this.startingArmor;
     if (this.hadDivineShield) {
       this.addAbility(Ability.DIVINE_SHIELD);
     }
+    this.armor = this.getPostAbilityMaxArmor();
     this.cleanseDebuffs();
+  }
+
+  public getCleanCard(): GameMonster {
+    return new GameMonster(this.getCardDetail(), this.getCardLevel() + 1);
   }
 
   /********************* Things regarding abilities? ********************/

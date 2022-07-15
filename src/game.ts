@@ -30,14 +30,16 @@ export class Game {
   private readonly team1: GameTeam;
   private readonly team2: GameTeam;
   private readonly rulesets: Set<Ruleset>;
-  private readonly battleLogs: BattleLog[] = [];
   private readonly shouldLog: boolean;
-  // 0 = tie
   // 1 = team1
   // 2 = team2
+  // 3 = tie
+  private battleLogs: BattleLog[] = [];
   private winner: number | undefined;
   private deadMonsters: GameMonster[] = [];
   private roundNumber = 0;
+  private stunnedMonsters: Map<GameMonster, GameMonster[]> = new Map();
+
   constructor(
     team1: GameTeam,
     team2: GameTeam,
@@ -58,7 +60,7 @@ export class Game {
   }
 
   public playGame() {
-    this.roundNumber = 0;
+    this.reset();
     const team1Summoner = this.team1.getSummoner();
     const team1Monsters = this.team1.getMonstersList();
     const team2Summoner = this.team2.getSummoner();
@@ -97,6 +99,16 @@ export class Game {
       );
     }
     return this.battleLogs;
+  }
+
+  private reset() {
+    this.roundNumber = 0;
+    this.winner = undefined;
+    this.battleLogs = [];
+    this.deadMonsters = [];
+    this.stunnedMonsters = new Map();
+    this.team1.resetTeam();
+    this.team2.resetTeam();
   }
 
   // Add all summoner abilities which are in SUMMONER_BUFF_ABILITIES
@@ -337,6 +349,7 @@ export class Game {
       this.createAndAddBattleLog(Ability.DODGE, attackingMonster, attackTarget);
       if (attackTarget.hasAbility(Ability.BACKFIRE)) {
         const backfireBattleDamage = damageUtils.hitMonsterWithPhysical(
+          this,
           attackingMonster,
           abilityUtils.BACKFIRE_DAMAGE,
         );
@@ -371,6 +384,7 @@ export class Game {
     // No damage if there's divine shield, but it will still trigger stun, thorns, poison, blast,
     if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
       attackTarget.removeDivineShield();
+      this.createAndAddBattleLog(Ability.DIVINE_SHIELD, attackingMonster, attackTarget, 0);
       if (attackType === AttackType.MAGIC) {
         this.maybeApplyMagicReflect(attackingMonster, attackTarget, attackType);
       } else {
@@ -398,11 +412,7 @@ export class Game {
 
     // Pierce
     if (attackingMonster.hasAbility(Ability.PIERCING) && battleDamage.remainder > 0) {
-      if (attackType === AttackType.MAGIC) {
-        damageUtils.hitMonsterWithMagic(attackTarget, battleDamage.remainder);
-      } else {
-        damageUtils.hitMonsterWithPhysical(attackTarget, battleDamage.remainder);
-      }
+      attackTarget.hitHealth(battleDamage.remainder);
     }
 
     // TODO: This doesn't account for the pierce.
@@ -469,11 +479,11 @@ export class Game {
       actualDamageDone: 0,
     };
     if (attackType === AttackType.MAGIC) {
-      battleDamage = damageUtils.hitMonsterWithMagic(attackTarget, damageAmt);
+      battleDamage = damageUtils.hitMonsterWithMagic(this, attackTarget, damageAmt);
     } else if (attackType === AttackType.RANGED) {
-      battleDamage = damageUtils.hitMonsterWithPhysical(attackTarget, damageAmt);
+      battleDamage = damageUtils.hitMonsterWithPhysical(this, attackTarget, damageAmt);
     } else if (attackType === AttackType.MELEE) {
-      battleDamage = damageUtils.hitMonsterWithPhysical(attackTarget, damageAmt);
+      battleDamage = damageUtils.hitMonsterWithPhysical(this, attackTarget, damageAmt);
     }
 
     return battleDamage;
@@ -632,7 +642,7 @@ export class Game {
       blastDamage = 0;
     }
     if (attackType === AttackType.MAGIC) {
-      const battleDamage = damageUtils.hitMonsterWithMagic(monsterToBlast, blastDamage);
+      const battleDamage = damageUtils.hitMonsterWithMagic(this, monsterToBlast, blastDamage);
       this.createAndAddBattleLog(
         Ability.BLAST,
         attackingMonster,
@@ -647,7 +657,7 @@ export class Game {
       );
       this.maybeLifeLeech(attackingMonster, blastDamage - battleDamage.remainder);
     } else {
-      const battleDamage = damageUtils.hitMonsterWithPhysical(monsterToBlast, blastDamage);
+      const battleDamage = damageUtils.hitMonsterWithPhysical(this, monsterToBlast, blastDamage);
       this.createAndAddBattleLog(
         Ability.BLAST,
         attackingMonster,
@@ -660,11 +670,19 @@ export class Game {
     this.maybeDead(attackingMonster);
   }
 
+  private removeStunsThatThisMonsterApplied(monster: GameMonster) {
+    if (this.stunnedMonsters.has(monster)) {
+      const hadStunMonsters = this.stunnedMonsters.get(monster)!;
+      hadStunMonsters.forEach((stunnedMonster) => stunnedMonster.removeAllDebuff(Ability.STUN));
+      this.stunnedMonsters.delete(monster);
+    }
+  }
+
   private maybeDead(monster: GameMonster) {
     if (monster.isAlive() || this.deadMonsters.indexOf(monster) > -1) {
       return;
     }
-
+    this.removeStunsThatThisMonsterApplied(monster);
     this.createAndAddBattleLog(AdditionalBattleAction.DEATH, monster);
     this.deadMonsters.push(monster);
     monster.setHasTurnPassed(true);
@@ -677,6 +695,7 @@ export class Game {
     if (monster.hasAbility(Ability.REDEMPTION)) {
       enemyTeam.forEach((enemy: GameMonster) => {
         const battleDamage = damageUtils.hitMonsterWithPhysical(
+          this,
           enemy,
           abilityUtils.REDEMPTION_DAMAGE,
         );
@@ -685,28 +704,34 @@ export class Game {
       });
     }
 
-    // Remove debuffs from enemy team
-    MONSTER_DEBUFF_ABILITIES.forEach((debuff: Ability) => {
-      if (monster.hasAbility(debuff)) {
-        enemyTeam.forEach((enemy: GameMonster) => {
-          enemy.removeDebuff(debuff);
-        });
+    let wasResurrected = false;
+    wasResurrected = this.maybeResurrect(friendlyTeam.getSummoner(), monster);
+    for (const friendlyMonster of aliveFriendlyTeam) {
+      if (wasResurrected === true) {
+        break;
       }
-    });
+      wasResurrected = this.maybeResurrect(friendlyMonster, monster);
+    }
 
-    // Remove buffs from friendly
-    MONSTER_BUFF_ABILITIES.forEach((buff: Ability) => {
-      if (monster.hasAbility(buff)) {
-        aliveFriendlyTeam.forEach((friendly: GameMonster) => {
-          friendly.removeBuff(buff);
-        });
-      }
-    });
+    if (!wasResurrected) {
+      // Remove debuffs from enemy team
+      MONSTER_DEBUFF_ABILITIES.forEach((debuff: Ability) => {
+        if (monster.hasAbility(debuff)) {
+          enemyTeam.forEach((enemy: GameMonster) => {
+            enemy.removeDebuff(debuff);
+          });
+        }
+      });
 
-    this.maybeResurrect(friendlyTeam.getSummoner(), monster);
-    aliveFriendlyTeam.forEach((friendly: GameMonster) => {
-      this.maybeResurrect(friendly, monster);
-    });
+      // Remove buffs from friendly
+      MONSTER_BUFF_ABILITIES.forEach((buff: Ability) => {
+        if (monster.hasAbility(buff)) {
+          aliveFriendlyTeam.forEach((friendly: GameMonster) => {
+            friendly.removeBuff(buff);
+          });
+        }
+      });
+    }
     aliveFriendlyTeam.forEach((friendly: GameMonster) => {
       this.onDeath(friendly, monster);
     });
@@ -714,18 +739,22 @@ export class Game {
       this.onDeath(enemy, monster);
     });
 
-    friendlyTeam.maybeSetLastStand();
+    if (!wasResurrected) {
+      friendlyTeam.maybeSetLastStand();
+    }
   }
 
+  // Returns whether the monster was resurrected or not.
   private maybeResurrect(monster: GameCard, deadMonster: GameMonster) {
     if (monster.hasAbility(Ability.RESURRECT) && !deadMonster.isAlive()) {
       monster.removeAbility(Ability.RESURRECT);
       deadMonster.resurrect();
       const deadMonsterIndex = this.deadMonsters.findIndex((deadMon) => deadMon === deadMonster);
-      deadMonster.armor = deadMonster.startingArmor;
       this.deadMonsters.splice(deadMonsterIndex, 1);
       this.createAndAddBattleLog(Ability.RESURRECT, monster, deadMonster);
+      return true;
     }
+    return false;
   }
 
   private onDeath(monster: GameMonster, deadMonster: GameMonster) {
@@ -744,14 +773,14 @@ export class Game {
       return;
     }
     let reflectDamage = abilityUtils.THORNS_DAMAGE;
-    if (attackTarget.hasDebuff(Ability.AMPLIFY)) {
+    if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       // Amplify only increases by 1 no matter how many amplifies there are.
       reflectDamage++;
     }
-    if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
+    if (attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
-    const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, reflectDamage);
+    const battleDamage = damageUtils.hitMonsterWithPhysical(this, attackingMonster, reflectDamage);
     this.createAndAddBattleLog(
       Ability.THORNS,
       attackTarget,
@@ -774,13 +803,13 @@ export class Game {
       attackDamage !== undefined
         ? Math.ceil(attackDamage / 2)
         : Math.ceil(attackingMonster.getPostAbilityMagic() / 2);
-    if (attackTarget.hasDebuff(Ability.AMPLIFY)) {
+    if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       reflectDamage++;
     }
-    if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
+    if (attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
-    const battleDamage = damageUtils.hitMonsterWithMagic(attackingMonster, reflectDamage);
+    const battleDamage = damageUtils.hitMonsterWithMagic(this, attackingMonster, reflectDamage);
     this.createAndAddBattleLog(
       Ability.MAGIC_REFLECT,
       attackTarget,
@@ -803,13 +832,13 @@ export class Game {
       attackDamage !== undefined
         ? Math.ceil(attackDamage / 2)
         : Math.ceil(attackingMonster.getPostAbilityRanged() / 2);
-    if (attackTarget.hasDebuff(Ability.AMPLIFY)) {
+    if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       reflectDamage++;
     }
-    if (attackTarget.hasAbility(Ability.REFLECTION_SHIELD)) {
+    if (attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
       reflectDamage = 0;
     }
-    const battleDamage = damageUtils.hitMonsterWithPhysical(attackingMonster, reflectDamage);
+    const battleDamage = damageUtils.hitMonsterWithPhysical(this, attackingMonster, reflectDamage);
     this.createAndAddBattleLog(
       Ability.RETURN_FIRE,
       attackTarget,
@@ -839,6 +868,9 @@ export class Game {
       attackingMonster.hasAbility(Ability.STUN) &&
       gameUtils.getSuccessBelow(abilityUtils.STUN_CHANCE * 100)
     ) {
+      const prevStunnedMonsters = this.stunnedMonsters.get(attackingMonster) || [];
+      prevStunnedMonsters.push(attackTarget);
+      this.stunnedMonsters.set(attackingMonster, prevStunnedMonsters);
       this.addMonsterToMonsterDebuff(attackingMonster, attackTarget, Ability.STUN);
     }
   }
@@ -966,15 +998,14 @@ export class Game {
     this.doGamePreRound();
     this.doSummonerPreRound(this.team1);
     this.doSummonerPreRound(this.team2);
-    const stunnedMonsters = [];
 
     let currentMonster = this.getNextMonsterTurn();
     while (currentMonster !== null) {
       if (!currentMonster.isAlive()) {
         continue;
       }
+      this.removeStunsThatThisMonsterApplied(currentMonster);
       if (currentMonster.hasDebuff(Ability.STUN)) {
-        stunnedMonsters.push(currentMonster);
         currentMonster.setHasTurnPassed(true);
         currentMonster = this.getNextMonsterTurn();
         continue;
@@ -987,9 +1018,6 @@ export class Game {
       }
       currentMonster = this.getNextMonsterTurn();
     }
-    stunnedMonsters.forEach((monster) => {
-      monster.removeAllDebuff(Ability.STUN);
-    });
   }
 
   private doGamePreRound(): void {
@@ -1013,7 +1041,7 @@ export class Game {
 
   private doPostRoundEarthquake(aliveMonsters: GameMonster[]) {
     for (const monster of aliveMonsters) {
-      const battleDamage = rulesetUtils.applyEarthquake(monster);
+      const battleDamage = rulesetUtils.applyEarthquake(this, monster);
       this.createAndAddBattleLog(
         AdditionalBattleAction.EARTHQUAKE,
         monster,
@@ -1104,7 +1132,7 @@ export class Game {
     return monster.getTeamNumber() === 1 ? this.team2 : this.team1;
   }
 
-  private createAndAddBattleLog(
+  createAndAddBattleLog(
     action: BattleLogAction,
     cardOne?: GameCard,
     cardTwo?: GameCard,

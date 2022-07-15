@@ -1,16 +1,22 @@
 import { GameMonster } from '../game_monster';
 import { Ability, BattleDamage } from '../types';
 import { FORCEFIELD_MIN_DAMAGE } from './ability_utils';
+import { Game } from '../game';
 
 // TODO: Should this return the reduced damage or normal? Life steal against void?
 /** Hits the monster with magic damage. Returns the remainder damage. */
-export function hitMonsterWithMagic(attackTarget: GameMonster, magicDamage: number): BattleDamage {
+export function hitMonsterWithMagic(
+  game: Game,
+  attackTarget: GameMonster,
+  magicDamage: number,
+): BattleDamage {
   if (attackTarget.hasAbility(Ability.FORCEFIELD) && magicDamage >= FORCEFIELD_MIN_DAMAGE) {
     magicDamage = 1;
   }
   // For things like magic reflect
   if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
     attackTarget.removeDivineShield();
+    game.createAndAddBattleLog(Ability.DIVINE_SHIELD, attackTarget, undefined, 0);
     return {
       attack: 1,
       damageDone: 0,
@@ -67,13 +73,18 @@ export function hitMonsterWithMagic(attackTarget: GameMonster, magicDamage: numb
 }
 
 /** Hits the monster with physical damage. Returns the remainder damage. */
-export function hitMonsterWithPhysical(attackTarget: GameMonster, damageAmt: number): BattleDamage {
+export function hitMonsterWithPhysical(
+  game: Game,
+  attackTarget: GameMonster,
+  damageAmt: number,
+): BattleDamage {
   if (attackTarget.hasAbility(Ability.FORCEFIELD) && damageAmt >= FORCEFIELD_MIN_DAMAGE) {
     damageAmt = 1;
   }
   // For things like thorns, this returns 1 to show a successful attack.
   if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
     attackTarget.removeDivineShield();
+    game.createAndAddBattleLog(Ability.DIVINE_SHIELD, attackTarget, undefined, 0);
     return {
       attack: 1,
       damageDone: 0,
