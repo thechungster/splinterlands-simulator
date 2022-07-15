@@ -10,22 +10,20 @@ export class GameTeam {
   constructor(summoner: GameSummoner, monsterList: GameMonster[]) {
     this.summoner = summoner;
     this.monsterList = monsterList;
-    if (this.monsterList.length === 1) {
-      monsterList[0].setIsOnlyMonster();
-    }
-    this.setMonsterPositions();
-  }
-
-  private setMonsterPositions() {
-    for (let i = 0; i < this.monsterList.length; i++) {
-      this.monsterList[i].setCardPosition(i);
-    }
   }
 
   public resetTeam() {
     this.summoner = this.summoner.getCleanCard();
     this.monsterList = this.monsterList.map((card) => card.getCleanCard() as GameMonster);
-    this.setMonsterPositions();
+
+    for (let i = 0; i < this.monsterList.length; i++) {
+      this.monsterList[i].setCardPosition(i);
+    }
+
+    if (this.monsterList.length === 1) {
+      this.monsterList[0].setIsOnlyMonster();
+    }
+
     if (this.teamNumber) {
       this.setTeam(this.teamNumber);
     } else {
