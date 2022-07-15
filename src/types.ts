@@ -210,6 +210,7 @@ export interface CardDetail {
   is_promo: boolean;
   tier: any;
   distribution: CardDetailDistribution[];
+  latestPrint: string;
 }
 
 export interface PlayerCardDetail {
