@@ -2,9 +2,11 @@ import { CardDetail, CardStats, TeamNumber } from './types';
 import { Ability } from './types';
 import { getCardDetailFromId } from './utils/card_utils';
 
+const RARITY_MAX_LEVEL = [0, 10, 8, 6, 4];
+
 export class GameCard {
-  private readonly cardDetail: CardDetail;
-  private readonly cardLevel: number;
+  readonly cardDetail: CardDetail;
+  readonly cardLevel: number;
   private team: number = TeamNumber.UNKNOWN;
 
   protected debuffsMap: Map<Ability, number> = new Map();
@@ -26,7 +28,12 @@ export class GameCard {
     } else {
       this.cardDetail = cardDetail;
     }
-    this.cardLevel = cardLevel - 1;
+
+    if (cardLevel === -1) {
+      this.cardLevel = RARITY_MAX_LEVEL[this.cardDetail.rarity] - 1;
+    } else {
+      this.cardLevel = cardLevel - 1;
+    }
 
     this.setStats(this.cardDetail.stats);
   }
@@ -88,6 +95,10 @@ export class GameCard {
     clonedCard.setTeam(this.team);
 
     return clonedCard;
+  }
+
+  public copy(): GameCard {
+    return new GameCard(this.cardDetail, this.cardLevel + 1);
   }
 
   private setStats(stats: CardStats) {
