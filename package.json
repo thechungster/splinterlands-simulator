@@ -6,6 +6,7 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "test": "jest",
+    "jest:debug": "node --nolazy --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --colors --verbose",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
