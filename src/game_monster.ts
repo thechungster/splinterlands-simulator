@@ -98,13 +98,16 @@ export class GameMonster extends GameCard {
     if (this.isPureMelee() && this.canMeleeAttack()) {
       return true;
     }
-    if (this.magic > 0 || this.ranged > 0) {
+    if (this.magic > 0) {
       return true;
     }
     for (const actionAbility of abilityUtils.ACTION_ABILITIES) {
       if (this.hasAbility(actionAbility)) {
         return true;
       }
+    }
+    if (this.ranged > 0 && this.cardPosition > 0) {
+      return true;
     }
     return false;
   }
@@ -181,17 +184,13 @@ export class GameMonster extends GameCard {
 
   cleanseDebuffs() {
     // Special case, cleanse only removes 1 cripple
-    const crippleAmt = this.getDebuffAmt(Ability.CRIPPLE);
     this.debuffsMap.forEach((value, key) => {
-      if (abilityUtils.UNCLEANSABLE_DEBUFFS.indexOf(key) === -1) {
+      if (abilityUtils.UNCLEANSABLE_DEBUFFS.indexOf(key) === -1 && key !== Ability.CRIPPLE) {
         this.removeAllDebuff(key);
       }
     });
-    if (crippleAmt > 1) {
-      this.debuffsMap.set(Ability.CRIPPLE, crippleAmt - 1);
-    }
-    if (crippleAmt > 0 && this.health > 0) {
-      this.addHealth(1);
+    if (this.hasDebuff(Ability.CRIPPLE)) {
+      this.removeDebuff(Ability.CRIPPLE);
     }
   }
 
@@ -330,7 +329,7 @@ export class GameMonster extends GameCard {
 
   getPostAbilitySpeed() {
     let speedModifier = 0;
-    let speed = this.speed + this.summonerSpeed;
+    let speed = Math.max(this.speed + this.summonerSpeed, 1);
     if (this.getIsLastStand()) {
       speed = Math.ceil(speed * abilityUtils.LAST_STAND_MULTIPLIER);
     }
