@@ -48,7 +48,7 @@ describe('GameMonster', () => {
       expect(monster.getDebuffAmt(Ability.CRIPPLE)).toBe(3);
       monster.cleanseDebuffs();
 
-      expect(monster.getDebuffAmt(Ability.CRIPPLE)).toBe(1);
+      expect(monster.getDebuffAmt(Ability.CRIPPLE)).toBe(2);
     });
   });
 });

@@ -11,7 +11,7 @@ export function createFakeCardDetail(
   magic: number,
 ): CardDetail {
   const fakeCardStat = {
-    abilities: abilities,
+    abilities,
     mana,
     health,
     speed,
