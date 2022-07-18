@@ -163,6 +163,7 @@ export class GameMonster extends GameCard {
     if (debuff === Ability.WEAKEN) {
       this.addHealth(1);
     } else if (debuff === Ability.CRIPPLE) {
+      // Not entirely sure if this is true.
       this.addHealth(1);
     } else if (debuff === Ability.RUST) {
       const currentArmor = this.armor;

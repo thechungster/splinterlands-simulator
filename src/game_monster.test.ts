@@ -63,6 +63,57 @@ describe('GameMonster', () => {
 
       expect(monster.getDebuffAmt(Ability.CRIPPLE)).toBe(2);
     });
+
+    it('adding weaken removes a health', () => {
+      monster.addDebuff(Ability.WEAKEN);
+      expect(monster.health).toBe(MONSTER_HEALTH - 1);
+    });
+
+    it('removing weaken adds a health back', () => {
+      monster.addDebuff(Ability.WEAKEN);
+      monster.removeDebuff(Ability.WEAKEN);
+      expect(monster.health).toBe(MONSTER_HEALTH);
+    });
+
+    it('adding cripple removes a health', () => {
+      monster.addDebuff(Ability.WEAKEN);
+      expect(monster.health).toBe(MONSTER_HEALTH - 1);
+    });
+
+    it('removing cripple adds a health back', () => {
+      monster.health = 1;
+      monster.addDebuff(Ability.CRIPPLE);
+      monster.removeDebuff(Ability.CRIPPLE);
+      expect(monster.health).toBe(2);
+    });
+
+    it('adding rust removes 2 armor', () => {
+      monster.armor = 5;
+      monster.addDebuff(Ability.RUST);
+      expect(monster.armor).toBe(3);
+    });
+
+    it('adding rust sets armor to minimum of 0', () => {
+      monster.armor = 1;
+      monster.addDebuff(Ability.RUST);
+      expect(monster.armor).toBe(0);
+    });
+
+    it('removing rust adds armor back', () => {
+      monster.addSummonerArmor(4);
+      monster.armor = 0;
+      monster.addDebuff(Ability.RUST);
+      monster.removeDebuff(Ability.RUST);
+      expect(monster.armor).toBe(2);
+    });
+
+    it('removing rust adds armor only back to the max armor', () => {
+      monster.addSummonerArmor(3);
+      monster.addDebuff(Ability.RUST);
+      monster.armor = 3;
+      monster.removeDebuff(Ability.RUST);
+      expect(monster.armor).toBe(4);
+    });
   });
 
   describe('health', () => {
