@@ -1,26 +1,6 @@
-import { Ability, CardColor, CardDetail, CardStats, CardType } from '../types';
+import { CardColor, CardDetail, CardStats, CardType } from '../types';
 
-export function createFakeCardDetail(
-  abilities: Ability[],
-  mana: number,
-  health: number,
-  speed: number,
-  armor: number,
-  melee: number,
-  ranged: number,
-  magic: number,
-): CardDetail {
-  const fakeCardStat = {
-    abilities,
-    mana,
-    health,
-    speed,
-    armor,
-    ranged,
-    magic,
-    attack: melee,
-  } as CardStats;
-
+export function createFakeCardDetail(cardStat: CardStats): CardDetail {
   return {
     id: 9999,
     color: CardColor.BLACK,
@@ -28,6 +8,6 @@ export function createFakeCardDetail(
     rarity: 1,
     is_starter: false,
     editions: '1',
-    stats: fakeCardStat,
+    stats: cardStat,
   } as CardDetail;
 }

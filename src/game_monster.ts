@@ -480,6 +480,9 @@ export class GameMonster extends GameCard {
   }
 
   resurrect() {
+    if (this.health > 0) {
+      throw new Error("Can't resurrect a monster that is not dead");
+    }
     this.health = 1;
     if (this.hadDivineShield) {
       this.addAbility(Ability.DIVINE_SHIELD);
