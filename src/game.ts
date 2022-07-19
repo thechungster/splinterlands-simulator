@@ -447,7 +447,7 @@ export class Game {
     if (
       attackingMonster.hasAbility(Ability.AFFLICTION) &&
       !attackTarget.hasDebuff(Ability.AFFLICTION) &&
-      gameUtils.getSuccessBelow(abilityUtils.AFFLICTION_CHANCE * 100)
+      abilityUtils.getSuccessBelow(abilityUtils.AFFLICTION_CHANCE * 100)
     ) {
       this.createAndAddBattleLog(
         Ability.AFFLICTION,
@@ -855,7 +855,7 @@ export class Game {
     if (
       !attackTarget.hasAbility(Ability.RETALIATE) ||
       attackType !== AttackType.MELEE ||
-      gameUtils.getSuccessBelow(abilityUtils.RETALIATE_CHANCE * 100)
+      abilityUtils.getSuccessBelow(abilityUtils.RETALIATE_CHANCE * 100)
     ) {
       return;
     }
@@ -866,7 +866,7 @@ export class Game {
   private maybeApplyStun(attackingMonster: GameMonster, attackTarget: GameMonster) {
     if (
       attackingMonster.hasAbility(Ability.STUN) &&
-      gameUtils.getSuccessBelow(abilityUtils.STUN_CHANCE * 100)
+      abilityUtils.getSuccessBelow(abilityUtils.STUN_CHANCE * 100)
     ) {
       const prevStunnedMonsters = this.stunnedMonsters.get(attackingMonster) || [];
       prevStunnedMonsters.push(attackTarget);
@@ -878,7 +878,7 @@ export class Game {
   private maybeApplyPoison(attackingMonster: GameMonster, attackTarget: GameMonster) {
     if (
       attackingMonster.hasAbility(Ability.POISON) &&
-      gameUtils.getSuccessBelow(abilityUtils.POISON_CHANCE * 100) &&
+      abilityUtils.getSuccessBelow(abilityUtils.POISON_CHANCE * 100) &&
       !attackTarget.hasDebuff(Ability.POISON) &&
       attackTarget.isAlive()
     ) {
