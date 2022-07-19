@@ -25,7 +25,7 @@ const MONSTER_STATS = {
 describe('damage_utils', () => {
   let attackingMonster: GameMonster;
   let attackTarget: GameMonster;
-  let fakeGameTeam: Game = new (jest.createMockFromModule('../game') as any).Game();
+  const fakeGameTeam: Game = new (jest.createMockFromModule('../game') as any).Game();
 
   beforeEach(() => {
     attackingMonster = new GameMonster(createFakeCardDetail(MONSTER_STATS), 1);
