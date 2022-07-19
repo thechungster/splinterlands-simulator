@@ -1,4 +1,38 @@
+import { GameMonster } from '../game_monster';
+import { GameSummoner } from '../game_summoner';
 import { CardColor, CardDetail, CardStats, CardType } from '../types';
+
+export const DEFAULT_MONSTER_STAT = 5;
+
+export function getDefaultFakeSummoner() {
+  const stats = {
+    abilities: [],
+    mana: 5,
+    health: 0,
+    speed: 0,
+    armor: 0,
+    attack: 0,
+    ranged: 0,
+    magic: 0,
+  } as CardStats;
+  const details = createFakeCardDetail(stats);
+  return new GameSummoner(details, 1);
+}
+
+export function getDefaultFakeMonster() {
+  const stats = {
+    abilities: [],
+    mana: DEFAULT_MONSTER_STAT,
+    health: DEFAULT_MONSTER_STAT,
+    speed: DEFAULT_MONSTER_STAT,
+    armor: DEFAULT_MONSTER_STAT,
+    attack: DEFAULT_MONSTER_STAT,
+    ranged: DEFAULT_MONSTER_STAT,
+    magic: DEFAULT_MONSTER_STAT,
+  } as CardStats;
+  const details = createFakeCardDetail(stats);
+  return new GameMonster(details, 1);
+}
 
 export function createFakeCardDetail(cardStat: CardStats): CardDetail {
   return {
