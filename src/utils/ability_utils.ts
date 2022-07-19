@@ -168,3 +168,7 @@ export function dispelBuffs(monster: GameMonster) {
     monster.removeAllBuff(ability);
   });
 }
+
+export function getSuccessBelow(chance: number) {
+  return Math.floor(Math.random() * 101) < chance;
+}

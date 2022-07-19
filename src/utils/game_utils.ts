@@ -1,6 +1,9 @@
 import { GameMonster } from '../game_monster';
 import { Ability, AttackType, Ruleset } from '../types';
 import { BLIND_DODGE_CHANCE, DODGE_CHANCE, FLYING_DODGE_CHANCE } from './ability_utils';
+import * as abilityUtils from './ability_utils';
+
+const SPEED_DODGE_CHANCE = 0.1;
 
 export function getDidDodge(
   rulesets: Set<Ruleset>,
@@ -38,7 +41,7 @@ export function getDidDodge(
   if (attackingMonster.hasDebuff(Ability.BLIND)) {
     dodgeChance += BLIND_DODGE_CHANCE;
   }
-  return getSuccessBelow(dodgeChance * 100);
+  return abilityUtils.getSuccessBelow(Math.floor(dodgeChance * 100));
 }
 
 // https://support.splinterlands.com/hc/en-us/articles/4414334269460-Attack-Order
@@ -63,12 +66,6 @@ export function monsterTurnComparator(monster1: GameMonster, monster2: GameMonst
     return randomTieBreaker();
   }
 }
-
-export function getSuccessBelow(chance: number) {
-  return Math.floor(Math.random() * 101) < chance;
-}
-
-const SPEED_DODGE_CHANCE = 0.1;
 
 // https://support.splinterlands.com/hc/en-us/articles/4414334269460-Attack-Order
 function normalCompare(monster1: GameMonster, monster2: GameMonster) {
