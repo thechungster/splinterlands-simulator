@@ -587,7 +587,6 @@ describe('GameMonster', () => {
         it('returns correct armor with rust', () => {
           monster.addDebuff(Ability.RUST);
           monster.addDebuff(Ability.RUST);
-          debugger;
           const lastStandArmor = Math.ceil(MONSTER_ARMOR * LAST_STAND_MULTIPLIER);
           expect(monster.getPostAbilityMaxArmor()).toBe(lastStandArmor - RUST_AMOUNT * 2);
         });
