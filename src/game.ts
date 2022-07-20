@@ -798,7 +798,7 @@ export class Game {
     if (!attackTarget.hasAbility(Ability.MAGIC_REFLECT) || attackType !== AttackType.MAGIC) {
       return;
     }
-    attackDamage = attackDamage === 0 ? 1 : attackDamage;
+    attackDamage = attackDamage || 1;
     let reflectDamage =
       attackDamage !== undefined
         ? Math.ceil(attackDamage / 2)
@@ -827,7 +827,7 @@ export class Game {
     if (!attackTarget.hasAbility(Ability.RETURN_FIRE) || attackType !== AttackType.RANGED) {
       return;
     }
-    attackDamage = attackDamage === 0 ? 1 : attackDamage;
+    attackDamage = attackDamage || 1;
     let reflectDamage =
       attackDamage !== undefined
         ? Math.ceil(attackDamage / 2)
@@ -855,7 +855,7 @@ export class Game {
     if (
       !attackTarget.hasAbility(Ability.RETALIATE) ||
       attackType !== AttackType.MELEE ||
-      abilityUtils.getSuccessBelow(abilityUtils.RETALIATE_CHANCE * 100)
+      !abilityUtils.getSuccessBelow(abilityUtils.RETALIATE_CHANCE * 100)
     ) {
       return;
     }
@@ -901,7 +901,7 @@ export class Game {
   }
 
   private maybeApplyBloodlust(attackingMonster: GameMonster, isReverseSpeed: boolean) {
-    if (!attackingMonster.hasAbility(Ability.BLOODLUST) || attackingMonster.health < 1) {
+    if (!attackingMonster.hasAbility(Ability.BLOODLUST) || !attackingMonster.isAlive()) {
       return;
     }
     // Add attack if have attack
@@ -918,7 +918,7 @@ export class Game {
       attackingMonster.armor += 1;
     }
     const speedChange = isReverseSpeed ? -1 : 1;
-    attackingMonster.speed += speedChange;
+    attackingMonster.speed = Math.max(attackingMonster.speed + speedChange, 1);
     attackingMonster.health += 1;
     this.createAndAddBattleLog(Ability.BLOODLUST, attackingMonster);
   }
@@ -1109,7 +1109,6 @@ export class Game {
     }
   }
 
-  // TODO: this hits all of team 1 then 2, but team order should random
   private fatigueMonsters(roundNumber: number) {
     const fatigueDamage = roundNumber - FATIGUE_ROUND_NUMBER + 1;
     const allAliveMonsters = this.team1.getAliveMonsters().concat(this.team2.getAliveMonsters());
