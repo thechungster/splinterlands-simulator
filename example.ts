@@ -35,7 +35,7 @@ function exampleCustomBattle() {
 
   const game = new Game(team1, team2, rules, /* shouldLog */ true);
   game.playGame();
-  return game.getBattleLogs();
+  return game.getWinner();
 }
 
 /** An example of a battle using a battle from Splinterlands history */

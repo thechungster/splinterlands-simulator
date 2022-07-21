@@ -47,6 +47,12 @@ Instantiating a GameSummoner/GameMonster using card ID relies on a [local versio
 
 This simulator is not guaranteed to be 100% accurate and there are bugs with it. The simulator logic was based on playing the game and making educated guesses on how the simulator was working. There are still many edge cases that are probably still missing and need to be solved. If you find a bug feel free to open a PR or open an issue. If you would like to discuss the simulator you can join us on the [Splintertools discord](https://discord.com/invite/CHS3dxZmrM)
 
+# Feature requests
+
+For feature requests open [an issue](https://github.com/thechungster/splinterlands-simulator/issues)
+
 # Contributing Code
+
+See our [Contributions readme](/contributing.md)
 
 If you would like to contibute to the code base, please make pull requests to the `feature` branch. The feature branch will be merged to `master` ~once a week, and the NPM package will automatically be updated.
