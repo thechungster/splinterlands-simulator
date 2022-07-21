@@ -59,7 +59,7 @@ export class GameTeam {
   }
 
   public getUnmovedMonsters() {
-    return this.getAliveMonsters().filter((monster) => !monster.getHasTurnPassed());
+    return this.monsterList.filter((monster) => !monster.getHasTurnPassed());
   }
 
   public maybeSetLastStand() {

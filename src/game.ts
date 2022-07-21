@@ -235,7 +235,6 @@ export class Game {
   }
 
   private doMonsterPreTurn(monster: GameMonster) {
-    monster.setHasTurnPassed(true);
     const friendlyTeam = this.getTeamOfMonster(monster);
 
     if (monster.hasAbility(Ability.CLEANSE)) {
@@ -682,10 +681,8 @@ export class Game {
     if (monster.isAlive() || this.deadMonsters.indexOf(monster) > -1) {
       return;
     }
-    this.removeStunsThatThisMonsterApplied(monster);
     this.createAndAddBattleLog(AdditionalBattleAction.DEATH, monster);
     this.deadMonsters.push(monster);
-    monster.setHasTurnPassed(true);
     // Monster just died!
     const friendlyTeam = this.getTeamOfMonster(monster);
     const aliveFriendlyTeam = friendlyTeam.getAliveMonsters();
@@ -1001,10 +998,11 @@ export class Game {
 
     let currentMonster = this.getNextMonsterTurn();
     while (currentMonster !== null) {
+      currentMonster.setHasTurnPassed(true);
+      this.removeStunsThatThisMonsterApplied(currentMonster);
       if (!currentMonster.isAlive()) {
         continue;
       }
-      this.removeStunsThatThisMonsterApplied(currentMonster);
       if (currentMonster.hasDebuff(Ability.STUN)) {
         currentMonster.setHasTurnPassed(true);
         currentMonster = this.getNextMonsterTurn();
