@@ -1,7 +1,7 @@
 import { Game } from './game';
 import { GameMonster } from './game_monster';
 import { GameTeam } from './game_team';
-import { Ability, AttackType, Ruleset } from './types';
+import { Ability, AttackType, BattleDamage, Ruleset } from './types';
 import { THORNS_DAMAGE } from './utils/ability_utils';
 import {
   DEFAULT_MONSTER_STAT,
@@ -9,6 +9,8 @@ import {
   getDefaultFakeSummoner,
 } from './utils/test_utils';
 import * as abilityUtils from './utils/ability_utils';
+import * as damageUtils from './utils/damage_utils';
+import * as gameUtils from './utils/game_utils';
 
 /* Testing this with only the public methods would be like an integration test so access the private variables
  * and unit test them that way */
@@ -38,7 +40,7 @@ describe('Game', () => {
     getSuccessBelowSpy.mockClear();
   });
 
-  describe('attacking applications', () => {
+  describe('attacking', () => {
     let attackingMonster: GameMonster;
     let attackTarget: GameMonster;
 
@@ -375,6 +377,63 @@ describe('Game', () => {
         game['maybeLifeLeech'](attackingMonster, 1);
         expect(attackingMonster.getBuffAmt(Ability.LIFE_LEECH)).toBe(3);
         expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT + 3);
+      });
+    });
+
+    describe('attackMonsterPhase function', () => {
+      let getDodgeSpy: jest.SpyInstance;
+      let hitMonsterWithPhysicalSpy: jest.SpyInstance;
+      let maybeDeadSpy: jest.SpyInstance;
+
+      beforeEach(() => {
+        maybeDeadSpy = jest.spyOn<any, any>(Game.prototype, 'maybeDead');
+        getDodgeSpy = jest.spyOn(gameUtils, 'getDidDodge');
+        hitMonsterWithPhysicalSpy = jest.spyOn(damageUtils, 'hitMonsterWithPhysical');
+        hitMonsterWithPhysicalSpy.mockReturnValue({
+          attack: 1,
+          damageDone: 1,
+          remainder: 1,
+          actualDamageDone: 1,
+        } as BattleDamage);
+      });
+
+      afterEach(() => {
+        maybeDeadSpy.mockReset();
+        getDodgeSpy.mockReset();
+        hitMonsterWithPhysicalSpy.mockReset();
+      });
+
+      it('monster doesnt do anything if it has recharge and round is even', () => {
+        attackingMonster.addAbility(Ability.RECHARGE);
+        game['roundNumber'] = 2;
+        game['attackMonsterPhase'](attackingMonster, attackTarget, AttackType.MELEE);
+        expect(getDodgeSpy).not.toHaveBeenCalled();
+      });
+
+      it('monster tries to atatck if it has recharge and round is odd', () => {
+        attackingMonster.addAbility(Ability.RECHARGE);
+        getDodgeSpy.mockReturnValue(true);
+        game['roundNumber'] = 1;
+        game['attackMonsterPhase'](attackingMonster, attackTarget, AttackType.MELEE);
+        expect(getDodgeSpy).toHaveBeenCalled();
+      });
+
+      it("can't dodge if rulesets has aim true", () => {
+        (game['rulesets'] as Set<Ruleset>) = new Set<Ruleset>([Ruleset.AIM_TRUE]);
+        game['attackMonsterPhase'](attackingMonster, attackTarget, AttackType.MELEE);
+        expect(getDodgeSpy).not.toHaveBeenCalled();
+      });
+
+      it('applies backfire damage if monster dodges and target has backfire', () => {
+        attackTarget.addAbility(Ability.BACKFIRE);
+        getDodgeSpy.mockReturnValue(true);
+        game['attackMonsterPhase'](attackingMonster, attackTarget, AttackType.MELEE);
+        expect(hitMonsterWithPhysicalSpy).toHaveBeenCalledWith(
+          game,
+          attackingMonster,
+          abilityUtils.BACKFIRE_DAMAGE,
+        );
+        expect(maybeDeadSpy).toHaveBeenCalledWith(attackingMonster);
       });
     });
   });
