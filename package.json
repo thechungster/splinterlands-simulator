@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "jest:debug": "node --nolazy --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --colors --verbose",
     "build": "rimraf src/*.test.ts src/utils/*.test.ts &&  tsc",
     "format": "prettier --write \"src/**/*.ts\"",
