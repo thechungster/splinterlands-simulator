@@ -5,14 +5,14 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "jest:debug": "node --nolazy --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --colors --verbose",
     "build": "rimraf src/*.test.ts src/utils/*.test.ts &&  tsc",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run lint && npm test",
-    "preversion": "npm run lint && npm test",
+    "prepublishOnly": "npm run lint",
+    "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
   },
