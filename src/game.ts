@@ -1001,6 +1001,7 @@ export class Game {
       currentMonster.setHasTurnPassed(true);
       this.removeStunsThatThisMonsterApplied(currentMonster);
       if (!currentMonster.isAlive()) {
+        currentMonster = this.getNextMonsterTurn();
         continue;
       }
       if (currentMonster.hasDebuff(Ability.STUN)) {
