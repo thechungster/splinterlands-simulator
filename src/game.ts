@@ -1,3 +1,4 @@
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 import { GameTeam } from './game_team';
 import * as rulesetUtils from './utils/ruleset_utils';
 import {
@@ -38,7 +39,7 @@ export class Game {
   private winner: number | undefined;
   private deadMonsters: GameMonster[] = [];
   private roundNumber = 0;
-  private stunnedMonsters: Map<GameMonster, GameMonster[]> = new Map();
+  private stunnedMonsters: Map<GameMonster, StunDetails[]> = new Map();
 
   constructor(
     team1: GameTeam,
@@ -235,7 +236,6 @@ export class Game {
   }
 
   private doMonsterPreTurn(monster: GameMonster) {
-    monster.setHasTurnPassed(true);
     const friendlyTeam = this.getTeamOfMonster(monster);
 
     if (monster.hasAbility(Ability.CLEANSE)) {
@@ -671,9 +671,19 @@ export class Game {
   }
 
   private removeStunsThatThisMonsterApplied(monster: GameMonster) {
-    if (this.stunnedMonsters.has(monster)) {
-      const hadStunMonsters = this.stunnedMonsters.get(monster)!;
-      hadStunMonsters.forEach((stunnedMonster) => stunnedMonster.removeAllDebuff(Ability.STUN));
+    if (!this.stunnedMonsters.has(monster)) {
+      return;
+    }
+    const hadStunMonsters = this.stunnedMonsters.get(monster)!;
+    let keepMonsterInMap = false;
+    hadStunMonsters.forEach((stunnedDetail) => {
+      if (stunnedDetail.hasStunTurnPassed) {
+        stunnedDetail.monster.removeAllDebuff(Ability.STUN);
+      } else {
+        keepMonsterInMap = true;
+      }
+    });
+    if (!keepMonsterInMap) {
       this.stunnedMonsters.delete(monster);
     }
   }
@@ -682,10 +692,8 @@ export class Game {
     if (monster.isAlive() || this.deadMonsters.indexOf(monster) > -1) {
       return;
     }
-    this.removeStunsThatThisMonsterApplied(monster);
     this.createAndAddBattleLog(AdditionalBattleAction.DEATH, monster);
     this.deadMonsters.push(monster);
-    monster.setHasTurnPassed(true);
     // Monster just died!
     const friendlyTeam = this.getTeamOfMonster(monster);
     const aliveFriendlyTeam = friendlyTeam.getAliveMonsters();
@@ -865,11 +873,12 @@ export class Game {
 
   private maybeApplyStun(attackingMonster: GameMonster, attackTarget: GameMonster) {
     if (
+      !attackTarget.hasDebuff(Ability.STUN) &&
       attackingMonster.hasAbility(Ability.STUN) &&
       abilityUtils.getSuccessBelow(abilityUtils.STUN_CHANCE * 100)
     ) {
       const prevStunnedMonsters = this.stunnedMonsters.get(attackingMonster) || [];
-      prevStunnedMonsters.push(attackTarget);
+      prevStunnedMonsters.push({ monster: attackTarget, hasStunTurnPassed: false });
       this.stunnedMonsters.set(attackingMonster, prevStunnedMonsters);
       this.addMonsterToMonsterDebuff(attackingMonster, attackTarget, Ability.STUN);
     }
@@ -1001,12 +1010,15 @@ export class Game {
 
     let currentMonster = this.getNextMonsterTurn();
     while (currentMonster !== null) {
+      currentMonster.setHasTurnPassed(true);
+      this.removeStunsThatThisMonsterApplied(currentMonster);
       if (!currentMonster.isAlive()) {
+        currentMonster = this.getNextMonsterTurn();
         continue;
       }
-      this.removeStunsThatThisMonsterApplied(currentMonster);
       if (currentMonster.hasDebuff(Ability.STUN)) {
         currentMonster.setHasTurnPassed(true);
+        this.markStunnedMonsterTurnPassed(currentMonster);
         currentMonster = this.getNextMonsterTurn();
         continue;
       }
@@ -1037,6 +1049,9 @@ export class Game {
 
     this.monstersOnPostRound(aliveTeam1);
     this.monstersOnPostRound(aliveTeam2);
+    this.stunnedMonsters.forEach((unused, monster) => {
+      monster.setHasTurnPassed(false);
+    });
   }
 
   private doPostRoundEarthquake(aliveMonsters: GameMonster[]) {
@@ -1131,6 +1146,26 @@ export class Game {
     return monster.getTeamNumber() === 1 ? this.team2 : this.team1;
   }
 
+  private markStunnedMonsterTurnPassed(monster: GameMonster) {
+    const keys = this.stunnedMonsters.keys();
+    let key = keys.next();
+    while (key.value !== undefined) {
+      const stunnedMonsters = this.stunnedMonsters.get(key.value) || [];
+      const stunDetail = stunnedMonsters.find((detail) => detail.monster === monster);
+      if (stunDetail) {
+        stunDetail.hasStunTurnPassed = true;
+        return;
+      }
+      key = keys.next();
+    }
+
+    console.error(
+      `Could not find stunned monster ${monster.getName()} in stunned monster map ${
+        this.stunnedMonsters
+      }`,
+    );
+  }
+
   createAndAddBattleLog(
     action: BattleLogAction,
     cardOne?: GameCard,
@@ -1150,4 +1185,9 @@ export class Game {
     };
     this.battleLogs.push(log);
   }
+}
+
+interface StunDetails {
+  monster: GameMonster;
+  hasStunTurnPassed: boolean;
 }
