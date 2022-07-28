@@ -6,7 +6,7 @@ import {
   PROTECT_AMOUNT,
   RUST_AMOUNT,
 } from './utils/ability_utils';
-import { createFakeCardDetail } from './utils/test_utils';
+import { createFakeCardDetail, DEFAULT_MONSTER_STAT } from './utils/test_utils';
 
 const MONSTER_MAGIC = 5;
 const MONSTER_RANGED = 7;
@@ -259,17 +259,18 @@ describe('GameMonster', () => {
       expect(allDebuffs.size).toBe(0);
     });
 
-    it('cleanse can only remove one cripple at a time', () => {
+    // https://github.com/thechungster/splinterlands-simulator/issues/78
+    it('cleanse remove all cripples and gains health back', () => {
       monster.addDebuff(Ability.CRIPPLE);
       monster.addDebuff(Ability.CRIPPLE);
       monster.addDebuff(Ability.CRIPPLE);
-      monster.health = 2;
+      monster.health = DEFAULT_MONSTER_STAT - 3;
 
       expect(monster.getDebuffAmt(Ability.CRIPPLE)).toBe(3);
       monster.cleanseDebuffs();
 
-      expect(monster.health).toBe(3);
-      expect(monster.getDebuffAmt(Ability.CRIPPLE)).toBe(2);
+      expect(monster.health).toBe(DEFAULT_MONSTER_STAT);
+      expect(monster.getDebuffAmt(Ability.CRIPPLE)).toBe(0);
     });
 
     it('adding weaken removes a health', () => {
