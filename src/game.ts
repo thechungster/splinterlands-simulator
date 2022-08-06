@@ -424,7 +424,7 @@ export class Game {
       attackType,
       battleDamage.damageDone,
     );
-    this.maybeApplyReturnFire(attackingMonster, attackTarget, attackType);
+    this.maybeApplyReturnFire(attackingMonster, attackTarget, attackType, battleDamage.damageDone);
     this.maybeRetaliate(attackingMonster, attackTarget, attackType);
     this.maybeApplyHalving(attackingMonster, attackTarget);
 
