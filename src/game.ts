@@ -418,8 +418,13 @@ export class Game {
     // TODO: This doesn't account for the pierce.
     this.maybeLifeLeech(attackingMonster, battleDamage.actualDamageDone);
     this.maybeApplyThorns(attackingMonster, attackTarget, attackType);
-    this.maybeApplyMagicReflect(attackingMonster, attackTarget, attackType);
-    this.maybeApplyReturnFire(attackingMonster, attackTarget, attackType);
+    this.maybeApplyMagicReflect(
+      attackingMonster,
+      attackTarget,
+      attackType,
+      battleDamage.damageDone,
+    );
+    this.maybeApplyReturnFire(attackingMonster, attackTarget, attackType, battleDamage.damageDone);
     this.maybeRetaliate(attackingMonster, attackTarget, attackType);
     this.maybeApplyHalving(attackingMonster, attackTarget);
 
