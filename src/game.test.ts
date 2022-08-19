@@ -250,6 +250,29 @@ describe('Game', () => {
       });
     });
 
+    describe('maybeApplyMagicReflect', () => {
+      beforeEach(() => {
+        attackTarget.addAbility(Ability.MAGIC_REFLECT);
+      });
+
+      it('does minimum 2 reflect damage', () => {
+        game['maybeApplyMagicReflect'](attackingMonster, attackTarget, AttackType.MAGIC, 1);
+        expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT - 2);
+      });
+
+      it('is affected by amplify', () => {
+        attackingMonster.addDebuff(Ability.AMPLIFY);
+        game['maybeApplyMagicReflect'](attackingMonster, attackTarget, AttackType.MAGIC, 1);
+        expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT - 3);
+      });
+
+      it('does 0 damage against reflection shield', () => {
+        attackingMonster.addAbility(Ability.REFLECTION_SHIELD);
+        game['maybeApplyMagicReflect'](attackingMonster, attackTarget, AttackType.MAGIC, 1);
+        expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT);
+      });
+    });
+
     describe('maybeApplyPoison function', () => {
       beforeEach(() => {
         attackingMonster.addAbility(Ability.POISON);
