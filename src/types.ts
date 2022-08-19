@@ -216,17 +216,28 @@ export interface PlayerCardDetail {
   player: string;
   uid: string;
   card_detail_id: number;
-  level: number;
-  xp?: number;
+  xp: number;
   gold: boolean;
-  edition: CardEdition;
-  delegated_to?: string;
-  delegated_to_display_name?: string;
+  edition: number;
+  market_id?: string;
+  buy_price?: any;
   market_listing_type?: string;
+  market_listing_status?: number;
+  market_created_date?: string;
+  last_used_block?: number;
   last_used_player: string;
-  last_used_date?: string;
-  last_transferred_block?: number | null;
-  last_transferred_date?: string | null;
+  last_used_date?: Date;
+  last_transferred_block?: number;
+  last_transferred_date?: Date;
+  alpha_xp?: number;
+  delegated_to: string;
+  delegation_tx: string;
+  skin: string;
+  delegated_to_display_name: string;
+  display_name?: any;
+  lock_days?: number;
+  unlock_date?: any;
+  level: number;
 }
 
 export interface CustomOwnedCardDetail extends CardDetail {
