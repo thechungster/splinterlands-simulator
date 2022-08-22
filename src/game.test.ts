@@ -136,6 +136,11 @@ describe('Game', () => {
         game['maybeApplyMagicReflect'](attackingMonster, attackTarget, AttackType.MAGIC, 3);
         expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT - 1);
       });
+
+      it('does a minimum of 1 damage', () => {
+        game['maybeApplyMagicReflect'](attackingMonster, attackTarget, AttackType.MAGIC, 0);
+        expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT - 1);
+      });
     });
 
     describe('maybeApplyReturnFire function', () => {
@@ -247,29 +252,6 @@ describe('Game', () => {
         game['maybeApplyStun'](attackingMonster, attackTarget);
         expect(getSuccessBelowSpy).toHaveBeenCalledWith(50);
         expect(attackTarget.hasDebuff(Ability.STUN)).toBe(true);
-      });
-    });
-
-    describe('maybeApplyMagicReflect', () => {
-      beforeEach(() => {
-        attackTarget.addAbility(Ability.MAGIC_REFLECT);
-      });
-
-      it('does minimum 2 reflect damage', () => {
-        game['maybeApplyMagicReflect'](attackingMonster, attackTarget, AttackType.MAGIC, 1);
-        expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT - 2);
-      });
-
-      it('is affected by amplify', () => {
-        attackingMonster.addDebuff(Ability.AMPLIFY);
-        game['maybeApplyMagicReflect'](attackingMonster, attackTarget, AttackType.MAGIC, 1);
-        expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT - 3);
-      });
-
-      it('does 0 damage against reflection shield', () => {
-        attackingMonster.addAbility(Ability.REFLECTION_SHIELD);
-        game['maybeApplyMagicReflect'](attackingMonster, attackTarget, AttackType.MAGIC, 1);
-        expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT);
       });
     });
 
