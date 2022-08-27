@@ -457,16 +457,14 @@ describe('GameMonster', () => {
           expect(monster.getPostAbilityMaxHealth()).toBe(Math.ceil(1.5 * (MONSTER_HEALTH - 1)));
         });
 
-        // TODO: Unsure if this is true. But if this changes, so does strengthen test
         it('weaken decreased health is not affected by last stand', () => {
           monster.addDebuff(Ability.WEAKEN);
-          expect(monster.getPostAbilityMaxHealth()).toBe(Math.ceil(1.5 * MONSTER_HEALTH) - 1);
+          expect(monster.getPostAbilityMaxHealth()).toBe(Math.ceil(1.5 * (MONSTER_HEALTH - 1)));
         });
 
-        // TODO: Unsure if this is true. But if this changes, so does weaken test
         it('strengthen increased health is not affected by last stand', () => {
           monster.addBuff(Ability.STRENGTHEN);
-          expect(monster.getPostAbilityMaxHealth()).toBe(Math.ceil(1.5 * MONSTER_HEALTH) + 1);
+          expect(monster.getPostAbilityMaxHealth()).toBe(Math.ceil(1.5 * (MONSTER_HEALTH + 1)));
         });
       });
 
