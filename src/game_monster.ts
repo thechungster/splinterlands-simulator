@@ -358,9 +358,6 @@ export class GameMonster extends GameCard {
       const crippleAmt = this.getDebuffAmt(Ability.CRIPPLE);
       maxHealth = maxHealth - abilityUtils.CRIPPLE_AMOUNT * crippleAmt;
     }
-    if (this.getIsLastStand()) {
-      maxHealth = Math.ceil(maxHealth * abilityUtils.LAST_STAND_MULTIPLIER);
-    }
     if (this.hasDebuff(Ability.WEAKEN)) {
       const weakenAmt = this.getDebuffAmt(Ability.WEAKEN);
       maxHealth = maxHealth - abilityUtils.WEAKEN_AMOUNT * weakenAmt;
@@ -368,6 +365,9 @@ export class GameMonster extends GameCard {
     if (this.hasBuff(Ability.STRENGTHEN)) {
       const strAmt = this.getBuffAmt(Ability.STRENGTHEN);
       maxHealth = maxHealth + abilityUtils.STRENGTHEN_AMOUNT * strAmt;
+    }
+    if (this.getIsLastStand()) {
+      maxHealth = Math.ceil(maxHealth * abilityUtils.LAST_STAND_MULTIPLIER);
     }
     // The summoner skill made this starting health 0 or negative
     if (this.startingHealth < 1) {
