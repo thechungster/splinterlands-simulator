@@ -77,8 +77,14 @@ export class GameTeam {
 
   public getScattershotTarget(): GameMonster {
     const aliveMonsters = this.getAliveMonsters();
-    const randomMonsterNum = Math.floor(Math.random() * aliveMonsters.length);
-    return aliveMonsters[randomMonsterNum];
+    const monstersWithoutScattershot = aliveMonsters.filter(
+      (monster) => !monster.hasAbility(Ability.CAMOUFLAGE),
+    );
+    if (monstersWithoutScattershot.length === 0) {
+      return aliveMonsters[0];
+    }
+    const randomMonsterNum = Math.floor(Math.random() * monstersWithoutScattershot.length);
+    return monstersWithoutScattershot[randomMonsterNum];
   }
 
   public getSnipeTarget(): GameMonster {
