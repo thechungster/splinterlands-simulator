@@ -1183,6 +1183,12 @@ export class Game {
     }
     const actor = cardOne ? cardOne.clone() : undefined;
     const target = cardTwo ? cardTwo.clone() : undefined;
+    if (actor) {
+      actor.removeAbility(Ability.MELEE_MAYHEM);
+    }
+    if (target) {
+      actor?.removeAbility(Ability.MELEE_MAYHEM);
+    }
     const log = {
       actor,
       action,
