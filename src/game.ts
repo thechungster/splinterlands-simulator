@@ -1187,7 +1187,7 @@ export class Game {
       actor.removeAbility(Ability.MELEE_MAYHEM);
     }
     if (target) {
-      actor?.removeAbility(Ability.MELEE_MAYHEM);
+      target.removeAbility(Ability.MELEE_MAYHEM);
     }
     const log = {
       actor,
