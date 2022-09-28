@@ -511,9 +511,6 @@ export class Game {
     if (!attackTarget.hasAttack() && attackingMonster.hasAbility(Ability.OPPRESS)) {
       multiplier *= 2;
     }
-    if (attackingMonster.hasAbility(Ability.FURY) && attackTarget.hasAbility(Ability.TAUNT)) {
-      multiplier *= 2;
-    }
     return multiplier;
   }
 
@@ -529,9 +526,6 @@ export class Game {
       multiplier *= 2;
     }
     if (!attackTarget.hasAttack() && attackingMonster.hasAbility(Ability.OPPRESS)) {
-      multiplier *= 2;
-    }
-    if (attackingMonster.hasAbility(Ability.FURY) && attackTarget.hasAbility(Ability.TAUNT)) {
       multiplier *= 2;
     }
     return multiplier;
