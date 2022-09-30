@@ -52356,5 +52356,4697 @@
                 "total_burned_xp": 0
             }
         ]
+    },
+    {
+        "id": 464,
+        "name": "Conqueror Jacek",
+        "color": "Red",
+        "type": "Summoner",
+        "sub_type": null,
+        "rarity": 4,
+        "drop_rate": 0,
+        "stats": {
+          "mana": 6,
+          "attack": 0,
+          "ranged": 0,
+          "magic": 0,
+          "armor": 0,
+          "health": 0,
+          "speed": 2,
+          "abilities": [
+            "Scattershot",
+            "Piercing"
+          ]
+        },
+        "is_starter": false,
+        "editions": "7",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 16509,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 464,
+            "gold": false,
+            "edition": 7,
+            "num_cards": "9437",
+            "total_xp": "15869",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 464,
+            "gold": true,
+            "edition": 7,
+            "num_cards": "502",
+            "total_xp": "640",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 465,
+        "name": "Bramble Pixie",
+        "color": "Green",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7
+          ],
+          "attack": [
+            3,
+            3,
+            3,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            5
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            8,
+            9,
+            9,
+            9,
+            9,
+            8,
+            9,
+            10,
+            10,
+            10
+          ],
+          "speed": [
+            1,
+            1,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            4,
+            4
+          ],
+          "abilities": [
+            [
+              "Reach"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Heal"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 80631,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 465,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "31073",
+            "total_xp": "77370",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 465,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2266",
+            "total_xp": "3261",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 466,
+        "name": "Lichen Beast",
+        "color": "Green",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          "attack": [
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            7,
+            7,
+            8,
+            7,
+            8,
+            8,
+            9,
+            9,
+            10,
+            10
+          ],
+          "speed": [
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Enrage"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Knock Out"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 79862,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 466,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "33921",
+            "total_xp": "76680",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 466,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2312",
+            "total_xp": "3182",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 467,
+        "name": "Uloth Dhampir",
+        "color": "Green",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 2,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            3,
+            3,
+            4,
+            4,
+            4,
+            4,
+            4,
+            5
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            8,
+            9,
+            8,
+            9,
+            9,
+            9,
+            10,
+            10
+          ],
+          "speed": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Stun"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Triage"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 31366,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 467,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "14113",
+            "total_xp": "30127",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 467,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "919",
+            "total_xp": "1239",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 468,
+        "name": "Suidae Shaman",
+        "color": "Green",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 2,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            6,
+            7,
+            7,
+            7,
+            8,
+            8,
+            9,
+            9
+          ],
+          "speed": [
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Recharge"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Giant Killer"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Rust"
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 31471,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 468,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "14886",
+            "total_xp": "30244",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 468,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "908",
+            "total_xp": "1227",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 469,
+        "name": "Runemancer Florre",
+        "color": "Green",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 4,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            13,
+            13,
+            13,
+            13
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            2,
+            3,
+            3,
+            4
+          ],
+          "magic": [
+            2,
+            2,
+            3,
+            3
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            13,
+            13,
+            13,
+            13
+          ],
+          "speed": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "abilities": [
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 3651,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 469,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "2032",
+            "total_xp": "3494",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 469,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "138",
+            "total_xp": "157",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 470,
+        "name": "Coastal Nymph",
+        "color": "Blue",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            3,
+            3,
+            3,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            5
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4,
+            4
+          ],
+          "health": [
+            7,
+            7,
+            7,
+            6,
+            7,
+            7,
+            7,
+            8,
+            8,
+            8
+          ],
+          "speed": [
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4,
+            4,
+            4,
+            4
+          ],
+          "abilities": [
+            [
+              "Scattershot"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Affliction"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 80148,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 470,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "32824",
+            "total_xp": "77003",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 470,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2195",
+            "total_xp": "3145",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 471,
+        "name": "Lemell Refugee",
+        "color": "Blue",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7
+          ],
+          "attack": [
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4,
+            4
+          ],
+          "health": [
+            6,
+            6,
+            6,
+            7,
+            8,
+            8,
+            8,
+            9,
+            9,
+            9
+          ],
+          "speed": [
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4,
+            4,
+            4,
+            4
+          ],
+          "abilities": [
+            [
+              "Void Armor"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Enrage"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 80239,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 471,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "32874",
+            "total_xp": "77122",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 471,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2254",
+            "total_xp": "3117",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 472,
+        "name": "Sea Stalker",
+        "color": "Blue",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 2,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            4,
+            4,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            5,
+            5,
+            5,
+            6,
+            5,
+            6,
+            7,
+            7
+          ],
+          "speed": [
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Snipe",
+              "Camouflage"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Cleanse"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Amplify"
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 31748,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 472,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "13931",
+            "total_xp": "30484",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 472,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "953",
+            "total_xp": "1264",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 473,
+        "name": "Water Caller",
+        "color": "Blue",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 2,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            3
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            5,
+            6,
+            5,
+            6,
+            6,
+            7,
+            7,
+            7
+          ],
+          "speed": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2
+          ],
+          "abilities": [
+            [
+              "Stun"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Reflection Shield"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 31588,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 473,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "13993",
+            "total_xp": "30310",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 473,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "935",
+            "total_xp": "1278",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 474,
+        "name": "Runemancer Kye",
+        "color": "Blue",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 4,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            11,
+            11,
+            11,
+            11
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            2,
+            3,
+            3,
+            4
+          ],
+          "armor": [
+            5,
+            5,
+            5,
+            5
+          ],
+          "health": [
+            8,
+            8,
+            8,
+            8
+          ],
+          "speed": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Flying",
+              "Life Leech"
+            ],
+            [
+              
+            ],
+            [
+              "Fury"
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 3738,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 474,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "1991",
+            "total_xp": "3584",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 474,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "127",
+            "total_xp": "154",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 475,
+        "name": "Night Ghoul",
+        "color": "Black",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11,
+            11
+          ],
+          "attack": [
+            4,
+            4,
+            4,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            6
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            4,
+            5,
+            5,
+            5,
+            6,
+            5,
+            6,
+            6,
+            6,
+            6
+          ],
+          "health": [
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            11,
+            11
+          ],
+          "speed": [
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Taunt"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Forcefield"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 80258,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 475,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "31428",
+            "total_xp": "77132",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 475,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2162",
+            "total_xp": "3126",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 476,
+        "name": "Arachne Thug",
+        "color": "Black",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6
+          ],
+          "attack": [
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4,
+            4,
+            4,
+            4
+          ],
+          "health": [
+            5,
+            5,
+            5,
+            5,
+            5,
+            6,
+            6,
+            7,
+            7,
+            7
+          ],
+          "speed": [
+            3,
+            3,
+            3,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "abilities": [
+            [
+              "Reach"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Trample"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Knock Out"
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 79940,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 476,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "32180",
+            "total_xp": "76743",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 476,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2295",
+            "total_xp": "3197",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 477,
+        "name": "Cabalist",
+        "color": "Black",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 2,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            4
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            5,
+            5,
+            5,
+            4,
+            5,
+            5,
+            5,
+            5
+          ],
+          "speed": [
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4,
+            4
+          ],
+          "abilities": [
+            [
+              "Amplify"
+            ],
+            [
+              
+            ],
+            [
+              "Giant Killer"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Demoralize"
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 31256,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 477,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "13853",
+            "total_xp": "30002",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 477,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "885",
+            "total_xp": "1254",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 478,
+        "name": "Queen of Crows",
+        "color": "Black",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 2,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            3
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            11,
+            12,
+            12,
+            13,
+            13,
+            13,
+            13,
+            13
+          ],
+          "speed": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Close Range"
+            ],
+            [
+              
+            ],
+            [
+              "Headwinds"
+            ],
+            [
+              
+            ],
+            [
+              "Slow"
+            ],
+            [
+              
+            ],
+            [
+              "Return Fire"
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 31607,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 478,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "14348",
+            "total_xp": "30322",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 478,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "994",
+            "total_xp": "1285",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 479,
+        "name": "Raa",
+        "color": "Black",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 4,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            12,
+            12,
+            12,
+            12
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            3,
+            3,
+            3,
+            4
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            7,
+            8,
+            8,
+            8
+          ],
+          "speed": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "abilities": [
+            [
+              "Flying",
+              "Double Strike",
+              "Scattershot"
+            ],
+            [
+              "Giant Killer"
+            ],
+            [
+              "Rust"
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 3606,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 479,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "1968",
+            "total_xp": "3477",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 479,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "112",
+            "total_xp": "129",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 480,
+        "name": "Ash Mirage",
+        "color": "Red",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            6,
+            6,
+            7,
+            6,
+            7,
+            6,
+            7,
+            7,
+            8,
+            8
+          ],
+          "speed": [
+            4,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            6,
+            6,
+            6
+          ],
+          "abilities": [
+            [
+              "Headwinds"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Reflection Shield"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 80194,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 480,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "29523",
+            "total_xp": "76996",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 480,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2271",
+            "total_xp": "3198",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 481,
+        "name": "Septic Slime",
+        "color": "Red",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "attack": [
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            4,
+            4,
+            5,
+            5,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6
+          ],
+          "health": [
+            8,
+            9,
+            9,
+            9,
+            9,
+            8,
+            9,
+            10,
+            11,
+            11
+          ],
+          "speed": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "abilities": [
+            [
+              "Stun"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Heal"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "True Strike"
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 80209,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 481,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "31581",
+            "total_xp": "77084",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 481,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2162",
+            "total_xp": "3125",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 482,
+        "name": "Tinderlock",
+        "color": "Red",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 2,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            8,
+            9,
+            9,
+            9,
+            10,
+            11,
+            11,
+            11
+          ],
+          "speed": [
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Last Stand",
+              "Close Range"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Silence"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Deathblow"
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 31459,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 482,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "13992",
+            "total_xp": "30264",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 482,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "860",
+            "total_xp": "1195",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 483,
+        "name": "Technowizologist",
+        "color": "Red",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 2,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            4,
+            4,
+            5,
+            5,
+            6,
+            5,
+            6,
+            6
+          ],
+          "speed": [
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Stun"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Fury"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Camouflage"
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 31649,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 483,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "14334",
+            "total_xp": "30407",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 483,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "903",
+            "total_xp": "1242",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 484,
+        "name": "Mordeus",
+        "color": "Red",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 4,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            7,
+            7,
+            7,
+            7
+          ],
+          "attack": [
+            5,
+            6,
+            6,
+            7
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "speed": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "abilities": [
+            [
+              "Opportunity"
+            ],
+            [
+              
+            ],
+            [
+              "Stun"
+            ],
+            [
+              "Piercing"
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 3831,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 484,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "2121",
+            "total_xp": "3668",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 484,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "139",
+            "total_xp": "163",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 485,
+        "name": "Dumacke Exile",
+        "color": "White",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6
+          ],
+          "attack": [
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3
+          ],
+          "health": [
+            5,
+            5,
+            5,
+            5,
+            6,
+            5,
+            6,
+            6,
+            7,
+            7
+          ],
+          "speed": [
+            4,
+            4,
+            4,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          "abilities": [
+            [
+              "Sneak"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Fury"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 79582,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 485,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "31224",
+            "total_xp": "76375",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 485,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2161",
+            "total_xp": "3207",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 486,
+        "name": "Time Meddler",
+        "color": "White",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "armor": [
+            4,
+            4,
+            4,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          "health": [
+            6,
+            6,
+            7,
+            7,
+            8,
+            7,
+            8,
+            9,
+            10,
+            10
+          ],
+          "speed": [
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Dodge"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Return Fire"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Thorns"
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 79716,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 486,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "32918",
+            "total_xp": "76541",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 486,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2268",
+            "total_xp": "3175",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 487,
+        "name": "Runeslinger",
+        "color": "White",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 2,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            3
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            5,
+            6,
+            6,
+            6,
+            7,
+            8,
+            8,
+            8
+          ],
+          "speed": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "abilities": [
+            [
+              "Stun"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Affliction"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Cripple"
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 31271,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 487,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "14281",
+            "total_xp": "30006",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 487,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "962",
+            "total_xp": "1265",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 488,
+        "name": "Corsair Bosun",
+        "color": "White",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 2,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10
+          ],
+          "attack": [
+            4,
+            4,
+            5,
+            5,
+            5,
+            5,
+            5,
+            6
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          "health": [
+            6,
+            7,
+            7,
+            8,
+            7,
+            8,
+            9,
+            9
+          ],
+          "speed": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Reach",
+              "Reflection Shield"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Cleanse"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 31680,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 488,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "13503",
+            "total_xp": "30346",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 488,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "943",
+            "total_xp": "1334",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 489,
+        "name": "Runemancer Atuat",
+        "color": "White",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 4,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            9,
+            9,
+            9,
+            9
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            2,
+            2,
+            2,
+            3
+          ],
+          "armor": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "health": [
+            9,
+            9,
+            10,
+            10
+          ],
+          "speed": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "abilities": [
+            [
+              "Headwinds"
+            ],
+            [
+              "Forcefield"
+            ],
+            [
+              "Last Stand"
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 3669,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 489,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "2038",
+            "total_xp": "3513",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 489,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "139",
+            "total_xp": "156",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 490,
+        "name": "Whelp Herder",
+        "color": "Gold",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "attack": [
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            4,
+            4,
+            4,
+            5,
+            5,
+            5,
+            6,
+            5,
+            6,
+            6
+          ],
+          "speed": [
+            1,
+            2,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Opportunity"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Snare"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Dispel"
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 79703,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 490,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "31174",
+            "total_xp": "76479",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 490,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2235",
+            "total_xp": "3224",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 491,
+        "name": "Runic Skyclaw",
+        "color": "Gold",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 2,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            3,
+            3,
+            4,
+            4,
+            4,
+            4,
+            5,
+            5
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            4,
+            4,
+            4
+          ],
+          "health": [
+            5,
+            6,
+            5,
+            6,
+            6,
+            6,
+            6,
+            6
+          ],
+          "speed": [
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6,
+            6
+          ],
+          "abilities": [
+            [
+              "Flying",
+              "Snipe"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Reflection Shield"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Giant Killer"
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 31334,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 491,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "14763",
+            "total_xp": "30076",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 491,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "894",
+            "total_xp": "1258",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 492,
+        "name": "Agor Longtail",
+        "color": "Gold",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 4,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            15,
+            15,
+            15,
+            15
+          ],
+          "attack": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            2,
+            2,
+            2,
+            3
+          ],
+          "armor": [
+            6,
+            6,
+            6,
+            6
+          ],
+          "health": [
+            11,
+            13,
+            14,
+            14
+          ],
+          "speed": [
+            3,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Flying",
+              "Taunt",
+              "Void Armor"
+            ],
+            [
+              
+            ],
+            [
+              "Heal"
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 3808,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 492,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "2092",
+            "total_xp": "3686",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 492,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "101",
+            "total_xp": "122",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 493,
+        "name": "Oshuur Constantia",
+        "color": "Gold",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 4,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            7,
+            7,
+            7,
+            7
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            2,
+            2,
+            2,
+            3
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            6,
+            6,
+            6,
+            6
+          ],
+          "speed": [
+            2,
+            2,
+            2,
+            2
+          ],
+          "abilities": [
+            [
+              "Resurrect"
+            ],
+            [
+              "Reflection Shield"
+            ],
+            [
+              "Tank Heal"
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "2",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 0,
+        "is_promo": true,
+        "tier": 7,
+        "distribution": [
+          
+        ]
+      },
+      {
+        "id": 494,
+        "name": "Rune Crafter",
+        "color": "Gray",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4,
+            5,
+            5
+          ],
+          "health": [
+            4,
+            4,
+            5,
+            5,
+            5,
+            5,
+            6,
+            6,
+            6,
+            6
+          ],
+          "speed": [
+            1,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "abilities": [
+            [
+              "Fury"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Snare"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 79977,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 494,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "34004",
+            "total_xp": "76833",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 494,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2232",
+            "total_xp": "3144",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 495,
+        "name": "Junker",
+        "color": "Gray",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 1,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7
+          ],
+          "attack": [
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            4
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            7,
+            7,
+            8,
+            8,
+            8,
+            7,
+            8,
+            8,
+            9,
+            9
+          ],
+          "speed": [
+            1,
+            2,
+            2,
+            2,
+            3,
+            3,
+            3,
+            4,
+            4,
+            4
+          ],
+          "abilities": [
+            [
+              "Reach"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Repair"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 79961,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 495,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "31877",
+            "total_xp": "76879",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 495,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "2098",
+            "total_xp": "3082",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 496,
+        "name": "Scavo Technomancer",
+        "color": "Gray",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 2,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          "attack": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2,
+            2
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            3,
+            4,
+            4,
+            3,
+            4,
+            3,
+            4,
+            4
+          ],
+          "speed": [
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "abilities": [
+            [
+              "Blast"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Rust"
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              
+            ],
+            [
+              "Blind"
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 31670,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 496,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "14253",
+            "total_xp": "30374",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 496,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "927",
+            "total_xp": "1296",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 497,
+        "name": "Coeurl Lurker",
+        "color": "Gray",
+        "type": "Monster",
+        "sub_type": null,
+        "rarity": 4,
+        "drop_rate": 0,
+        "stats": {
+          "mana": [
+            11,
+            11,
+            11,
+            11
+          ],
+          "attack": [
+            4,
+            4,
+            5,
+            5
+          ],
+          "ranged": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "magic": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "armor": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "health": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "speed": [
+            4,
+            4,
+            4,
+            4
+          ],
+          "abilities": [
+            [
+              "Taunt",
+              "Dodge"
+            ],
+            [
+              "Phase"
+            ],
+            [
+              
+            ],
+            [
+              "Thorns"
+            ]
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 3722,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 497,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "1904",
+            "total_xp": "3584",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 497,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "119",
+            "total_xp": "138",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 498,
+        "name": "Aquatus",
+        "color": "Blue",
+        "type": "Summoner",
+        "sub_type": null,
+        "rarity": 3,
+        "drop_rate": 0,
+        "stats": {
+          "mana": 4,
+          "attack": 0,
+          "ranged": 0,
+          "magic": 0,
+          "armor": 0,
+          "health": 0,
+          "speed": 0,
+          "abilities": [
+            "Backfire"
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 10947,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 498,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "4949",
+            "total_xp": "10501",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 498,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "332",
+            "total_xp": "446",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 499,
+        "name": "Dallan",
+        "color": "Black",
+        "type": "Summoner",
+        "sub_type": null,
+        "rarity": 3,
+        "drop_rate": 0,
+        "stats": {
+          "mana": 4,
+          "attack": 0,
+          "ranged": 0,
+          "magic": 0,
+          "armor": 0,
+          "health": 0,
+          "speed": 0,
+          "abilities": [
+            "Cripple"
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 10872,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 499,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "5025",
+            "total_xp": "10407",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 499,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "350",
+            "total_xp": "465",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 500,
+        "name": "Fernheart",
+        "color": "Green",
+        "type": "Summoner",
+        "sub_type": null,
+        "rarity": 3,
+        "drop_rate": 0,
+        "stats": {
+          "mana": 4,
+          "attack": 0,
+          "ranged": 0,
+          "magic": 0,
+          "armor": 0,
+          "health": 1,
+          "speed": 0,
+          "abilities": [
+            "Close Range"
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 10716,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 500,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "4822",
+            "total_xp": "10280",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 500,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "307",
+            "total_xp": "436",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 501,
+        "name": "Skargore",
+        "color": "Red",
+        "type": "Summoner",
+        "sub_type": null,
+        "rarity": 3,
+        "drop_rate": 0,
+        "stats": {
+          "mana": 4,
+          "attack": 0,
+          "ranged": 0,
+          "magic": 0,
+          "armor": 0,
+          "health": 0,
+          "speed": 0,
+          "abilities": [
+            "Enrage"
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 10792,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 501,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "4825",
+            "total_xp": "10345",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 501,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "340",
+            "total_xp": "447",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 502,
+        "name": "Ilthain",
+        "color": "White",
+        "type": "Summoner",
+        "sub_type": null,
+        "rarity": 3,
+        "drop_rate": 0,
+        "stats": {
+          "mana": 4,
+          "attack": 0,
+          "ranged": 0,
+          "magic": 0,
+          "armor": 0,
+          "health": 0,
+          "speed": 1,
+          "abilities": [
+            "Return Fire"
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 10864,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 502,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "4779",
+            "total_xp": "10458",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 502,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "290",
+            "total_xp": "406",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
+      },
+      {
+        "id": 503,
+        "name": "Sthispa",
+        "color": "Gold",
+        "type": "Summoner",
+        "sub_type": null,
+        "rarity": 3,
+        "drop_rate": 0,
+        "stats": {
+          "mana": 4,
+          "attack": 0,
+          "ranged": 0,
+          "magic": 0,
+          "armor": 0,
+          "health": 0,
+          "speed": 0,
+          "abilities": [
+            "Phase"
+          ]
+        },
+        "is_starter": false,
+        "editions": "8",
+        "created_block_num": null,
+        "last_update_tx": null,
+        "total_printed": 10925,
+        "is_promo": false,
+        "tier": 7,
+        "distribution": [
+          {
+            "card_detail_id": 503,
+            "gold": false,
+            "edition": 8,
+            "num_cards": "4902",
+            "total_xp": "10488",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          },
+          {
+            "card_detail_id": 503,
+            "gold": true,
+            "edition": 8,
+            "num_cards": "320",
+            "total_xp": "437",
+            "num_burned": 0,
+            "total_burned_xp": 0
+          }
+        ]
     }
 ]
