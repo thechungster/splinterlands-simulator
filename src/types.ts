@@ -92,6 +92,7 @@ export enum Ability {
   VOID = 'Void',
   VOID_ARMOR = 'Void Armor',
   WEAKEN = 'Weaken',
+  FURY = 'Fury',
   /* Ruleset Ability */
   MELEE_MAYHEM = 'Melee Mayhem',
 }

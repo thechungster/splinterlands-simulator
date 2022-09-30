@@ -50,6 +50,12 @@ export const SUMMONER_ABILITY_ABILITIES = [
   Ability.VOID_ARMOR,
   Ability.VOID,
   Ability.POISON,
+  Ability.SCATTERSHOT,
+  Ability.CRIPPLE,
+  Ability.BACKFIRE,
+  Ability.CLOSE_RANGE,
+  Ability.ENRAGE,
+  Ability.PHASE,
 ];
 
 /** Buffs that summoner applies to friendly team at the start of the game */
