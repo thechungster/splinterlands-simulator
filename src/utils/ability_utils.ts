@@ -88,7 +88,7 @@ export const MONSTER_DEBUFF_ABILITIES = [
  * Abilities that can't be cleansed. (These aren't actually debuffs but this app codes them as a debuff)
  * https://support.splinterlands.com/hc/en-us/articles/4414966685332-Abilities-Status-Effects
  */
-export const UNCLEANSABLE_DEBUFFS = [Ability.AMPLIFY];
+export const UNCLEANSABLE_DEBUFFS = [Ability.AMPLIFY, Ability.CRIPPLE];
 
 /** Abilities that require a turn to do something */
 export const ACTION_ABILITIES = [Ability.REPAIR, Ability.TANK_HEAL];

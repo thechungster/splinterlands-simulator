@@ -259,8 +259,9 @@ describe('GameMonster', () => {
       expect(allDebuffs.size).toBe(0);
     });
 
-    // https://github.com/thechungster/splinterlands-simulator/issues/78
-    it('cleanse remove all cripples and gains health back', () => {
+    // https://docs.splinterlands.com/platform/release-notes
+    // "A fix was applied to the Cripple ability os that it is no longer removed by Cleanse ability"
+    it("cleanse doesn't remove CRIPPLE", () => {
       monster.addDebuff(Ability.CRIPPLE);
       monster.addDebuff(Ability.CRIPPLE);
       monster.addDebuff(Ability.CRIPPLE);
@@ -269,8 +270,8 @@ describe('GameMonster', () => {
       expect(monster.getDebuffAmt(Ability.CRIPPLE)).toBe(3);
       monster.cleanseDebuffs();
 
-      expect(monster.health).toBe(DEFAULT_MONSTER_STAT);
-      expect(monster.getDebuffAmt(Ability.CRIPPLE)).toBe(0);
+      expect(monster.health).toBe(DEFAULT_MONSTER_STAT - 3);
+      expect(monster.getDebuffAmt(Ability.CRIPPLE)).toBe(3);
     });
 
     it('adding weaken removes a health', () => {
