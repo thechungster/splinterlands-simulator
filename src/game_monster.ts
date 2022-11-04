@@ -136,7 +136,7 @@ export class GameMonster extends GameCard {
     }
     if (
       this.abilities.has(Ability.IMMUNITY) &&
-      abilityUtils.UNCLEANSABLE_DEBUFFS.indexOf(debuff) < 0
+      (abilityUtils.UNCLEANSABLE_DEBUFFS.indexOf(debuff) < 0 || debuff === Ability.CRIPPLE)
     ) {
       return;
     }
