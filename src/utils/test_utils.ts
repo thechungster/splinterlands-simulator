@@ -1,6 +1,6 @@
+import { CardDetail, CardColor, CardStats, CardType } from 'splinterlands-types';
 import { GameMonster } from '../game_monster';
 import { GameSummoner } from '../game_summoner';
-import { CardColor, CardDetail, CardStats, CardType } from '../types';
 
 export const DEFAULT_MONSTER_STAT = 5;
 

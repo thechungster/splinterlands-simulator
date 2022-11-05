@@ -1,4 +1,5 @@
-import { CardDetail, CardStats, TeamNumber } from './types';
+import { CardDetail, CardStats } from 'splinterlands-types';
+import { TeamNumber } from './types';
 import { Ability } from './types';
 import { getCardDetailFromId } from './utils/card_utils';
 

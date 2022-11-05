@@ -1,5 +1,5 @@
 import * as cards from '../cards.json';
-import { CardDetail } from '../types';
+import { CardDetail } from 'splinterlands-types';
 
 export function getCardDetailFromId(cardDetailId: number): CardDetail {
   if (cardDetailId > cards.length) {

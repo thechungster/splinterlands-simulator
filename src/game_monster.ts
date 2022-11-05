@@ -1,7 +1,7 @@
+import { CardDetail } from 'splinterlands-types';
 import { GameCard } from './game_card';
 import { Ability, AttackType } from './types';
 import * as abilityUtils from './utils/ability_utils';
-import { CardDetail } from './types';
 
 export class GameMonster extends GameCard {
   // Should be set when put in a team.
