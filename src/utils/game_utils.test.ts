@@ -2,16 +2,8 @@ import { GameMonster } from '../game_monster';
 import { getDidDodge, monsterTurnComparator } from './game_utils';
 import { createFakeCardDetail, getDefaultFakeMeleeOnlyCardDetail } from './test_utils';
 import * as abilityUtils from './ability_utils';
-import {
-  Ability,
-  AttackType,
-  CardColor,
-  CardDetail,
-  CardStats,
-  CardType,
-  Ruleset,
-  TeamNumber,
-} from '../types';
+import { Ability, AttackType, Ruleset, TeamNumber } from '../types';
+import { CardColor, CardDetail, CardStats, CardType } from 'splinterlands-types';
 
 describe('game_utils', () => {
   const emptySet = new Set<Ruleset>();

@@ -3,7 +3,8 @@
  * and an example using custom rules and cards.
  */
 
-import { BattleDetails, BattleHistory, BattleTeam, CardDetail, Ruleset } from './src/types';
+import { Ruleset } from './src/types';
+import { BattleDetails, BattleHistory, BattleTeam, CardDetail } from 'splinterlands-types';
 import { Game } from './src/game';
 import { GameTeam } from './src/game_team';
 import { GameSummoner } from './src/game_summoner';

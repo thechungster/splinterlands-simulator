@@ -1,3 +1,4 @@
+import { CardDetail } from 'splinterlands-types';
 import { GameCard } from './game_card';
 
 // Things for the battle
@@ -163,168 +164,6 @@ export enum AttackType {
   MAGIC,
 }
 
-export interface BattleHistory {
-  battle_queue_id_1: string;
-  battle_queue_id_2: string;
-  player_1_rating_initial: number;
-  player_2_rating_initial: number;
-  winner: string;
-  player_1_rating_final: number;
-  player_2_rating_final: number;
-  player_1: string;
-  player_2: string;
-  created_date: string;
-  mana_cap: number;
-  ruleset: string;
-  inactive: string;
-  settings: string;
-  details: string;
-}
-
-export interface BattleDetails {
-  loser: string;
-  winner: string;
-  type: string;
-  team1: BattleTeam;
-  team2: BattleTeam;
-}
-
-export interface BattleTeam {
-  color: string;
-  monsters: CollectionCard[];
-  summoner: CollectionCard;
-  player: string;
-  rating: number;
-}
-
-export interface CardDetailDistribution {
-  card_detail_id: number;
-  gold: boolean;
-  edition: number;
-  num_cards: string;
-  total_xp: string;
-  num_burned: string;
-  total_burned_xp: string;
-}
-
-export interface CardDetail {
-  // 1 indexed.
-  id: number;
-  name: string;
-  color: CardColor;
-  type: CardType;
-  rarity: number;
-  is_starter: boolean;
-  editions: string;
-  stats: CardStats;
-  drop_rate: number;
-  sub_type: any;
-  created_block_num: any;
-  last_update_tx: string | null;
-  total_printed: number;
-  is_promo: boolean;
-  tier: any;
-  distribution: CardDetailDistribution[];
-}
-
-export interface PlayerCardDetail {
-  player: string;
-  uid: string;
-  card_detail_id: number;
-  xp: number;
-  gold: boolean;
-  edition: number;
-  market_id?: string;
-  buy_price?: any;
-  market_listing_type?: string;
-  market_listing_status?: number;
-  market_created_date?: string;
-  last_used_block?: number;
-  last_used_player: string;
-  last_used_date?: Date;
-  last_transferred_block?: number;
-  last_transferred_date?: Date;
-  alpha_xp?: number;
-  delegated_to: string;
-  delegation_tx: string;
-  skin: string;
-  delegated_to_display_name: string;
-  display_name?: any;
-  lock_days?: number;
-  unlock_date?: any;
-  level: number;
-}
-
-export interface CustomOwnedCardDetail extends CardDetail {
-  level: number;
-  edition: number;
-  uid: number;
-}
-
-export interface CollectionCard {
-  player?: string;
-  uid?: string;
-  card_detail_id: number;
-  gold: boolean;
-  edition: number;
-  level: number;
-}
-
-export interface CustomCardStats extends CardDetail {
-  created_num_block: number;
-  drop_rate: number;
-  gold: boolean;
-  id: number;
-  is_promo: boolean;
-  is_starter: boolean;
-  level: number;
-  name: string;
-  rarity: number;
-  stats: CardStats;
-  tier: number;
-  total_printed: number;
-  uid: string;
-  // Custom
-  isSelected?: boolean;
-  mana: number;
-  edition: CardEdition;
-  adjustedLevel?: number;
-}
-
-export interface CardStats {
-  abilities: Ability[] | Ability[][] | undefined;
-  mana: number | number[];
-  attack: number | number[];
-  ranged: number | number[];
-  magic: number | number[];
-  armor: number | number[];
-  health: number | number[];
-  speed: number | number[];
-}
-
-interface BattleAllowedCards {
-  // Brawl and tournament?
-  foil?: string;
-  // Tournament only?
-  type?: string;
-  editions?: number[];
-}
-
-export enum CardType {
-  SUMMONER = 'Summoner',
-  MONSTER = 'Monster',
-}
-
-export enum CardColor {
-  BLACK = 'Black',
-  BLUE = 'Blue',
-  GOLD = 'Gold',
-  GRAY = 'Gray',
-  GREEN = 'Green',
-  RED = 'Red',
-  WHITE = 'White',
-}
-
 export enum CardEdition {
   ALPHA,
   BETA,
@@ -334,6 +173,7 @@ export enum CardEdition {
   DICE,
   GLADIUS,
   CHAOS,
+  RIFT,
 }
 
 export enum CardAttackType {

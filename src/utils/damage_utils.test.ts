@@ -1,6 +1,7 @@
+import { CardStats } from 'splinterlands-types';
 import { Game } from '../game';
 import { GameMonster } from '../game_monster';
-import { Ability, CardStats } from '../types';
+import { Ability } from '../types';
 import { hitMonsterWithMagic, hitMonsterWithPhysical } from './damage_utils';
 import { createFakeCardDetail } from './test_utils';
 jest.mock('../game');

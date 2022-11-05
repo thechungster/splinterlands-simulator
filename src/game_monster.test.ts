@@ -1,5 +1,7 @@
+import { CardStats } from 'splinterlands-types';
 import { GameMonster } from './game_monster';
-import { Ability, AttackType, CardStats } from './types';
+import { Ability, AttackType } from './types';
+
 import {
   ENRAGE_MULTIPLIER,
   LAST_STAND_MULTIPLIER,
