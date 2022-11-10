@@ -104,7 +104,7 @@ export enum Ability {
  https://api2.splinterlands.com/settings
  s = ''
  window.json.battles.rulesets.filter((r) => r.active).forEach((r) => {
-   s += r.name.toUpperCase().split(' ').join('_').split('&').join('&') + ' = \'' + r.name + '\',' + '\n';
+   s += r.name.toUpperCase().split(' ').join('_').split('&').join('AND') + ' = \'' + r.name + '\',' + '\n';
  });
  copy(s);
  s; 
@@ -140,11 +140,11 @@ export enum Ruleset {
   NOXIOUS_FUMES = 'Noxious Fumes',
   STAMPEDE = 'Stampede',
   EQUAL_OPPORTUNITY = 'Equal Opportunity',
-  THORNS = 'Thorns',
+  BRIAR_PATCH = 'Briar Patch',
   EXPLOSIVE_WEAPONRY = 'Explosive Weaponry',
-  MAGIC_REFLECT = 'Magic Reflect',
   HOLY_PROTECTION = 'Holy Protection',
-  RETURN_FIRE = 'Return Fire',
+  COUNTERSPELL = 'Counterspell',
+  FIRE_AND_REGRET = 'Fire & Regret',
   SPREADING_FURY = 'Spreading Fury',
 }
 
