@@ -58,6 +58,15 @@ export function doRulesetPreGameBuff(rulesets: Set<Ruleset>, team1: GameTeam, te
   if (rulesets.has(Ruleset.TARGET_PRACTICE)) {
     applyToBothTeamMonsters(team1, team2, applyTargetPractice);
   }
+  if (rulesets.had(Ruleset.BRIAR_PATCH)) {
+    applyToBothTeamMonsters(team1, team2, applyBriarPatch);
+  }
+  if (rulesets.had(Ruleset.FIRE_AND_REGRET)) {
+    applyToBothTeamMonsters(team1, team2, applyFireAndRegret);
+  }
+  if (rulesets.had(Ruleset.COUNTERSPELL)) {
+    applyToBothTeamMonsters(team1, team2, applyCounterSpell);
+  }
 }
 
 export function doRulesetPreGamePostBuff(rulesets: Set<Ruleset>, team1: GameTeam, team2: GameTeam) {
@@ -213,4 +222,25 @@ function applyTargetPractice(monster: GameMonster) {
 function applyUnprotected(monster: GameMonster) {
   monster.armor = 0;
   monster.startingArmor = -99;
+}
+
+/** 
+ * All monsters have thorns.
+ */
+function applyBriarPatch(monster: GameMonster) {
+  monster.addAbility(Ability.THORNS); 
+}
+
+/**
+ * All monsters have magic reflect
+ */
+function applyCounterSpell(monster: GameMonster) {
+   monster.addAbility(Ability.MAGIC_REFLECT); 
+}
+
+/**
+ * All monsters have return fire
+ */ 
+function applyFireAndRegret(monster: GameMonster) {
+  monster.addAbility(Ability.RETURN_FIRE); 
 }
