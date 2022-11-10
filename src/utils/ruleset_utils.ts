@@ -58,13 +58,13 @@ export function doRulesetPreGameBuff(rulesets: Set<Ruleset>, team1: GameTeam, te
   if (rulesets.has(Ruleset.TARGET_PRACTICE)) {
     applyToBothTeamMonsters(team1, team2, applyTargetPractice);
   }
-  if (rulesets.had(Ruleset.BRIAR_PATCH)) {
+  if (rulesets.has(Ruleset.BRIAR_PATCH)) {
     applyToBothTeamMonsters(team1, team2, applyBriarPatch);
   }
-  if (rulesets.had(Ruleset.FIRE_AND_REGRET)) {
+  if (rulesets.has(Ruleset.FIRE_AND_REGRET)) {
     applyToBothTeamMonsters(team1, team2, applyFireAndRegret);
   }
-  if (rulesets.had(Ruleset.COUNTERSPELL)) {
+  if (rulesets.has(Ruleset.COUNTERSPELL)) {
     applyToBothTeamMonsters(team1, team2, applyCounterSpell);
   }
 }
