@@ -261,6 +261,6 @@ function applyCripple(monster: GameMonster) {
 /**
  * All monsters have amplify.
  */
-function applyCripple(monster: GameMonster) {
+function applyAmplify(monster: GameMonster) {
   monster.addAbility(Ability.AMPLIFY);
 }
