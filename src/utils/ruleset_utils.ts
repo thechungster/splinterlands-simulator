@@ -67,6 +67,12 @@ export function doRulesetPreGameBuff(rulesets: Set<Ruleset>, team1: GameTeam, te
   if (rulesets.has(Ruleset.COUNTERSPELL)) {
     applyToBothTeamMonsters(team1, team2, applyCounterSpell);
   }
+  if (rulesets.has(Ruleset.TIS_BUT_SCRATCHES)) {
+    applyToBothTeamMonsters(team1, team2, applyCripple);
+  }
+  if (rulesets.has(Ruleset.UP_TO_ELEVEN)) {
+    applyToBothTeamMonsters(team1, team2, applyAmplify);
+  }
 }
 
 export function doRulesetPreGamePostBuff(rulesets: Set<Ruleset>, team1: GameTeam, team2: GameTeam) {
@@ -243,4 +249,18 @@ function applyCounterSpell(monster: GameMonster) {
  */ 
 function applyFireAndRegret(monster: GameMonster) {
   monster.addAbility(Ability.RETURN_FIRE); 
+}
+
+/**
+ * All monsters have cripple.
+ */
+function applyCripple(monster: GameMonster) {
+  monster.addAbility(Ability.CRIPPLE);
+}
+
+/**
+ * All monsters have amplify.
+ */
+function applyAmplify(monster: GameMonster) {
+  monster.addAbility(Ability.AMPLIFY);
 }

@@ -56,6 +56,8 @@ export const SUMMONER_ABILITY_ABILITIES = [
   Ability.CLOSE_RANGE,
   Ability.ENRAGE,
   Ability.PHASE,
+  Ability.TRAMPLE,
+  Ability.REACH,
 ];
 
 /** Buffs that summoner applies to friendly team at the start of the game */

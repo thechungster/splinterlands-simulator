@@ -145,7 +145,9 @@ export enum Ruleset {
   HOLY_PROTECTION = 'Holy Protection',
   COUNTERSPELL = 'Counterspell',
   FIRE_AND_REGRET = 'Fire & Regret',
+  TIS_BUT_SCRATCHES = 'Tis but Scratches',
   SPREADING_FURY = 'Spreading Fury',
+  UP_TO_ELEVEN = 'Up to Eleven',
 }
 
 export enum Stat {
