@@ -58,6 +58,7 @@ export const SUMMONER_ABILITY_ABILITIES = [
   Ability.PHASE,
   Ability.TRAMPLE,
   Ability.REACH,
+  Ability.SHATTER,
 ];
 
 /** Buffs that summoner applies to friendly team at the start of the game */

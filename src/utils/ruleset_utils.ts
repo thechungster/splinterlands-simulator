@@ -46,7 +46,7 @@ export function doRulesetPreGameBuff(rulesets: Set<Ruleset>, team1: GameTeam, te
   if (rulesets.has(Ruleset.SILENCED_SUMMONERS)) {
     applySilencedSummoners(team1, team2);
   }
-  if (rulesets.has(Ruleset.SPREADING_FURY)) {
+  if (rulesets.has(Ruleset.WHAT_DOESNT_KILL_YOU)) {
     applyToBothTeamMonsters(team1, team2, applySpreadingFury);
   }
   if (rulesets.has(Ruleset.SUPER_SNEAK)) {
@@ -72,6 +72,12 @@ export function doRulesetPreGameBuff(rulesets: Set<Ruleset>, team1: GameTeam, te
   }
   if (rulesets.has(Ruleset.UP_TO_ELEVEN)) {
     applyToBothTeamMonsters(team1, team2, applyAmplify);
+  }
+  if (rulesets.has(Ruleset.AIMLESS)) {
+    applyToBothTeamMonsters(team1, team2, applyAimless);
+  }
+  if (rulesets.has(Ruleset.FEROCITY)) {
+    applyToBothTeamMonsters(team1, team2, applyFerocity);
   }
 }
 
@@ -230,25 +236,25 @@ function applyUnprotected(monster: GameMonster) {
   monster.startingArmor = -99;
 }
 
-/** 
+/**
  * All monsters have thorns.
  */
 function applyBriarPatch(monster: GameMonster) {
-  monster.addAbility(Ability.THORNS); 
+  monster.addAbility(Ability.THORNS);
 }
 
 /**
  * All monsters have magic reflect
  */
 function applyCounterSpell(monster: GameMonster) {
-   monster.addAbility(Ability.MAGIC_REFLECT); 
+  monster.addAbility(Ability.MAGIC_REFLECT);
 }
 
 /**
  * All monsters have return fire
- */ 
+ */
 function applyFireAndRegret(monster: GameMonster) {
-  monster.addAbility(Ability.RETURN_FIRE); 
+  monster.addAbility(Ability.RETURN_FIRE);
 }
 
 /**
@@ -263,4 +269,18 @@ function applyCripple(monster: GameMonster) {
  */
 function applyAmplify(monster: GameMonster) {
   monster.addAbility(Ability.AMPLIFY);
+}
+
+/**
+ * All monsters have scattershot.
+ */
+function applyAimless(monster: GameMonster) {
+  monster.addAbility(Ability.SCATTERSHOT);
+}
+
+/**
+ * All monsters have fury.
+ */
+function applyFerocity(monster: GameMonster) {
+  monster.addAbility(Ability.FURY);
 }

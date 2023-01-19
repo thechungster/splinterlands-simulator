@@ -143,7 +143,7 @@ describe('ruleset_util', () => {
   });
 
   it('gives enrage ability to all monsters in spreading fury ruleset', () => {
-    doRulesetPreGameBuff(getRuleset(Ruleset.SPREADING_FURY), teamOne, teamTwo);
+    doRulesetPreGameBuff(getRuleset(Ruleset.WHAT_DOESNT_KILL_YOU), teamOne, teamTwo);
     for (const monster of allMonsters) {
       expect(monster.hasAbility(Ability.ENRAGE)).toBe(true);
     }
