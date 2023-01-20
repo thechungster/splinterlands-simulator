@@ -103,7 +103,7 @@ export enum Ability {
  
  https://api2.splinterlands.com/settings
  s = ''
- window.json.battles.rulesets.filter((r) => r.active).forEach((r) => {
+ window.json.battles.rulesets.forEach((r) => {
    s += r.name.toUpperCase().split(' ').join('_').split('&').join('AND').split("’").join('') + ' = \'' + r.name + '\',' + '\n';
  });
  copy(s);
@@ -140,16 +140,21 @@ export enum Ruleset {
   NOXIOUS_FUMES = 'Noxious Fumes',
   STAMPEDE = 'Stampede',
   EQUAL_OPPORTUNITY = 'Equal Opportunity',
-  EXPLOSIVE_WEAPONRY = 'Explosive Weaponry',
   BRIAR_PATCH = 'Briar Patch',
+  EXPLOSIVE_WEAPONRY = 'Explosive Weaponry',
+  THORNS = 'Thorns',
   HOLY_PROTECTION = 'Holy Protection',
   COUNTERSPELL = 'Counterspell',
-  WHAT_DOESNT_KILL_YOU = `What Doesn’t Kill You`,
+  MAGIC_REFLECT = 'Magic Reflect',
   FIRE_AND_REGRET = 'Fire & Regret',
+  WHAT_DOESNT_KILL_YOU = 'What Doesn’t Kill You',
+  SPREADING_FURY = 'Spreading Fury',
+  RETURN_FIRE = 'Return Fire',
   TIS_BUT_SCRATCHES = 'Tis but Scratches',
   UP_TO_ELEVEN = 'Up to Eleven',
   AIMLESS = 'Aimless',
   FEROCITY = 'Ferocity',
+  
 }
 
 export enum Stat {
