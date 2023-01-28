@@ -104,6 +104,7 @@ export enum Ability {
  https://api2.splinterlands.com/settings
  s = ''
  window.json.battles.rulesets.forEach((r) => {
+ window.json.battles.rulesets.forEach((r) => {
    s += r.name.toUpperCase().split(' ').join('_').split('&').join('AND').split("’").join('') + ' = \'' + r.name + '\',' + '\n';
  });
  copy(s);
@@ -143,10 +144,10 @@ export enum Ruleset {
   BRIAR_PATCH = 'Briar Patch',
   THORNS = 'Thorns',
   EXPLOSIVE_WEAPONRY = 'Explosive Weaponry',
-  MAGIC_REFLECT = 'Magic Reflect',
-  COUNTERSPELL = 'Counterspell',
+  BRIAR_PATCH = 'Briar Patch',
   HOLY_PROTECTION = 'Holy Protection',
-  RETURN_FIRE = 'Return Fire',
+  COUNTERSPELL = 'Counterspell',
+  WHAT_DOESNT_KILL_YOU = `What Doesn’t Kill You`,
   FIRE_AND_REGRET = 'Fire & Regret',
   SPREADING_FURY = 'Spreading Fury',
   WHAT_DOESNT_KILL_YOU = 'What Doesn’t Kill You',

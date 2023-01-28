@@ -54,17 +54,15 @@ export async function exampleHistoricBattle() {
   game.playGame();
 }
 
-// In case the cards.json is not updated you can get all cards from the Splinterlands API
-async function getAllCards(): Promise<CardDetail[]> {
-  return await fetch(SPLINTERLANDS_API_URL + GET_ALL_CARDS_ENDPOINT).then(
-    (response) => response.json() as Promise<CardDetail[]>,
-  );
-}
+function createGame(
+  allCards: CardDetail[],
+  battleDetails: BattleDetails,
+  rulesets: Set<Ruleset>,
+): Game {
+  const gameTeam1 = createGameTeam(allCards, battleDetails.team1);
+  const gameTeam2 = createGameTeam(allCards, battleDetails.team2);
 
-async function getHistoricBattle(battleId: string): Promise<BattleHistory> {
-  return await fetch(SPLINTERLANDS_API_URL + BATTLE_HISTORY_ENDPOINT + battleId).then(
-    (response) => response.json() as Promise<BattleHistory>,
-  );
+  return new Game(gameTeam1, gameTeam2, rulesets);
 }
 
 function createGameTeam(allCards: CardDetail[], battleTeam: BattleTeam): GameTeam {
@@ -79,13 +77,16 @@ function createGameTeam(allCards: CardDetail[], battleTeam: BattleTeam): GameTea
   return new GameTeam(gameSummoner, gameMonsters);
 }
 
-function createGame(
-  allCards: CardDetail[],
-  battleDetails: BattleDetails,
-  rulesets: Set<Ruleset>,
-): Game {
-  const gameTeam1 = createGameTeam(allCards, battleDetails.team1);
-  const gameTeam2 = createGameTeam(allCards, battleDetails.team2);
-
-  return new Game(gameTeam1, gameTeam2, rulesets);
+// In case the cards.json is not updated you can get all cards from the Splinterlands API
+async function getAllCards(): Promise<CardDetail[]> {
+  return await fetch(SPLINTERLANDS_API_URL + GET_ALL_CARDS_ENDPOINT).then(
+    (response) => response.json() as Promise<CardDetail[]>,
+  );
 }
+
+async function getHistoricBattle(battleId: string): Promise<BattleHistory> {
+  return await fetch(SPLINTERLANDS_API_URL + BATTLE_HISTORY_ENDPOINT + battleId).then(
+    (response) => response.json() as Promise<BattleHistory>,
+  );
+}
+
