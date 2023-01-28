@@ -103,7 +103,7 @@ export enum Ability {
  
  https://api2.splinterlands.com/settings
  s = ''
- window.json.battles.rulesets.filter((r) => r.active).forEach((r) => {
+ window.json.battles.rulesets.forEach((r) => {
    s += r.name.toUpperCase().split(' ').join('_').split('&').join('AND').split("’").join('') + ' = \'' + r.name + '\',' + '\n';
  });
  copy(s);
@@ -140,16 +140,22 @@ export enum Ruleset {
   NOXIOUS_FUMES = 'Noxious Fumes',
   STAMPEDE = 'Stampede',
   EQUAL_OPPORTUNITY = 'Equal Opportunity',
-  EXPLOSIVE_WEAPONRY = 'Explosive Weaponry',
   BRIAR_PATCH = 'Briar Patch',
-  HOLY_PROTECTION = 'Holy Protection',
+  THORNS = 'Thorns',
+  EXPLOSIVE_WEAPONRY = 'Explosive Weaponry',
+  MAGIC_REFLECT = 'Magic Reflect',
   COUNTERSPELL = 'Counterspell',
-  WHAT_DOESNT_KILL_YOU = `What Doesn’t Kill You`,
+  HOLY_PROTECTION = 'Holy Protection',
+  RETURN_FIRE = 'Return Fire',
   FIRE_AND_REGRET = 'Fire & Regret',
+  SPREADING_FURY = 'Spreading Fury',
+  WHAT_DOESNT_KILL_YOU = 'What Doesn’t Kill You',
   TIS_BUT_SCRATCHES = 'Tis but Scratches',
   UP_TO_ELEVEN = 'Up to Eleven',
   AIMLESS = 'Aimless',
   FEROCITY = 'Ferocity',
+  GOING_THE_DISTANCE = 'Going the Distance',
+  WANDS_OUT = 'Wands Out',
 }
 
 export enum Stat {
