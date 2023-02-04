@@ -784,11 +784,9 @@ export class Game {
 
   /** Applies the martyr buffs (+1 all stats) to the monster. */
   private applyMartyrBuffs(monster?: GameMonster) {
-    console.log('fake');
     if (!monster) {
       return;
     }
-    console.log('martyr real');
     monster.addHealth(1);
     monster.armor++;
     monster.speed++;
