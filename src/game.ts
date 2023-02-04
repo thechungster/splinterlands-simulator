@@ -725,7 +725,9 @@ export class Game {
 
     this.maybeMartyr(monster);
     let wasResurrected = this.maybeRebirth(monster);
-    wasResurrected = this.maybeResurrect(friendlyTeam.getSummoner(), monster);
+    if (!wasResurrected) {
+      wasResurrected = this.maybeResurrect(friendlyTeam.getSummoner(), monster);
+    }
     for (const friendlyMonster of aliveFriendlyTeam) {
       if (wasResurrected === true) {
         break;
