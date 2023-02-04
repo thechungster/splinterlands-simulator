@@ -723,7 +723,8 @@ export class Game {
       });
     }
 
-    let wasResurrected = false;
+    this.maybeMartyr(monster);
+    let wasResurrected = this.maybeRebirth(monster);
     wasResurrected = this.maybeResurrect(friendlyTeam.getSummoner(), monster);
     for (const friendlyMonster of aliveFriendlyTeam) {
       if (wasResurrected === true) {
@@ -761,6 +762,57 @@ export class Game {
     if (!wasResurrected) {
       friendlyTeam.maybeSetLastStand();
     }
+  }
+
+  private maybeMartyr(deadMonster: GameMonster) {
+    if (!deadMonster.hasAbility(Ability.MARTYR)) {
+      return false;
+    }
+    const monsterTeam = this.getTeamOfMonster(deadMonster);
+    // Stupid change to make it "alive".
+    deadMonster.health = 1;
+    const aliveMonsters = monsterTeam.getAliveMonsters();
+    const monsterPos = monsterTeam.getMonsterPosition(deadMonster);
+    this.applyMartyrBuffs(aliveMonsters[monsterPos - 1]);
+    this.applyMartyrBuffs(aliveMonsters[monsterPos + 1]);
+    // "kill" the monster again.
+    deadMonster.health = 0;
+    return true;
+  }
+
+  /** Applies the martyr buffs (+1 all stats) to the monster. */
+  private applyMartyrBuffs(monster?: GameMonster) {
+    console.log('fake');
+    if (!monster) {
+      return;
+    }
+    console.log('martyr real');
+    monster.addHealth(1);
+    monster.armor++;
+    monster.speed++;
+    if (monster.melee > 0) {
+      monster.melee++;
+    }
+    if (monster.magic > 0) {
+      monster.magic++;
+    }
+    if (monster.ranged > 0) {
+      monster.ranged++;
+    }
+    this.createAndAddBattleLog(Ability.MARTYR, monster);
+  }
+
+  // Returns whether the monster was rebirthed or not.
+  private maybeRebirth(deadMonster: GameMonster) {
+    if (!deadMonster.hasAbility(Ability.REBIRTH)) {
+      return false;
+    }
+    deadMonster.removeAbility(Ability.REBIRTH);
+    deadMonster.resurrect();
+    const deadMonsterIndex = this.deadMonsters.findIndex((deadMon) => deadMon === deadMonster);
+    this.deadMonsters.splice(deadMonsterIndex, 1);
+    this.createAndAddBattleLog(Ability.REBIRTH, deadMonster);
+    return true;
   }
 
   // Returns whether the monster was resurrected or not.
