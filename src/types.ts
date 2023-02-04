@@ -19,8 +19,8 @@ export interface BattleDamage {
   actualDamageDone: number;
 }
 
-/**
- * https://api2.splinterlands.com/settings
+/*
+  https://api2.splinterlands.com/settings
  str = '';
   var abilityToEnumTS = function(ability) {
     var enumName = ability.name.toUpperCase().split(' ').join('_');
