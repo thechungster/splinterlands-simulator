@@ -418,13 +418,8 @@ export class Game {
     // TODO: This doesn't account for the pierce.
     this.maybeLifeLeech(attackingMonster, battleDamage.actualDamageDone);
     this.maybeApplyThorns(attackingMonster, attackTarget, attackType);
-    this.maybeApplyMagicReflect(
-      attackingMonster,
-      attackTarget,
-      attackType,
-      battleDamage.damageDone,
-    );
-    this.maybeApplyReturnFire(attackingMonster, attackTarget, attackType, battleDamage.damageDone);
+    this.maybeApplyMagicReflect(attackingMonster, attackTarget, attackType);
+    this.maybeApplyReturnFire(attackingMonster, attackTarget, attackType);
     this.maybeRetaliate(attackingMonster, attackTarget, attackType);
     this.maybeApplyHalving(attackingMonster, attackTarget);
 
@@ -675,7 +670,7 @@ export class Game {
         monsterToBlast,
         battleDamage.damageDone,
       );
-      this.maybeApplyReturnFire(attackingMonster, monsterToBlast, attackType, battleDamage.attack);
+      this.maybeApplyReturnFire(attackingMonster, monsterToBlast, attackType, blastDamage);
     }
     this.maybeDead(monsterToBlast);
     this.maybeDead(attackingMonster);
@@ -864,16 +859,14 @@ export class Game {
     attackingMonster: GameMonster,
     attackTarget: GameMonster,
     attackType: AttackType,
+    // If attack damage unset, will use the magic damage of the attacking monster.
     attackDamage?: number | undefined,
   ) {
     if (!attackTarget.hasAbility(Ability.MAGIC_REFLECT) || attackType !== AttackType.MAGIC) {
       return;
     }
-    attackDamage = attackDamage || 1;
-    let reflectDamage =
-      attackDamage !== undefined
-        ? Math.ceil(attackDamage / 2)
-        : Math.ceil(attackingMonster.getPostAbilityMagic() / 2);
+    attackDamage = attackDamage ?? attackingMonster.getPostAbilityMagic();
+    let reflectDamage = Math.ceil(attackingMonster.getPostAbilityMagic() / 2);
     reflectDamage = Math.max(reflectDamage, 1);
     if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       reflectDamage++;
@@ -894,16 +887,14 @@ export class Game {
     attackingMonster: GameMonster,
     attackTarget: GameMonster,
     attackType: AttackType,
+    // If attack damage unset, uses the ranged attack of the monster.
     attackDamage?: number | undefined,
   ) {
     if (!attackTarget.hasAbility(Ability.RETURN_FIRE) || attackType !== AttackType.RANGED) {
       return;
     }
-    attackDamage = attackDamage || 1;
-    let reflectDamage =
-      attackDamage !== undefined
-        ? Math.ceil(attackDamage / 2)
-        : Math.ceil(attackingMonster.getPostAbilityRanged() / 2);
+    attackDamage = attackDamage ?? attackingMonster.getPostAbilityRanged();
+    let reflectDamage = Math.ceil(attackDamage / 2);
     if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       reflectDamage++;
     }
