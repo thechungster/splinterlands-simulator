@@ -1,6 +1,6 @@
 {
   "name": "splinterlands-simulator",
-  "version": "3.0.8",
+  "version": "3.0.9",
   "description": "Simulator for battles in the Splinterlands game",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -8,6 +8,7 @@
     "test": "jest --coverage",
     "jest:debug": "node --nolazy --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --colors --verbose",
     "build": "rimraf src/*.test.ts src/utils/*.test.ts &&  tsc",
+    "build-local": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",
