@@ -442,7 +442,7 @@ describe('Game', () => {
       });
     });
 
-    describe("getDamageMultiplier function", () => {
+    describe('getDamageMultiplier function', () => {
       it('does x3 damage if the attacker has recharge ability', () => {
         attackingMonster.addAbility(Ability.RECHARGE);
         const multiplier = game['getDamageMultiplier'](attackingMonster, attackTarget);
@@ -467,7 +467,6 @@ describe('Game', () => {
         attackingMonster.removeAbility(Ability.KNOCK_OUT);
         attackTarget.removeDebuff(Ability.STUN);
       });
-
 
       it('does x2 damage if the attacker has oppress ability and target does not have any attack', () => {
         attackingMonster.addAbility(Ability.OPPRESS);
@@ -505,6 +504,6 @@ describe('Game', () => {
         expect(multiplier).toEqual(1);
         attackingMonster.removeAbility(Ability.FURY);
       });
-    })
+    });
   });
 });

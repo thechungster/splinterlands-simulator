@@ -866,7 +866,7 @@ export class Game {
       return;
     }
     attackDamage = attackDamage ?? attackingMonster.getPostAbilityMagic();
-    let reflectDamage = Math.ceil(attackingMonster.getPostAbilityMagic() / 2);
+    let reflectDamage = Math.ceil(attackDamage / 2);
     reflectDamage = Math.max(reflectDamage, 1);
     if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       reflectDamage++;

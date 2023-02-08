@@ -154,6 +154,7 @@ function applyExplosiveWeaponry(monster: GameMonster) {
 /** No sneak or snipe */
 function applyFogOfWar(monster: GameMonster) {
   monster.removeAbility(Ability.SNEAK);
+  monster.removeAbility(Ability.OPPORTUNITY);
   monster.removeAbility(Ability.SNIPE);
 }
 
