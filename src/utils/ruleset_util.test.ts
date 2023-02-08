@@ -69,11 +69,13 @@ describe('ruleset_util', () => {
   it('removes sneak/snipe ability of all monsters in fog of war ruleset', () => {
     allMonsters[0].addAbility(Ability.SNEAK);
     allMonsters[1].addAbility(Ability.SNIPE);
+    allMonsters[2].addAbility(Ability.OPPORTUNITY);
     allMonsters[5].addAbility(Ability.SNIPE);
     doRulesetPreGameBuff(getRuleset(Ruleset.FOG_OF_WAR), teamOne, teamTwo);
     for (const monster of allMonsters) {
       expect(monster.hasAbility(Ability.SNEAK)).toBe(false);
       expect(monster.hasAbility(Ability.SNIPE)).toBe(false);
+      expect(monster.hasAbility(Ability.OPPORTUNITY)).toBe(false);
     }
   });
 
