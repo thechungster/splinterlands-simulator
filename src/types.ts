@@ -19,14 +19,15 @@ export interface BattleDamage {
   actualDamageDone: number;
 }
 
-/**
- * https://api2.splinterlands.com/settings
- * var abilityToEnumTS = function(ability) {
- *   var enumName = ability.name.toUpperCase().split(' ').join('_');
- *   return `${enumName} = '${ability.name}',`;
- * }
- * window.abilities.forEach((ability) => str+= abilityToEnumTS(ability));
- * copy(str);
+/*
+  https://api2.splinterlands.com/settings
+ str = '';
+  var abilityToEnumTS = function(ability) {
+    var enumName = ability.name.toUpperCase().split(' ').join('_');
+    return `${enumName} = '${ability.name}',`;
+  }
+  window.abilities.forEach((ability) => str+= abilityToEnumTS(ability) + '\n');
+  copy(str);
  */
 export enum Ability {
   AFFLICTION = 'Affliction',
@@ -38,6 +39,7 @@ export enum Ability {
   CAMOUFLAGE = 'Camouflage',
   CLEANSE = 'Cleanse',
   CLOSE_RANGE = 'Close Range',
+  CONSCRIPT = 'Conscript',
   CRIPPLE = 'Cripple',
   DEATHBLOW = 'Deathblow',
   DEMORALIZE = 'Demoralize',
@@ -48,6 +50,7 @@ export enum Ability {
   ENRAGE = 'Enrage',
   FLYING = 'Flying',
   FORCEFIELD = 'Forcefield',
+  FURY = 'Fury',
   GIANT_KILLER = 'Giant Killer',
   HALVING = 'Halving',
   HEADWINDS = 'Headwinds',
@@ -58,6 +61,7 @@ export enum Ability {
   LAST_STAND = 'Last Stand',
   LIFE_LEECH = 'Life Leech',
   MAGIC_REFLECT = 'Magic Reflect',
+  MARTYR = 'Martyr',
   OPPORTUNITY = 'Opportunity',
   OPPRESS = 'Oppress',
   PHASE = 'Phase',
@@ -65,6 +69,7 @@ export enum Ability {
   POISON = 'Poison',
   PROTECT = 'Protect',
   REACH = 'Reach',
+  REBIRTH = 'Rebirth',
   RECHARGE = 'Recharge',
   REDEMPTION = 'Redemption',
   REFLECTION_SHIELD = 'Reflection Shield',
@@ -94,7 +99,7 @@ export enum Ability {
   VOID = 'Void',
   VOID_ARMOR = 'Void Armor',
   WEAKEN = 'Weaken',
-  FURY = 'Fury',
+  WEAPONS_TRAINING = 'Weapons Training',
   /* Ruleset Ability */
   MELEE_MAYHEM = 'Melee Mayhem',
 }

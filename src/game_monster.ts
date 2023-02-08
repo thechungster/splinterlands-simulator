@@ -484,7 +484,7 @@ export class GameMonster extends GameCard {
       this.addAbility(Ability.DIVINE_SHIELD);
     }
     this.armor = this.getPostAbilityMaxArmor();
-    this.cleanseDebuffs();
+    // this.cleanseDebuffs();
   }
 
   public getCleanCard(): GameMonster {

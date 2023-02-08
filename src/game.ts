@@ -418,13 +418,8 @@ export class Game {
     // TODO: This doesn't account for the pierce.
     this.maybeLifeLeech(attackingMonster, battleDamage.actualDamageDone);
     this.maybeApplyThorns(attackingMonster, attackTarget, attackType);
-    this.maybeApplyMagicReflect(
-      attackingMonster,
-      attackTarget,
-      attackType,
-      battleDamage.damageDone,
-    );
-    this.maybeApplyReturnFire(attackingMonster, attackTarget, attackType, battleDamage.damageDone);
+    this.maybeApplyMagicReflect(attackingMonster, attackTarget, attackType);
+    this.maybeApplyReturnFire(attackingMonster, attackTarget, attackType);
     this.maybeRetaliate(attackingMonster, attackTarget, attackType);
     this.maybeApplyHalving(attackingMonster, attackTarget);
 
@@ -675,7 +670,7 @@ export class Game {
         monsterToBlast,
         battleDamage.damageDone,
       );
-      this.maybeApplyReturnFire(attackingMonster, monsterToBlast, attackType, battleDamage.attack);
+      this.maybeApplyReturnFire(attackingMonster, monsterToBlast, attackType, blastDamage);
     }
     this.maybeDead(monsterToBlast);
     this.maybeDead(attackingMonster);
@@ -723,8 +718,11 @@ export class Game {
       });
     }
 
-    let wasResurrected = false;
-    wasResurrected = this.maybeResurrect(friendlyTeam.getSummoner(), monster);
+    this.maybeMartyr(monster);
+    let wasResurrected = this.maybeRebirth(monster);
+    if (!wasResurrected) {
+      wasResurrected = this.maybeResurrect(friendlyTeam.getSummoner(), monster);
+    }
     for (const friendlyMonster of aliveFriendlyTeam) {
       if (wasResurrected === true) {
         break;
@@ -761,6 +759,55 @@ export class Game {
     if (!wasResurrected) {
       friendlyTeam.maybeSetLastStand();
     }
+  }
+
+  private maybeMartyr(deadMonster: GameMonster) {
+    if (!deadMonster.hasAbility(Ability.MARTYR)) {
+      return false;
+    }
+    const monsterTeam = this.getTeamOfMonster(deadMonster);
+    // Stupid change to make it "alive".
+    deadMonster.health = 1;
+    const aliveMonsters = monsterTeam.getAliveMonsters();
+    const monsterPos = monsterTeam.getMonsterPosition(deadMonster);
+    this.applyMartyrBuffs(aliveMonsters[monsterPos - 1]);
+    this.applyMartyrBuffs(aliveMonsters[monsterPos + 1]);
+    // "kill" the monster again.
+    deadMonster.health = 0;
+    return true;
+  }
+
+  /** Applies the martyr buffs (+1 all stats) to the monster. */
+  private applyMartyrBuffs(monster?: GameMonster) {
+    if (!monster) {
+      return;
+    }
+    monster.addHealth(1);
+    monster.armor++;
+    monster.speed++;
+    if (monster.melee > 0) {
+      monster.melee++;
+    }
+    if (monster.magic > 0) {
+      monster.magic++;
+    }
+    if (monster.ranged > 0) {
+      monster.ranged++;
+    }
+    this.createAndAddBattleLog(Ability.MARTYR, monster);
+  }
+
+  // Returns whether the monster was rebirthed or not.
+  private maybeRebirth(deadMonster: GameMonster) {
+    if (!deadMonster.hasAbility(Ability.REBIRTH)) {
+      return false;
+    }
+    deadMonster.removeAbility(Ability.REBIRTH);
+    deadMonster.resurrect();
+    const deadMonsterIndex = this.deadMonsters.findIndex((deadMon) => deadMon === deadMonster);
+    this.deadMonsters.splice(deadMonsterIndex, 1);
+    this.createAndAddBattleLog(Ability.REBIRTH, deadMonster);
+    return true;
   }
 
   // Returns whether the monster was resurrected or not.
@@ -812,16 +859,14 @@ export class Game {
     attackingMonster: GameMonster,
     attackTarget: GameMonster,
     attackType: AttackType,
+    // If attack damage unset, will use the magic damage of the attacking monster.
     attackDamage?: number | undefined,
   ) {
     if (!attackTarget.hasAbility(Ability.MAGIC_REFLECT) || attackType !== AttackType.MAGIC) {
       return;
     }
-    attackDamage = attackDamage || 1;
-    let reflectDamage =
-      attackDamage !== undefined
-        ? Math.ceil(attackDamage / 2)
-        : Math.ceil(attackingMonster.getPostAbilityMagic() / 2);
+    attackDamage = attackDamage ?? attackingMonster.getPostAbilityMagic();
+    let reflectDamage = Math.ceil(attackDamage / 2);
     reflectDamage = Math.max(reflectDamage, 1);
     if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       reflectDamage++;
@@ -842,16 +887,14 @@ export class Game {
     attackingMonster: GameMonster,
     attackTarget: GameMonster,
     attackType: AttackType,
+    // If attack damage unset, uses the ranged attack of the monster.
     attackDamage?: number | undefined,
   ) {
     if (!attackTarget.hasAbility(Ability.RETURN_FIRE) || attackType !== AttackType.RANGED) {
       return;
     }
-    attackDamage = attackDamage || 1;
-    let reflectDamage =
-      attackDamage !== undefined
-        ? Math.ceil(attackDamage / 2)
-        : Math.ceil(attackingMonster.getPostAbilityRanged() / 2);
+    attackDamage = attackDamage ?? attackingMonster.getPostAbilityRanged();
+    let reflectDamage = Math.ceil(attackDamage / 2);
     if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       reflectDamage++;
     }
