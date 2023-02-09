@@ -271,7 +271,6 @@ export class Game {
   }
 
   private resolveAttackForMonster(monsterAttacking: GameMonster) {
-    const currentDeadMonsters = this.deadMonsters.length;
     if (!monsterAttacking.hasAttack()) {
       return;
     }
@@ -295,16 +294,6 @@ export class Game {
       if (attackTarget !== null) {
         this.resolveMeleeAttackForMonster(monsterAttacking, attackTarget, false);
       }
-    }
-    // Check bloodlust
-    if (
-      this.deadMonsters.length > currentDeadMonsters &&
-      monsterAttacking.hasAbility(Ability.BLOODLUST)
-    ) {
-      this.maybeApplyBloodlust(
-        monsterAttacking,
-        /* isReverseSpeed */ this.rulesets.has(Ruleset.REVERSE_SPEED),
-      );
     }
   }
 
@@ -359,8 +348,8 @@ export class Game {
           attackTarget,
           backfireBattleDamage.damageDone,
         );
+        this.maybeDead(attackingMonster, attackTarget);
       }
-      this.maybeDead(attackingMonster);
       return;
     }
 
@@ -394,8 +383,7 @@ export class Game {
       }
 
       // Check if dead
-      this.maybeDead(attackingMonster);
-      this.maybeDead(attackTarget);
+      this.maybeDead(attackTarget, attackingMonster);
 
       // Do buffs
       this.maybeApplyStun(attackingMonster, attackTarget);
@@ -424,8 +412,7 @@ export class Game {
     this.maybeApplyHalving(attackingMonster, attackTarget);
 
     // Check if dead
-    this.maybeDead(attackingMonster);
-    this.maybeDead(attackTarget);
+    this.maybeDead(attackTarget, attackingMonster);
 
     this.maybeBlast(attackingMonster, prevMonster, attackType, damageAmt);
     this.maybeBlast(attackingMonster, nextMonster, attackType, damageAmt);
@@ -645,9 +632,8 @@ export class Game {
     }
 
     if (monsterToBlast.hasAbility(Ability.REFLECTION_SHIELD)) {
-      blastDamage = 0;
-    }
-    if (attackType === AttackType.MAGIC) {
+      // do nothing.
+    } else if (attackType === AttackType.MAGIC) {
       const battleDamage = damageUtils.hitMonsterWithMagic(this, monsterToBlast, blastDamage);
       this.createAndAddBattleLog(
         Ability.BLAST,
@@ -670,10 +656,12 @@ export class Game {
         monsterToBlast,
         battleDamage.damageDone,
       );
+      if (attackingMonster.hasAbility(Ability.PIERCING) && battleDamage.remainder > 0) {
+        monsterToBlast.hitHealth(battleDamage.remainder);
+      }
       this.maybeApplyReturnFire(attackingMonster, monsterToBlast, attackType, blastDamage);
     }
-    this.maybeDead(monsterToBlast);
-    this.maybeDead(attackingMonster);
+    this.maybeDead(monsterToBlast, attackingMonster);
   }
 
   private removeStunsThatThisMonsterApplied(monster: GameMonster) {
@@ -694,12 +682,13 @@ export class Game {
     }
   }
 
-  private maybeDead(monster: GameMonster) {
+  private maybeDead(monster: GameMonster, attackingMonster?: GameMonster) {
     if (monster.isAlive() || this.deadMonsters.indexOf(monster) > -1) {
       return;
     }
     this.createAndAddBattleLog(AdditionalBattleAction.DEATH, monster);
     this.deadMonsters.push(monster);
+    this.maybeApplyBloodlust(attackingMonster, this.rulesets.has(Ruleset.REVERSE_SPEED));
     // Monster just died!
     const friendlyTeam = this.getTeamOfMonster(monster);
     const aliveFriendlyTeam = friendlyTeam.getAliveMonsters();
@@ -843,16 +832,17 @@ export class Game {
       // Amplify only increases by 1 no matter how many amplifies there are.
       reflectDamage++;
     }
-    if (attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
-      reflectDamage = 0;
+    let damageDone = 0;
+    if (!attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
+      const battleDamage = damageUtils.hitMonsterWithPhysical(
+        this,
+        attackingMonster,
+        reflectDamage,
+      );
+      damageDone = battleDamage.damageDone;
     }
-    const battleDamage = damageUtils.hitMonsterWithPhysical(this, attackingMonster, reflectDamage);
-    this.createAndAddBattleLog(
-      Ability.THORNS,
-      attackTarget,
-      attackingMonster,
-      battleDamage.damageDone,
-    );
+    this.maybeDead(attackingMonster, attackTarget);
+    this.createAndAddBattleLog(Ability.THORNS, attackTarget, attackingMonster, damageDone);
   }
 
   private maybeApplyMagicReflect(
@@ -871,16 +861,14 @@ export class Game {
     if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       reflectDamage++;
     }
-    if (attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
-      reflectDamage = 0;
+    let damageDone = 0;
+    if (!attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
+      const battleDamage = damageUtils.hitMonsterWithMagic(this, attackingMonster, reflectDamage);
+      damageDone = battleDamage.damageDone;
     }
-    const battleDamage = damageUtils.hitMonsterWithMagic(this, attackingMonster, reflectDamage);
-    this.createAndAddBattleLog(
-      Ability.MAGIC_REFLECT,
-      attackTarget,
-      attackingMonster,
-      battleDamage.damageDone,
-    );
+
+    this.createAndAddBattleLog(Ability.MAGIC_REFLECT, attackTarget, attackingMonster, damageDone);
+    this.maybeDead(attackingMonster, attackTarget);
   }
 
   private maybeApplyReturnFire(
@@ -898,16 +886,17 @@ export class Game {
     if (attackingMonster.hasDebuff(Ability.AMPLIFY)) {
       reflectDamage++;
     }
-    if (attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
-      reflectDamage = 0;
+    let damageDone = 0;
+    if (!attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
+      const battleDamage = damageUtils.hitMonsterWithPhysical(
+        this,
+        attackingMonster,
+        reflectDamage,
+      );
+      damageDone = battleDamage.damageDone;
     }
-    const battleDamage = damageUtils.hitMonsterWithPhysical(this, attackingMonster, reflectDamage);
-    this.createAndAddBattleLog(
-      Ability.RETURN_FIRE,
-      attackTarget,
-      attackingMonster,
-      battleDamage.damageDone,
-    );
+    this.maybeDead(attackTarget, attackingMonster);
+    this.createAndAddBattleLog(Ability.RETURN_FIRE, attackTarget, attackingMonster, damageDone);
   }
 
   private maybeRetaliate(
@@ -964,8 +953,12 @@ export class Game {
     }
   }
 
-  private maybeApplyBloodlust(attackingMonster: GameMonster, isReverseSpeed: boolean) {
-    if (!attackingMonster.hasAbility(Ability.BLOODLUST) || !attackingMonster.isAlive()) {
+  private maybeApplyBloodlust(attackingMonster: GameMonster | undefined, isReverseSpeed: boolean) {
+    if (
+      !attackingMonster ||
+      !attackingMonster.hasAbility(Ability.BLOODLUST) ||
+      !attackingMonster.isAlive()
+    ) {
       return;
     }
     // Add attack if have attack
