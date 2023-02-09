@@ -576,7 +576,11 @@ export class Game {
       return enemyTeam.getOpportunityTarget();
     }
     if (monster.hasAbility(Ability.MELEE_MAYHEM)) {
-      return enemyTeam.getFirstAliveMonster();
+      if (friendlyTeam.getMonsterPosition(monster) === 0) {
+        return enemyTeam.getFirstAliveMonster();
+      }
+      const enemyTaunt = enemyTeam.getTauntMonster();
+      return enemyTaunt ?? enemyTeam.getFirstAliveMonster();
     }
     if (monsterPosition === 1 && monster.hasAbility(Ability.REACH)) {
       return enemyTeam.getFirstAliveMonster();
