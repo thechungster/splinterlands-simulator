@@ -438,7 +438,7 @@ describe('Game', () => {
           attackingMonster,
           abilityUtils.BACKFIRE_DAMAGE,
         );
-        expect(maybeDeadSpy).toHaveBeenCalledWith(attackingMonster);
+        expect(maybeDeadSpy).toHaveBeenCalledWith(attackingMonster, attackTarget);
       });
     });
 

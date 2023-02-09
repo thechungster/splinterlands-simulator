@@ -9,6 +9,7 @@ export function hitMonsterWithMagic(
   game: Game,
   attackTarget: GameMonster,
   magicDamage: number,
+  isReflectionTypeDamage = false,
 ): BattleDamage {
   if (attackTarget.hasAbility(Ability.FORCEFIELD) && magicDamage >= FORCEFIELD_MIN_DAMAGE) {
     magicDamage = 1;
