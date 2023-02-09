@@ -942,14 +942,16 @@ export class Game {
   private maybeApplyCripple(attackingMonster: GameMonster, attackTarget: GameMonster) {
     if (attackingMonster.hasAbility(Ability.CRIPPLE) && attackTarget.isAlive()) {
       this.addMonsterToMonsterDebuff(attackingMonster, attackTarget, Ability.CRIPPLE);
-      this.createAndAddBattleLog(Ability.CRIPPLE, attackingMonster, attackTarget);
+      attackTarget.health = Math.max(
+        1,
+        Math.max(attackTarget.health, attackTarget.getPostAbilityMaxHealth()),
+      );
     }
   }
 
   private maybeApplyHalving(attackingMonster: GameMonster, attackTarget: GameMonster) {
     if (attackingMonster.hasAbility(Ability.HALVING) && !attackTarget.hasDebuff(Ability.HALVING)) {
       this.addMonsterToMonsterDebuff(attackingMonster, attackTarget, Ability.HALVING);
-      this.createAndAddBattleLog(Ability.HALVING, attackingMonster, attackTarget);
     }
   }
 
