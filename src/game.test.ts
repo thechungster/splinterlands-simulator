@@ -298,6 +298,12 @@ describe('Game', () => {
         game['maybeApplyCripple'](attackingMonster, attackTarget);
         expect(attackTarget.getDebuffAmt(Ability.CRIPPLE)).toBe(2);
       });
+
+      it('does 1 damage', () => {
+        game['maybeApplyCripple'](attackingMonster, attackTarget);
+        expect(attackTarget.getDebuffAmt(Ability.CRIPPLE)).toBe(1);
+        expect(attackTarget.health).toBe(DEFAULT_MONSTER_STAT - 1);
+      });
     });
 
     describe('maybeApplyHalving function', () => {

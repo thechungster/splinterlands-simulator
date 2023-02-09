@@ -944,7 +944,7 @@ export class Game {
       this.addMonsterToMonsterDebuff(attackingMonster, attackTarget, Ability.CRIPPLE);
       attackTarget.health = Math.max(
         1,
-        Math.max(attackTarget.health, attackTarget.getPostAbilityMaxHealth()),
+        Math.min(attackTarget.health, attackTarget.getPostAbilityMaxHealth()),
       );
     }
   }
