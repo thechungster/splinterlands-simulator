@@ -6,7 +6,6 @@ on:
       - closed
     branches:
       - 'master'
-  workflow_dispatch:
 
 jobs:
   if_merged:
@@ -19,8 +18,6 @@ jobs:
           node-version: '14'
       - run: npm install
       - run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"
-      # publish to NPM -> there is one caveat, continue reading for the fix
       - run: npm publish
         env:
-          # Use a token to publish to NPM. See below for how to set it up
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
