@@ -788,11 +788,11 @@ describe('GameMonster', () => {
         monster.setIsOnlyMonster();
         monster.addDebuff(Ability.HALVING);
         monster.addDebuff(Ability.SILENCE);
-        monster.addSummonerMagic(-1);
+        const SUMMONER_MAGIC = -1;
+        monster.addSummonerMagic(SUMMONER_MAGIC);
         const expectedMagic =
-          Math.ceil(Math.floor(MONSTER_MAGIC / 2) * LAST_STAND_MULTIPLIER) -
-          /* silence */ 1 -
-          /* summonerMagic */ 1;
+          Math.ceil(Math.floor((MONSTER_MAGIC + SUMMONER_MAGIC) / 2) * LAST_STAND_MULTIPLIER) -
+          /* silence */ 1;
         expect(monster.getPostAbilityAttackOfType(AttackType.MAGIC)).toBe(expectedMagic);
       });
     });
@@ -835,15 +835,15 @@ describe('GameMonster', () => {
       });
 
       it('returns correct ranged with all modifiers', () => {
+        const SUMMONER_RANGED = 3;
         monster.addAbility(Ability.LAST_STAND);
         monster.setIsOnlyMonster();
         monster.addDebuff(Ability.HALVING);
         monster.addDebuff(Ability.HEADWINDS);
-        monster.addSummonerRanged(3);
+        monster.addSummonerRanged(SUMMONER_RANGED);
         const expectedRanged =
-          Math.ceil(Math.floor(MONSTER_RANGED / 2) * LAST_STAND_MULTIPLIER) -
-          /* silence */ 1 +
-          /* summonerRanged */ Math.floor(3 / 2);
+          Math.ceil(Math.floor((MONSTER_RANGED + SUMMONER_RANGED) / 2) * LAST_STAND_MULTIPLIER) -
+          /* silence */ 1;
         expect(monster.getPostAbilityAttackOfType(AttackType.RANGED)).toBe(expectedRanged);
       });
     });
@@ -907,13 +907,13 @@ describe('GameMonster', () => {
         monster.addDebuff(Ability.DEMORALIZE);
         monster.addBuff(Ability.INSPIRE);
         monster.addBuff(Ability.INSPIRE);
-        monster.addSummonerMelee(-1);
+        const SUMMONER_MELEE = -1;
+        monster.addSummonerMelee(SUMMONER_MELEE);
         monster.health = MONSTER_HEALTH - 1;
         const expectedMelee = Math.ceil(
-          (Math.ceil(Math.floor(MONSTER_MELEE / 2) * LAST_STAND_MULTIPLIER) -
+          (Math.ceil(Math.floor((MONSTER_MELEE + SUMMONER_MELEE) / 2) * LAST_STAND_MULTIPLIER) -
             /* demoralize */ 1 +
-            /* inspire */ 2 -
-            /* summonerMelee */ 1) *
+            /* inspire */ 2) *
             ENRAGE_MULTIPLIER,
         );
         expect(monster.getPostAbilityAttackOfType(AttackType.MELEE)).toBe(expectedMelee);

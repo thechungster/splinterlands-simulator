@@ -395,7 +395,7 @@ export class GameMonster extends GameCard {
     if (this.magic === 0) {
       return 0;
     }
-    let postMagic = this.magic;
+    let postMagic = this.magic + this.summonerMagic;
     if (this.hasDebuff(Ability.HALVING)) {
       postMagic = Math.max(Math.floor(postMagic / 2), 1);
     }
@@ -406,11 +406,6 @@ export class GameMonster extends GameCard {
     for (let i = 0; i < this.getDebuffAmt(Ability.SILENCE); i++) {
       magicModifier--;
     }
-    if (this.hasDebuff(Ability.HALVING)) {
-      magicModifier += Math.floor(this.summonerMagic / 2);
-    } else {
-      magicModifier += this.summonerMagic;
-    }
     return Math.max(postMagic + magicModifier, 1);
   }
 
@@ -419,7 +414,7 @@ export class GameMonster extends GameCard {
     if (this.ranged === 0) {
       return 0;
     }
-    let postRange = this.ranged;
+    let postRange = this.ranged + this.summonerRanged;
     if (this.hasDebuff(Ability.HALVING)) {
       postRange = Math.max(Math.floor(postRange / 2), 1);
     }
@@ -431,21 +426,15 @@ export class GameMonster extends GameCard {
       const headwindsAmt = this.getDebuffAmt(Ability.HEADWINDS);
       rangeModifier -= headwindsAmt;
     }
-    if (this.hasDebuff(Ability.HALVING)) {
-      // TODO(Halving) is this right?
-      rangeModifier += Math.floor(this.summonerRanged / 2);
-    } else {
-      rangeModifier += this.summonerRanged;
-    }
     return Math.max(postRange + rangeModifier, 1);
   }
 
   /** How much melee damage this will do */
   getPostAbilityMelee(): number {
-    let postMelee = this.melee;
-    if (postMelee === 0) {
+    if (this.melee === 0) {
       return 0;
     }
+    let postMelee = this.melee + this.summonerMelee;
     if (this.hasDebuff(Ability.HALVING)) {
       postMelee = Math.max(Math.floor(postMelee / 2), 1);
     }
@@ -460,12 +449,6 @@ export class GameMonster extends GameCard {
     if (this.hasDebuff(Ability.DEMORALIZE)) {
       const demoralizeAmt = this.getDebuffAmt(Ability.DEMORALIZE);
       meleeModifier -= demoralizeAmt;
-    }
-    if (this.hasDebuff(Ability.HALVING)) {
-      // TODO(Halving) is this right?
-      meleeModifier += Math.floor(this.summonerMelee / 2);
-    } else {
-      meleeModifier += this.summonerMelee;
     }
 
     const currentMelee = Math.max(postMelee + meleeModifier, 1);
