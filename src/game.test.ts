@@ -441,6 +441,7 @@ describe('Game', () => {
         game['attackMonsterPhase'](attackingMonster, attackTarget, AttackType.MELEE);
         expect(hitMonsterWithPhysicalSpy).toHaveBeenCalledWith(
           game,
+          null,
           attackingMonster,
           abilityUtils.BACKFIRE_DAMAGE,
         );
@@ -485,14 +486,6 @@ describe('Game', () => {
         attackTarget.melee = DEFAULT_MONSTER_STAT;
         attackTarget.magic = DEFAULT_MONSTER_STAT;
         attackTarget.ranged = DEFAULT_MONSTER_STAT;
-      });
-
-      it('does double damage if the attacker has giant killer ability and target is 10 or more mana', () => {
-        attackingMonster.addAbility(Ability.GIANT_KILLER);
-        attackTarget.mana = 10;
-        const multiplier = game['getDamageMultiplier'](attackingMonster, attackTarget);
-        expect(multiplier).toEqual(2);
-        attackingMonster.removeAbility(Ability.GIANT_KILLER);
       });
 
       it('does double damage if the attacker has fury ability and target has taunt ability', () => {

@@ -7,12 +7,20 @@ import { Game } from '../game';
 /** Hits the monster with magic damage. Returns the remainder damage. */
 export function hitMonsterWithMagic(
   game: Game,
+  attackingMonster: GameMonster | null,
   attackTarget: GameMonster,
   magicDamage: number,
   isReflectionTypeDamage = false,
 ): BattleDamage {
   if (attackTarget.hasAbility(Ability.FORCEFIELD) && magicDamage >= FORCEFIELD_MIN_DAMAGE) {
     magicDamage = 1;
+  }
+  if (
+    attackingMonster &&
+    attackingMonster.hasAbility(Ability.GIANT_KILLER) &&
+    attackTarget.mana >= 10
+  ) {
+    magicDamage *= 2;
   }
   // For things like magic reflect
   if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
@@ -76,11 +84,19 @@ export function hitMonsterWithMagic(
 /** Hits the monster with physical damage. Returns the remainder damage. */
 export function hitMonsterWithPhysical(
   game: Game,
+  attackingMonster: GameMonster | null,
   attackTarget: GameMonster,
   damageAmt: number,
 ): BattleDamage {
   if (attackTarget.hasAbility(Ability.FORCEFIELD) && damageAmt >= FORCEFIELD_MIN_DAMAGE) {
     damageAmt = 1;
+  }
+  if (
+    attackingMonster &&
+    attackingMonster.hasAbility(Ability.GIANT_KILLER) &&
+    attackTarget.mana >= 10
+  ) {
+    damageAmt *= 2;
   }
   // For things like thorns, this returns 1 to show a successful attack.
   if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
