@@ -339,6 +339,7 @@ export class Game {
       if (attackTarget.hasAbility(Ability.BACKFIRE)) {
         const backfireBattleDamage = damageUtils.hitMonsterWithPhysical(
           this,
+          null,
           attackingMonster,
           abilityUtils.BACKFIRE_DAMAGE,
         );
@@ -466,11 +467,26 @@ export class Game {
       actualDamageDone: 0,
     };
     if (attackType === AttackType.MAGIC) {
-      battleDamage = damageUtils.hitMonsterWithMagic(this, attackTarget, damageAmt);
+      battleDamage = damageUtils.hitMonsterWithMagic(
+        this,
+        attackingMonster,
+        attackTarget,
+        damageAmt,
+      );
     } else if (attackType === AttackType.RANGED) {
-      battleDamage = damageUtils.hitMonsterWithPhysical(this, attackTarget, damageAmt);
+      battleDamage = damageUtils.hitMonsterWithPhysical(
+        this,
+        attackingMonster,
+        attackTarget,
+        damageAmt,
+      );
     } else if (attackType === AttackType.MELEE) {
-      battleDamage = damageUtils.hitMonsterWithPhysical(this, attackTarget, damageAmt);
+      battleDamage = damageUtils.hitMonsterWithPhysical(
+        this,
+        attackingMonster,
+        attackTarget,
+        damageAmt,
+      );
     }
 
     return battleDamage;
@@ -481,9 +497,10 @@ export class Game {
     if (attackingMonster.hasAbility(Ability.RECHARGE)) {
       multiplier *= 3;
     }
-    if (attackingMonster.hasAbility(Ability.GIANT_KILLER) && attackTarget.mana >= 10) {
-      multiplier *= 2;
-    }
+    // Giant killer happens after forcefield check.
+    // if (attackingMonster.hasAbility(Ability.GIANT_KILLER) && attackTarget.mana >= 10) {
+    //   multiplier *= 2;
+    // }
     if (attackTarget.isLastMonster() && attackingMonster.hasAbility(Ability.DEATHBLOW)) {
       multiplier *= 2;
     }
@@ -638,7 +655,12 @@ export class Game {
     if (monsterToBlast.hasAbility(Ability.REFLECTION_SHIELD)) {
       // do nothing.
     } else if (attackType === AttackType.MAGIC) {
-      const battleDamage = damageUtils.hitMonsterWithMagic(this, monsterToBlast, blastDamage);
+      const battleDamage = damageUtils.hitMonsterWithMagic(
+        this,
+        attackingMonster,
+        monsterToBlast,
+        blastDamage,
+      );
       this.createAndAddBattleLog(
         Ability.BLAST,
         attackingMonster,
@@ -653,7 +675,12 @@ export class Game {
       );
       this.maybeLifeLeech(attackingMonster, blastDamage - battleDamage.remainder);
     } else {
-      const battleDamage = damageUtils.hitMonsterWithPhysical(this, monsterToBlast, blastDamage);
+      const battleDamage = damageUtils.hitMonsterWithPhysical(
+        this,
+        attackingMonster,
+        monsterToBlast,
+        blastDamage,
+      );
       this.createAndAddBattleLog(
         Ability.BLAST,
         attackingMonster,
@@ -703,6 +730,7 @@ export class Game {
       enemyTeam.forEach((enemy: GameMonster) => {
         const battleDamage = damageUtils.hitMonsterWithPhysical(
           this,
+          attackingMonster ?? null,
           enemy,
           abilityUtils.REDEMPTION_DAMAGE,
         );
@@ -840,6 +868,7 @@ export class Game {
     if (!attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
       const battleDamage = damageUtils.hitMonsterWithPhysical(
         this,
+        null,
         attackingMonster,
         reflectDamage,
       );
@@ -867,7 +896,12 @@ export class Game {
     }
     let damageDone = 0;
     if (!attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
-      const battleDamage = damageUtils.hitMonsterWithMagic(this, attackingMonster, reflectDamage);
+      const battleDamage = damageUtils.hitMonsterWithMagic(
+        this,
+        null,
+        attackingMonster,
+        reflectDamage,
+      );
       damageDone = battleDamage.damageDone;
     }
 
@@ -894,6 +928,7 @@ export class Game {
     if (!attackingMonster.hasAbility(Ability.REFLECTION_SHIELD)) {
       const battleDamage = damageUtils.hitMonsterWithPhysical(
         this,
+        null,
         attackingMonster,
         reflectDamage,
       );
