@@ -16,6 +16,7 @@ export class GameTeam {
 
   public resetTeam() {
     this.summoner = this.summoner.getCleanCard();
+    this.summoner.setGameTeam(this);
     this.monsterList = this.monsterList.map((card) => card.getCleanCard() as GameMonster);
 
     for (let i = 0; i < this.monsterList.length; i++) {
@@ -25,6 +26,7 @@ export class GameTeam {
     if (this.monsterList.length === 1) {
       this.monsterList[0].setIsOnlyMonster();
     }
+    this.monsterList.forEach((m) => m.setGameTeam(this));
 
     if (this.teamNumber) {
       this.setTeam(this.teamNumber);

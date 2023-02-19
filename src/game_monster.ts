@@ -316,24 +316,23 @@ export class GameMonster extends GameCard {
 
   /** If this monster has no attack, it will get the weapons training from an adjacent monster and return the attack */
   getWeaponsTrainingDamage() {
-    if (this.melee > 0 || this.ranged > 0 || this.magic > 0) {
+    if (this.melee > 0 || this.ranged > 0 || this.magic > 0 || !this.gameTeam) {
       return 0;
     }
-    return 0;
-    // const monsterPos = this.gameTeam?.getMonsterPosition(this);
-    // const aliveMonsters = this.gameTeam?.getAliveMonsters();
-    // if (!monsterPos && !aliveMonsters) {
-    //   return 0;
-    // }
-    // let weaponsTrainingDamage = 0;
-    // const beforeMonster = aliveMonsters[monsterPos - 1];
-    // const afterMonster = aliveMonsters[monsterPos + 1];
-    // if (beforeMonster && beforeMonster.hasAbility(Ability.WEAPONS_TRAINING)) {
-    //   weaponsTrainingDamage = beforeMonster.getPostAbilityMelee();
-    // } else if (afterMonster && afterMonster.hasAbility(Ability.WEAPONS_TRAINING)) {
-    //   weaponsTrainingDamage = afterMonster.getPostAbilityMelee();
-    // }
-    // return weaponsTrainingDamage;
+    const monsterPos = this.gameTeam!.getMonsterPosition(this);
+    const aliveMonsters = this.gameTeam!.getAliveMonsters();
+    if (!monsterPos && !aliveMonsters) {
+      return 0;
+    }
+    let weaponsTrainingDamage = 0;
+    const beforeMonster = aliveMonsters[monsterPos - 1];
+    const afterMonster = aliveMonsters[monsterPos + 1];
+    if (beforeMonster && beforeMonster.hasAbility(Ability.WEAPONS_TRAINING)) {
+      weaponsTrainingDamage = beforeMonster.getPostAbilityMelee();
+    } else if (afterMonster && afterMonster.hasAbility(Ability.WEAPONS_TRAINING)) {
+      weaponsTrainingDamage = afterMonster.getPostAbilityMelee();
+    }
+    return weaponsTrainingDamage;
   }
 
   getPostAbilityMaxArmor() {
