@@ -327,7 +327,7 @@ export class GameMonster extends GameCard {
     if (beforeMonster && beforeMonster.hasAbility(Ability.WEAPONS_TRAINING)) {
       weaponsTrainingDamage = Math.ceil(beforeMonster.getPostAbilityMelee() / 2);
     } else if (afterMonster && afterMonster.hasAbility(Ability.WEAPONS_TRAINING)) {
-      weaponsTrainingDamage = Math.ceil(afterMonster.getPostAbilityMelee());
+      weaponsTrainingDamage = Math.ceil(afterMonster.getPostAbilityMelee() / 2);
     }
     return weaponsTrainingDamage;
   }
