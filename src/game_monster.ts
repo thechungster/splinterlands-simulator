@@ -501,6 +501,15 @@ export class GameMonster extends GameCard {
     return new GameMonster(this.getCardDetail(), this.getCardLevel() + 1);
   }
 
+  public cloneWithPostAbilityEffects() {
+    const clonedCard = this.clone();
+    clonedCard.speed = this.getPostAbilitySpeed();
+    clonedCard.magic = this.getPostAbilityMagic();
+    clonedCard.melee = this.getPostAbilityMelee();
+    clonedCard.ranged = this.getPostAbilityRanged();
+    return clonedCard;
+  }
+
   /********************* Things regarding abilities? ********************/
   private isEnraged() {
     return this.hasAbility(Ability.ENRAGE) && this.health < this.getPostAbilityMaxHealth();

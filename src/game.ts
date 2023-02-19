@@ -1258,15 +1258,25 @@ export class Game {
 
   createAndAddBattleLog(
     action: BattleLogAction,
-    cardOne?: GameCard,
-    cardTwo?: GameCard,
+    cardOne?: GameCard | GameMonster,
+    cardTwo?: GameCard | GameMonster,
     value?: number,
   ) {
     if (!this.shouldLog) {
       return;
     }
-    const actor = cardOne ? cardOne.clone() : undefined;
-    const target = cardTwo ? cardTwo.clone() : undefined;
+    let actor;
+    if (cardOne && cardOne instanceof GameMonster) {
+      actor = cardOne.cloneWithPostAbilityEffects();
+    } else if (cardTwo) {
+      actor = cardTwo.clone();
+    }
+    let target;
+    if (cardTwo && cardTwo instanceof GameMonster) {
+      target = cardTwo.cloneWithPostAbilityEffects();
+    } else if (cardTwo) {
+      target = cardTwo.clone();
+    }
     if (actor) {
       actor.removeAbility(Ability.MELEE_MAYHEM);
     }
