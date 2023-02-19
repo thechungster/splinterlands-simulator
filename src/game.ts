@@ -735,6 +735,7 @@ export class Game {
           enemy,
           abilityUtils.REDEMPTION_DAMAGE,
         );
+        this.createAndAddBattleLog(Ability.REDEMPTION, monster, enemy, abilityUtils.REDEMPTION_DAMAGE);
 
         this.maybeDead(enemy);
       });
