@@ -321,16 +321,13 @@ export class GameMonster extends GameCard {
     }
     const monsterPos = this.gameTeam!.getMonsterPosition(this);
     const aliveMonsters = this.gameTeam!.getAliveMonsters();
-    if (!monsterPos && !aliveMonsters) {
-      return 0;
-    }
     let weaponsTrainingDamage = 0;
     const beforeMonster = aliveMonsters[monsterPos - 1];
     const afterMonster = aliveMonsters[monsterPos + 1];
     if (beforeMonster && beforeMonster.hasAbility(Ability.WEAPONS_TRAINING)) {
-      weaponsTrainingDamage = beforeMonster.getPostAbilityMelee();
+      weaponsTrainingDamage = Math.ceil(beforeMonster.getPostAbilityMelee() / 2);
     } else if (afterMonster && afterMonster.hasAbility(Ability.WEAPONS_TRAINING)) {
-      weaponsTrainingDamage = afterMonster.getPostAbilityMelee();
+      weaponsTrainingDamage = Math.ceil(afterMonster.getPostAbilityMelee());
     }
     return weaponsTrainingDamage;
   }

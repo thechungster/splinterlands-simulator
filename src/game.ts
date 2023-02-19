@@ -274,6 +274,7 @@ export class Game {
     if (!monsterAttacking.hasAttack()) {
       return;
     }
+    const weaponsTrainingDamage = monsterAttacking.getWeaponsTrainingDamage();
     // Attack with magic
     if (monsterAttacking.magic > 0) {
       const attackTarget = this.getTargetForAttackType(monsterAttacking, AttackType.MAGIC);
@@ -289,7 +290,7 @@ export class Game {
       }
     }
     // Attack with melee
-    if (monsterAttacking.melee > 0) {
+    if (monsterAttacking.melee > 0 || weaponsTrainingDamage > 0) {
       const attackTarget = this.getTargetForAttackType(monsterAttacking, AttackType.MELEE);
       if (attackTarget !== null) {
         this.resolveMeleeAttackForMonster(monsterAttacking, attackTarget, false);
