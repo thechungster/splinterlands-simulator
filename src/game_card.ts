@@ -1,4 +1,5 @@
 import { CardDetail, CardStats } from 'splinterlands-types';
+import { GameTeam } from './game_team';
 import { TeamNumber } from './types';
 import { Ability } from './types';
 import { getCardDetailFromId } from './utils/card_utils';
@@ -8,6 +9,7 @@ export class GameCard {
   private readonly cardLevel: number;
   private team: number = TeamNumber.UNKNOWN;
 
+  protected gameTeam?: GameTeam;
   protected debuffsMap: Map<Ability, number> = new Map();
   protected buffsMap: Map<Ability, number> = new Map();
   abilities: Set<Ability> = new Set();
@@ -34,6 +36,10 @@ export class GameCard {
 
   public setTeam(teamNumber: TeamNumber) {
     this.team = teamNumber;
+  }
+
+  public setGameTeam(gameTeam: GameTeam) {
+    this.gameTeam = gameTeam;
   }
 
   public getCardDetail(): CardDetail {

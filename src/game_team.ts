@@ -9,7 +9,9 @@ export class GameTeam {
 
   constructor(summoner: GameSummoner, monsterList: GameMonster[]) {
     this.summoner = summoner;
+    this.summoner.setGameTeam(this);
     this.monsterList = monsterList;
+    this.monsterList.forEach((m) => m.setGameTeam(this));
   }
 
   public resetTeam() {

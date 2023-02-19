@@ -1,9 +1,15 @@
 import { GameMonster } from '../game_monster';
 import { getDidDodge, monsterTurnComparator } from './game_utils';
-import { createFakeCardDetail, getDefaultFakeMeleeOnlyCardDetail } from './test_utils';
+import {
+  createFakeCardDetail,
+  getDefaultFakeMeleeOnlyCardDetail,
+  getDefaultFakeSummoner,
+} from './test_utils';
 import * as abilityUtils from './ability_utils';
 import { Ability, AttackType, Ruleset, TeamNumber } from '../types';
 import { CardColor, CardDetail, CardStats, CardType } from 'splinterlands-types';
+import { GameTeam } from '../game_team';
+import { GameSummoner } from '../game_summoner';
 
 describe('game_utils', () => {
   const emptySet = new Set<Ruleset>();
@@ -104,12 +110,16 @@ describe('game_utils', () => {
   });
 
   describe('monsterTurnComparator function', () => {
+    let fakeSummoner: GameSummoner;
     let monsterOne: GameMonster;
     let monsterTwo: GameMonster;
+    let gameTeam: GameTeam;
 
     beforeEach(() => {
+      fakeSummoner = getDefaultFakeSummoner();
       monsterOne = new GameMonster(getDefaultFakeMeleeOnlyCardDetail(), 1);
       monsterTwo = new GameMonster(getDefaultFakeMeleeOnlyCardDetail(), 1);
+      gameTeam = new GameTeam(fakeSummoner, [monsterOne, monsterTwo]);
     });
 
     it('returns the difference of the monster speed if speed is different', () => {

@@ -1,5 +1,6 @@
 import { CardDetail } from 'splinterlands-types';
 import { GameCard } from './game_card';
+import { GameTeam } from './game_team';
 import { Ability, AttackType } from './types';
 import * as abilityUtils from './utils/ability_utils';
 
@@ -303,7 +304,32 @@ export class GameMonster extends GameCard {
   }
 
   hasAttack() {
-    return this.melee > 0 || this.ranged > 0 || this.magic > 0;
+    if (
+      this.melee > 0 ||
+      this.ranged > 0 ||
+      this.magic > 0 ||
+      this.getWeaponsTrainingDamage() > 0
+    ) {
+      return true;
+    }
+  }
+
+  /** If this monster has no attack, it will get the weapons training from an adjacent monster and return the attack */
+  getWeaponsTrainingDamage() {
+    if (this.melee > 0 || this.ranged > 0 || this.magic > 0) {
+      return 0;
+    }
+    const monsterPos = this.gameTeam!.getMonsterPosition(this);
+    const aliveMonsters = this.gameTeam!.getAliveMonsters();
+    let weaponsTrainingDamage = 0;
+    const beforeMonster = aliveMonsters[monsterPos - 1];
+    const afterMonster = aliveMonsters[monsterPos + 1];
+    if (beforeMonster && beforeMonster.hasAbility(Ability.WEAPONS_TRAINING)) {
+      weaponsTrainingDamage = beforeMonster.getPostAbilityMelee();
+    } else if (afterMonster && afterMonster.hasAbility(Ability.WEAPONS_TRAINING)) {
+      weaponsTrainingDamage = afterMonster.getPostAbilityMelee();
+    }
+    return weaponsTrainingDamage;
   }
 
   getPostAbilityMaxArmor() {
@@ -431,10 +457,11 @@ export class GameMonster extends GameCard {
 
   /** How much melee damage this will do */
   getPostAbilityMelee(): number {
-    if (this.melee === 0) {
+    let postMelee = this.melee + this.getWeaponsTrainingDamage();
+    if (postMelee === 0) {
       return 0;
     }
-    let postMelee = this.melee + this.summonerMelee;
+    postMelee += this.summonerMelee;
     if (this.hasDebuff(Ability.HALVING)) {
       postMelee = Math.max(Math.floor(postMelee / 2), 1);
     }
