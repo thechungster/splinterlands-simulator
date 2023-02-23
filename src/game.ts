@@ -805,8 +805,8 @@ export class Game {
     if (!monster) {
       return;
     }
+    monster.startingHealth++;
     monster.addHealth(1);
-    monster.armor++;
     monster.speed++;
     if (monster.melee > 0) {
       monster.melee++;
