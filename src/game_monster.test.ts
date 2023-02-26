@@ -536,6 +536,12 @@ describe('GameMonster', () => {
       expect(monster.hasAbility(Ability.DIVINE_SHIELD)).toBe(false);
     });
 
+    it('resurrect cleanses poison', () => {
+      monster.addDebuff(Ability.POISON);
+      monster.resurrect();
+      expect(monster.hasDebuff(Ability.POISON)).toBe(false);
+    });
+
     it('resurrects with the max armor it can have', () => {
       monster.health = 1;
       monster.addSummonerArmor(-1 * MONSTER_ARMOR);

@@ -735,7 +735,12 @@ export class Game {
           enemy,
           abilityUtils.REDEMPTION_DAMAGE,
         );
-        this.createAndAddBattleLog(Ability.REDEMPTION, monster, enemy, abilityUtils.REDEMPTION_DAMAGE);
+        this.createAndAddBattleLog(
+          Ability.REDEMPTION,
+          monster,
+          enemy,
+          abilityUtils.REDEMPTION_DAMAGE,
+        );
 
         this.maybeDead(enemy);
       });
@@ -835,15 +840,15 @@ export class Game {
 
   // Returns whether the monster was resurrected or not.
   private maybeResurrect(monster: GameCard, deadMonster: GameMonster) {
-    if (monster.hasAbility(Ability.RESURRECT) && !deadMonster.isAlive()) {
-      monster.removeAbility(Ability.RESURRECT);
-      deadMonster.resurrect();
-      const deadMonsterIndex = this.deadMonsters.findIndex((deadMon) => deadMon === deadMonster);
-      this.deadMonsters.splice(deadMonsterIndex, 1);
-      this.createAndAddBattleLog(Ability.RESURRECT, monster, deadMonster);
-      return true;
+    if (!monster.hasAbility(Ability.RESURRECT) || deadMonster.isAlive()) {
+      return false;
     }
-    return false;
+    monster.removeAbility(Ability.RESURRECT);
+    deadMonster.resurrect();
+    const deadMonsterIndex = this.deadMonsters.findIndex((deadMon) => deadMon === deadMonster);
+    this.deadMonsters.splice(deadMonsterIndex, 1);
+    this.createAndAddBattleLog(Ability.RESURRECT, monster, deadMonster);
+    return true;
   }
 
   private onDeath(monster: GameMonster, deadMonster: GameMonster) {

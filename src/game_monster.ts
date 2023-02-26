@@ -158,7 +158,7 @@ export class GameMonster extends GameCard {
   }
 
   removeDebuff(debuff: Ability) {
-    const debuffAmt = this.getDebuffAmt(debuff) - 1;
+    const debuffAmt = Math.max(0, this.getDebuffAmt(debuff) - 1);
     if (debuffAmt === 0) {
       this.debuffsMap.delete(debuff);
     } else {
@@ -493,6 +493,7 @@ export class GameMonster extends GameCard {
     if (this.hadDivineShield) {
       this.addAbility(Ability.DIVINE_SHIELD);
     }
+    this.removeDebuff(Ability.POISON);
     this.armor = this.getPostAbilityMaxArmor();
     // this.cleanseDebuffs();
   }
