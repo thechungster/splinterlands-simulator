@@ -26,6 +26,7 @@ import { GameCard } from './game_card';
 import { TeamNumber } from './types';
 
 const FATIGUE_ROUND_NUMBER = 20;
+const SKIP_BATTLELOG_ABILITIES = [Ability.CRIPPLE];
 
 export class Game {
   private readonly team1: GameTeam;
@@ -992,6 +993,7 @@ export class Game {
         1,
         Math.min(attackTarget.health, attackTarget.getPostAbilityMaxHealth()),
       );
+      this.createAndAddBattleLog(Ability.CRIPPLE, attackingMonster, attackTarget);
     }
   }
 
@@ -1205,7 +1207,9 @@ export class Game {
     debuff: Ability,
   ) {
     monsterAffected.addDebuff(debuff);
-    this.createAndAddBattleLog(debuff, monsterThatApplied, monsterAffected);
+    if (SKIP_BATTLELOG_ABILITIES.indexOf(debuff) < 0) {
+      this.createAndAddBattleLog(debuff, monsterThatApplied, monsterAffected);
+    }
   }
 
   private applyDebuffToMonsters(monsters: GameMonster[], debuff: Ability) {
