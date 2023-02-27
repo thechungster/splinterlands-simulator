@@ -391,6 +391,72 @@ describe('Game', () => {
       });
     });
 
+    describe('applyMartyrBuffs function', () => {
+      beforeEach(() => {
+        attackingMonster.armor = 0;
+        attackingMonster.startingArmor = 0;
+        attackingMonster.ranged = 0;
+        attackingMonster.melee = 0;
+        attackingMonster.magic = 0;
+      });
+
+      it('only gives speed and health if monster has no attack', () => {
+        game['applyMartyrBuffs'](attackingMonster);
+        expect(attackingMonster.speed).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.ranged).toBe(0);
+        expect(attackingMonster.melee).toBe(0);
+        expect(attackingMonster.magic).toBe(0);
+        expect(attackingMonster.armor).toBe(0);
+      });
+
+      it('gives attack if monster has melee and ranged', () => {
+        attackingMonster.melee = DEFAULT_MONSTER_STAT;
+        attackingMonster.ranged = DEFAULT_MONSTER_STAT;
+        game['applyMartyrBuffs'](attackingMonster);
+        expect(attackingMonster.speed).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.melee).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.ranged).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.magic).toBe(0);
+        expect(attackingMonster.armor).toBe(0);
+      });
+
+      it('gives attack if monster has magic', () => {
+        attackingMonster.magic = DEFAULT_MONSTER_STAT;
+        game['applyMartyrBuffs'](attackingMonster);
+        expect(attackingMonster.speed).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.melee).toBe(0);
+        expect(attackingMonster.ranged).toBe(0);
+        expect(attackingMonster.magic).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.armor).toBe(0);
+      });
+
+      it('gives armor if monster currently has armor', () => {
+        attackingMonster.armor = DEFAULT_MONSTER_STAT;
+        game['applyMartyrBuffs'](attackingMonster);
+        expect(attackingMonster.speed).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.melee).toBe(0);
+        expect(attackingMonster.ranged).toBe(0);
+        expect(attackingMonster.magic).toBe(0);
+        expect(attackingMonster.armor).toBe(DEFAULT_MONSTER_STAT + 1);
+      });
+
+      it("gives doesn't give armor if monster has no armor but had some initially", () => {
+        attackingMonster.startingArmor = DEFAULT_MONSTER_STAT;
+        attackingMonster.armor = 0;
+        game['applyMartyrBuffs'](attackingMonster);
+        expect(attackingMonster.speed).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.health).toBe(DEFAULT_MONSTER_STAT + 1);
+        expect(attackingMonster.melee).toBe(0);
+        expect(attackingMonster.ranged).toBe(0);
+        expect(attackingMonster.magic).toBe(0);
+        expect(attackingMonster.armor).toBe(0);
+      });
+    });
+
     describe('attackMonsterPhase function', () => {
       let getDodgeSpy: jest.SpyInstance;
       let hitMonsterWithPhysicalSpy: jest.SpyInstance;

@@ -823,6 +823,9 @@ export class Game {
     if (monster.ranged > 0) {
       monster.ranged++;
     }
+    if (monster.armor > 0) {
+      monster.addSummonerArmor(1);
+    }
     this.createAndAddBattleLog(Ability.MARTYR, monster);
   }
 
