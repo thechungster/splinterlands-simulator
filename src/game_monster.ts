@@ -425,14 +425,12 @@ export class GameMonster extends GameCard {
     if (this.hasDebuff(Ability.HALVING)) {
       postMagic = Math.max(Math.floor(postMagic / 2), 1);
     }
+    const magicModifier = -1 * this.getDebuffAmt(Ability.SILENCE);
+    postMagic = Math.max(postMagic + magicModifier, 1);
     if (this.getIsLastStand()) {
       postMagic = Math.ceil(postMagic * abilityUtils.LAST_STAND_MULTIPLIER);
     }
-    let magicModifier = 0;
-    for (let i = 0; i < this.getDebuffAmt(Ability.SILENCE); i++) {
-      magicModifier--;
-    }
-    return Math.max(postMagic + magicModifier, 1);
+    return postMagic;
   }
 
   /** How much ranged damage this will do */

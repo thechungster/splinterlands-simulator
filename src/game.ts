@@ -377,6 +377,9 @@ export class Game {
     if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
       attackTarget.removeDivineShield();
       this.createAndAddBattleLog(Ability.DIVINE_SHIELD, attackingMonster, attackTarget, 0);
+      if (attackingMonster.hasAbility(Ability.SHATTER)) {
+        attackTarget.armor = 0;
+      }
       if (attackType === AttackType.MAGIC) {
         this.maybeApplyMagicReflect(attackingMonster, attackTarget, attackType);
       } else {
@@ -451,6 +454,7 @@ export class Game {
     // Dispel
     if (attackingMonster.hasAbility(Ability.DISPEL)) {
       abilityUtils.dispelBuffs(attackTarget);
+      this.createAndAddBattleLog(Ability.DISPEL, attackingMonster, attackTarget);
     }
   }
 
@@ -512,9 +516,10 @@ export class Game {
     if (!attackTarget.hasAttack() && attackingMonster.hasAbility(Ability.OPPRESS)) {
       multiplier *= 2;
     }
-    if (attackingMonster.hasAbility(Ability.FURY) && attackTarget.hasAbility(Ability.TAUNT)) {
-      multiplier *= 2;
-    }
+    // Fury happens after forcefield check.
+    // if (attackingMonster.hasAbility(Ability.FURY) && attackTarget.hasAbility(Ability.TAUNT)) {
+    //   multiplier *= 2;
+    // }
     return multiplier;
   }
 

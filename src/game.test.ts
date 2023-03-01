@@ -554,15 +554,6 @@ describe('Game', () => {
         attackTarget.ranged = DEFAULT_MONSTER_STAT;
       });
 
-      it('does double damage if the attacker has fury ability and target has taunt ability', () => {
-        attackingMonster.addAbility(Ability.FURY);
-        attackTarget.addAbility(Ability.TAUNT);
-        const multiplier = game['getDamageMultiplier'](attackingMonster, attackTarget);
-        expect(multiplier).toEqual(2);
-        attackingMonster.removeAbility(Ability.FURY);
-        attackTarget.removeAbility(Ability.TAUNT);
-      });
-
       it('does NOT do double damage if the attacker has fury ability but target does not have taunt ability', () => {
         attackingMonster.addAbility(Ability.FURY);
         const multiplier = game['getDamageMultiplier'](attackingMonster, attackTarget);

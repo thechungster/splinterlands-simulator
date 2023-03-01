@@ -789,6 +789,17 @@ describe('GameMonster', () => {
         expect(monster.getPostAbilityAttackOfType(AttackType.MAGIC)).toBe(MONSTER_MAGIC - 3);
       });
 
+      // Silence happens before last stand.
+      it('returns correct magic with silence and last stand', () => {
+        monster.addAbility(Ability.LAST_STAND);
+        monster.setIsOnlyMonster();
+        monster.addDebuff(Ability.SILENCE);
+        monster.addDebuff(Ability.SILENCE);
+        expect(monster.getPostAbilityAttackOfType(AttackType.MAGIC)).toBe(
+          Math.ceil((MONSTER_MAGIC - 2) * 1.5),
+        );
+      });
+
       it('returns correct magic with all modifiers', () => {
         monster.addAbility(Ability.LAST_STAND);
         monster.setIsOnlyMonster();
