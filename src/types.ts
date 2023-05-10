@@ -160,6 +160,7 @@ export enum Ruleset {
   FEROCITY = 'Ferocity',
   GOING_THE_DISTANCE = 'Going the Distance',
   WANDS_OUT = 'Wands Out',
+  BORN_AGAIN = 'Born Again',
 }
 
 export enum Stat {
