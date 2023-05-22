@@ -70,6 +70,21 @@ describe('damage_utils', () => {
       expect(attackTarget.health).toBe(MONSTER_HEALTH - 4);
     });
 
+    it('fury does double damage to taunt', () => {
+      attackTarget.armor = 0;
+      attackingMonster.addAbility(Ability.FURY);
+      attackTarget.addAbility(Ability.TAUNT);
+      hitMonsterWithMagic(fakeGameTeam, attackingMonster, attackTarget, 4);
+      expect(attackTarget.health).toBe(MONSTER_HEALTH - 8);
+    });
+
+    it('fury does nothing if no taunt', () => {
+      attackTarget.armor = 0;
+      attackingMonster.addAbility(Ability.FURY);
+      hitMonsterWithMagic(fakeGameTeam, attackingMonster, attackTarget, 4);
+      expect(attackTarget.health).toBe(MONSTER_HEALTH - 4);
+    });
+
     it('does no damage and removes divine shield if target has divine shield', () => {
       attackTarget.addAbility(Ability.DIVINE_SHIELD);
       hitMonsterWithMagic(fakeGameTeam, null, attackTarget, 4);
@@ -157,6 +172,21 @@ describe('damage_utils', () => {
       attackingMonster.addAbility(Ability.GIANT_KILLER);
       attackTarget.addAbility(Ability.FORCEFIELD);
       attackTarget.mana = 2;
+      hitMonsterWithPhysical(fakeGameTeam, attackingMonster, attackTarget, 4);
+      expect(attackTarget.health).toBe(MONSTER_HEALTH - 4);
+    });
+
+    it('fury does double damage to taunt', () => {
+      attackTarget.armor = 0;
+      attackingMonster.addAbility(Ability.FURY);
+      attackTarget.addAbility(Ability.TAUNT);
+      hitMonsterWithPhysical(fakeGameTeam, attackingMonster, attackTarget, 4);
+      expect(attackTarget.health).toBe(MONSTER_HEALTH - 8);
+    });
+
+    it('fury does nothing if no taunt', () => {
+      attackTarget.armor = 0;
+      attackingMonster.addAbility(Ability.FURY);
       hitMonsterWithPhysical(fakeGameTeam, attackingMonster, attackTarget, 4);
       expect(attackTarget.health).toBe(MONSTER_HEALTH - 4);
     });

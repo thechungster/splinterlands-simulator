@@ -79,6 +79,9 @@ export function doRulesetPreGameBuff(rulesets: Set<Ruleset>, team1: GameTeam, te
   if (rulesets.has(Ruleset.FEROCITY)) {
     applyToBothTeamMonsters(team1, team2, applyFerocity);
   }
+  if (rulesets.has(Ruleset.BORN_AGAIN)) {
+    applyToBothTeamMonsters(team1, team2, applyRebirth);
+  }
 }
 
 export function doRulesetPreGamePostBuff(rulesets: Set<Ruleset>, team1: GameTeam, team2: GameTeam) {
@@ -284,4 +287,11 @@ function applyAimless(monster: GameMonster) {
  */
 function applyFerocity(monster: GameMonster) {
   monster.addAbility(Ability.FURY);
+}
+
+/**
+ * All monsters have rebirth
+ */
+function applyRebirth(monster: GameMonster) {
+  monster.addAbility(Ability.REBIRTH);
 }

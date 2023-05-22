@@ -1,5 +1,6 @@
 import { CardDetail } from 'splinterlands-types';
 import { GameCard } from './game_card';
+import { GameTeam } from './game_team';
 import { Ability, AttackType } from './types';
 import * as abilityUtils from './utils/ability_utils';
 
@@ -157,7 +158,7 @@ export class GameMonster extends GameCard {
   }
 
   removeDebuff(debuff: Ability) {
-    const debuffAmt = this.getDebuffAmt(debuff) - 1;
+    const debuffAmt = Math.max(0, this.getDebuffAmt(debuff) - 1);
     if (debuffAmt === 0) {
       this.debuffsMap.delete(debuff);
     } else {
@@ -303,7 +304,32 @@ export class GameMonster extends GameCard {
   }
 
   hasAttack() {
-    return this.melee > 0 || this.ranged > 0 || this.magic > 0;
+    if (
+      this.melee > 0 ||
+      this.ranged > 0 ||
+      this.magic > 0 ||
+      this.getWeaponsTrainingDamage() > 0
+    ) {
+      return true;
+    }
+  }
+
+  /** If this monster has no attack, it will get the weapons training from an adjacent monster and return the attack */
+  getWeaponsTrainingDamage() {
+    if (this.melee > 0 || this.ranged > 0 || this.magic > 0 || !this.gameTeam) {
+      return 0;
+    }
+    const monsterPos = this.gameTeam!.getMonsterPosition(this);
+    const aliveMonsters = this.gameTeam!.getAliveMonsters();
+    let weaponsTrainingDamage = 0;
+    const beforeMonster = aliveMonsters[monsterPos - 1];
+    const afterMonster = aliveMonsters[monsterPos + 1];
+    if (beforeMonster && beforeMonster.hasAbility(Ability.WEAPONS_TRAINING)) {
+      weaponsTrainingDamage = Math.ceil(beforeMonster.getPostAbilityMelee() / 2);
+    } else if (afterMonster && afterMonster.hasAbility(Ability.WEAPONS_TRAINING)) {
+      weaponsTrainingDamage = Math.ceil(afterMonster.getPostAbilityMelee() / 2);
+    }
+    return weaponsTrainingDamage;
   }
 
   getPostAbilityMaxArmor() {
@@ -395,23 +421,16 @@ export class GameMonster extends GameCard {
     if (this.magic === 0) {
       return 0;
     }
-    let postMagic = this.magic;
+    let postMagic = this.magic + this.summonerMagic;
     if (this.hasDebuff(Ability.HALVING)) {
       postMagic = Math.max(Math.floor(postMagic / 2), 1);
     }
+    const magicModifier = -1 * this.getDebuffAmt(Ability.SILENCE);
+    postMagic = Math.max(postMagic + magicModifier, 1);
     if (this.getIsLastStand()) {
       postMagic = Math.ceil(postMagic * abilityUtils.LAST_STAND_MULTIPLIER);
     }
-    let magicModifier = 0;
-    for (let i = 0; i < this.getDebuffAmt(Ability.SILENCE); i++) {
-      magicModifier--;
-    }
-    if (this.hasDebuff(Ability.HALVING)) {
-      magicModifier += Math.floor(this.summonerMagic / 2);
-    } else {
-      magicModifier += this.summonerMagic;
-    }
-    return Math.max(postMagic + magicModifier, 1);
+    return postMagic;
   }
 
   /** How much ranged damage this will do */
@@ -419,7 +438,7 @@ export class GameMonster extends GameCard {
     if (this.ranged === 0) {
       return 0;
     }
-    let postRange = this.ranged;
+    let postRange = this.ranged + this.summonerRanged;
     if (this.hasDebuff(Ability.HALVING)) {
       postRange = Math.max(Math.floor(postRange / 2), 1);
     }
@@ -431,21 +450,16 @@ export class GameMonster extends GameCard {
       const headwindsAmt = this.getDebuffAmt(Ability.HEADWINDS);
       rangeModifier -= headwindsAmt;
     }
-    if (this.hasDebuff(Ability.HALVING)) {
-      // TODO(Halving) is this right?
-      rangeModifier += Math.floor(this.summonerRanged / 2);
-    } else {
-      rangeModifier += this.summonerRanged;
-    }
     return Math.max(postRange + rangeModifier, 1);
   }
 
   /** How much melee damage this will do */
   getPostAbilityMelee(): number {
-    let postMelee = this.melee;
+    let postMelee = this.melee + this.getWeaponsTrainingDamage();
     if (postMelee === 0) {
       return 0;
     }
+    postMelee += this.summonerMelee;
     if (this.hasDebuff(Ability.HALVING)) {
       postMelee = Math.max(Math.floor(postMelee / 2), 1);
     }
@@ -460,12 +474,6 @@ export class GameMonster extends GameCard {
     if (this.hasDebuff(Ability.DEMORALIZE)) {
       const demoralizeAmt = this.getDebuffAmt(Ability.DEMORALIZE);
       meleeModifier -= demoralizeAmt;
-    }
-    if (this.hasDebuff(Ability.HALVING)) {
-      // TODO(Halving) is this right?
-      meleeModifier += Math.floor(this.summonerMelee / 2);
-    } else {
-      meleeModifier += this.summonerMelee;
     }
 
     const currentMelee = Math.max(postMelee + meleeModifier, 1);
@@ -483,12 +491,22 @@ export class GameMonster extends GameCard {
     if (this.hadDivineShield) {
       this.addAbility(Ability.DIVINE_SHIELD);
     }
+    this.removeDebuff(Ability.POISON);
     this.armor = this.getPostAbilityMaxArmor();
     // this.cleanseDebuffs();
   }
 
   public getCleanCard(): GameMonster {
     return new GameMonster(this.getCardDetail(), this.getCardLevel() + 1);
+  }
+
+  public cloneWithPostAbilityEffects() {
+    const clonedCard = this.clone();
+    clonedCard.speed = this.getPostAbilitySpeed();
+    clonedCard.magic = this.getPostAbilityMagic();
+    clonedCard.melee = this.getPostAbilityMelee();
+    clonedCard.ranged = this.getPostAbilityRanged();
+    return clonedCard;
   }
 
   /********************* Things regarding abilities? ********************/

@@ -26,6 +26,7 @@ import { GameCard } from './game_card';
 import { TeamNumber } from './types';
 
 const FATIGUE_ROUND_NUMBER = 20;
+const SKIP_BATTLELOG_ABILITIES = [Ability.CRIPPLE];
 
 export class Game {
   private readonly team1: GameTeam;
@@ -274,6 +275,7 @@ export class Game {
     if (!monsterAttacking.hasAttack()) {
       return;
     }
+    const weaponsTrainingDamage = monsterAttacking.getWeaponsTrainingDamage();
     // Attack with magic
     if (monsterAttacking.magic > 0) {
       const attackTarget = this.getTargetForAttackType(monsterAttacking, AttackType.MAGIC);
@@ -289,7 +291,7 @@ export class Game {
       }
     }
     // Attack with melee
-    if (monsterAttacking.melee > 0) {
+    if (monsterAttacking.melee > 0 || weaponsTrainingDamage > 0) {
       const attackTarget = this.getTargetForAttackType(monsterAttacking, AttackType.MELEE);
       if (attackTarget !== null) {
         this.resolveMeleeAttackForMonster(monsterAttacking, attackTarget, false);
@@ -375,6 +377,9 @@ export class Game {
     if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
       attackTarget.removeDivineShield();
       this.createAndAddBattleLog(Ability.DIVINE_SHIELD, attackingMonster, attackTarget, 0);
+      if (attackingMonster.hasAbility(Ability.SHATTER)) {
+        attackTarget.armor = 0;
+      }
       if (attackType === AttackType.MAGIC) {
         this.maybeApplyMagicReflect(attackingMonster, attackTarget, attackType);
       } else {
@@ -449,6 +454,7 @@ export class Game {
     // Dispel
     if (attackingMonster.hasAbility(Ability.DISPEL)) {
       abilityUtils.dispelBuffs(attackTarget);
+      this.createAndAddBattleLog(Ability.DISPEL, attackingMonster, attackTarget);
     }
   }
 
@@ -510,9 +516,10 @@ export class Game {
     if (!attackTarget.hasAttack() && attackingMonster.hasAbility(Ability.OPPRESS)) {
       multiplier *= 2;
     }
-    if (attackingMonster.hasAbility(Ability.FURY) && attackTarget.hasAbility(Ability.TAUNT)) {
-      multiplier *= 2;
-    }
+    // Fury happens after forcefield check.
+    // if (attackingMonster.hasAbility(Ability.FURY) && attackTarget.hasAbility(Ability.TAUNT)) {
+    //   multiplier *= 2;
+    // }
     return multiplier;
   }
 
@@ -734,6 +741,12 @@ export class Game {
           enemy,
           abilityUtils.REDEMPTION_DAMAGE,
         );
+        this.createAndAddBattleLog(
+          Ability.REDEMPTION,
+          monster,
+          enemy,
+          abilityUtils.REDEMPTION_DAMAGE,
+        );
 
         this.maybeDead(enemy);
       });
@@ -803,8 +816,8 @@ export class Game {
     if (!monster) {
       return;
     }
+    monster.startingHealth++;
     monster.addHealth(1);
-    monster.armor++;
     monster.speed++;
     if (monster.melee > 0) {
       monster.melee++;
@@ -814,6 +827,9 @@ export class Game {
     }
     if (monster.ranged > 0) {
       monster.ranged++;
+    }
+    if (monster.armor > 0) {
+      monster.addSummonerArmor(1);
     }
     this.createAndAddBattleLog(Ability.MARTYR, monster);
   }
@@ -833,15 +849,15 @@ export class Game {
 
   // Returns whether the monster was resurrected or not.
   private maybeResurrect(monster: GameCard, deadMonster: GameMonster) {
-    if (monster.hasAbility(Ability.RESURRECT) && !deadMonster.isAlive()) {
-      monster.removeAbility(Ability.RESURRECT);
-      deadMonster.resurrect();
-      const deadMonsterIndex = this.deadMonsters.findIndex((deadMon) => deadMon === deadMonster);
-      this.deadMonsters.splice(deadMonsterIndex, 1);
-      this.createAndAddBattleLog(Ability.RESURRECT, monster, deadMonster);
-      return true;
+    if (!monster.hasAbility(Ability.RESURRECT) || deadMonster.isAlive()) {
+      return false;
     }
-    return false;
+    monster.removeAbility(Ability.RESURRECT);
+    deadMonster.resurrect();
+    const deadMonsterIndex = this.deadMonsters.findIndex((deadMon) => deadMon === deadMonster);
+    this.deadMonsters.splice(deadMonsterIndex, 1);
+    this.createAndAddBattleLog(Ability.RESURRECT, monster, deadMonster);
+    return true;
   }
 
   private onDeath(monster: GameMonster, deadMonster: GameMonster) {
@@ -985,6 +1001,7 @@ export class Game {
         1,
         Math.min(attackTarget.health, attackTarget.getPostAbilityMaxHealth()),
       );
+      this.createAndAddBattleLog(Ability.CRIPPLE, attackingMonster, attackTarget);
     }
   }
 
@@ -1198,7 +1215,9 @@ export class Game {
     debuff: Ability,
   ) {
     monsterAffected.addDebuff(debuff);
-    this.createAndAddBattleLog(debuff, monsterThatApplied, monsterAffected);
+    if (SKIP_BATTLELOG_ABILITIES.indexOf(debuff) < 0) {
+      this.createAndAddBattleLog(debuff, monsterThatApplied, monsterAffected);
+    }
   }
 
   private applyDebuffToMonsters(monsters: GameMonster[], debuff: Ability) {
@@ -1257,15 +1276,25 @@ export class Game {
 
   createAndAddBattleLog(
     action: BattleLogAction,
-    cardOne?: GameCard,
-    cardTwo?: GameCard,
+    cardOne?: GameCard | GameMonster,
+    cardTwo?: GameCard | GameMonster,
     value?: number,
   ) {
     if (!this.shouldLog) {
       return;
     }
-    const actor = cardOne ? cardOne.clone() : undefined;
-    const target = cardTwo ? cardTwo.clone() : undefined;
+    let actor;
+    if (cardOne && cardOne instanceof GameMonster) {
+      actor = cardOne.cloneWithPostAbilityEffects();
+    } else if (cardTwo) {
+      actor = cardTwo.clone();
+    }
+    let target;
+    if (cardTwo && cardTwo instanceof GameMonster) {
+      target = cardTwo.cloneWithPostAbilityEffects();
+    } else if (cardTwo) {
+      target = cardTwo.clone();
+    }
     if (actor) {
       actor.removeAbility(Ability.MELEE_MAYHEM);
     }

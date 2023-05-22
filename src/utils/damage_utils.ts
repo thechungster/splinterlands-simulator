@@ -15,13 +15,7 @@ export function hitMonsterWithMagic(
   if (attackTarget.hasAbility(Ability.FORCEFIELD) && magicDamage >= FORCEFIELD_MIN_DAMAGE) {
     magicDamage = 1;
   }
-  if (
-    attackingMonster &&
-    attackingMonster.hasAbility(Ability.GIANT_KILLER) &&
-    attackTarget.mana >= 10
-  ) {
-    magicDamage *= 2;
-  }
+  magicDamage = getMoreHitModifier(attackingMonster, attackTarget, magicDamage);
   // For things like magic reflect
   if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
     attackTarget.removeDivineShield();
@@ -91,13 +85,7 @@ export function hitMonsterWithPhysical(
   if (attackTarget.hasAbility(Ability.FORCEFIELD) && damageAmt >= FORCEFIELD_MIN_DAMAGE) {
     damageAmt = 1;
   }
-  if (
-    attackingMonster &&
-    attackingMonster.hasAbility(Ability.GIANT_KILLER) &&
-    attackTarget.mana >= 10
-  ) {
-    damageAmt *= 2;
-  }
+  damageAmt = getMoreHitModifier(attackingMonster, attackTarget, damageAmt);
   // For things like thorns, this returns 1 to show a successful attack.
   if (attackTarget.hasAbility(Ability.DIVINE_SHIELD)) {
     attackTarget.removeDivineShield();
@@ -169,4 +157,30 @@ function hitHealth(attackTarget: GameMonster, damageAmt: number) {
     return damageAmt - preHitHealth;
   }
   return 0;
+}
+
+/** Modifiers that happen right before the hit. */
+function getMoreHitModifier(
+  attackingMonster: GameMonster | null,
+  attackTarget: GameMonster,
+  damageAmt: number,
+): number {
+  if (!attackingMonster) {
+    return damageAmt;
+  }
+  if (
+    attackingMonster &&
+    attackingMonster.hasAbility(Ability.GIANT_KILLER) &&
+    attackTarget.mana >= 10
+  ) {
+    damageAmt *= 2;
+  }
+  if (
+    attackingMonster &&
+    attackingMonster.hasAbility(Ability.FURY) &&
+    attackTarget.hasAbility(Ability.TAUNT)
+  ) {
+    damageAmt *= 2;
+  }
+  return damageAmt;
 }

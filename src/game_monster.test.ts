@@ -536,6 +536,12 @@ describe('GameMonster', () => {
       expect(monster.hasAbility(Ability.DIVINE_SHIELD)).toBe(false);
     });
 
+    it('resurrect cleanses poison', () => {
+      monster.addDebuff(Ability.POISON);
+      monster.resurrect();
+      expect(monster.hasDebuff(Ability.POISON)).toBe(false);
+    });
+
     it('resurrects with the max armor it can have', () => {
       monster.health = 1;
       monster.addSummonerArmor(-1 * MONSTER_ARMOR);
@@ -783,16 +789,27 @@ describe('GameMonster', () => {
         expect(monster.getPostAbilityAttackOfType(AttackType.MAGIC)).toBe(MONSTER_MAGIC - 3);
       });
 
+      // Silence happens before last stand.
+      it('returns correct magic with silence and last stand', () => {
+        monster.addAbility(Ability.LAST_STAND);
+        monster.setIsOnlyMonster();
+        monster.addDebuff(Ability.SILENCE);
+        monster.addDebuff(Ability.SILENCE);
+        expect(monster.getPostAbilityAttackOfType(AttackType.MAGIC)).toBe(
+          Math.ceil((MONSTER_MAGIC - 2) * 1.5),
+        );
+      });
+
       it('returns correct magic with all modifiers', () => {
         monster.addAbility(Ability.LAST_STAND);
         monster.setIsOnlyMonster();
         monster.addDebuff(Ability.HALVING);
         monster.addDebuff(Ability.SILENCE);
-        monster.addSummonerMagic(-1);
+        const SUMMONER_MAGIC = -1;
+        monster.addSummonerMagic(SUMMONER_MAGIC);
         const expectedMagic =
-          Math.ceil(Math.floor(MONSTER_MAGIC / 2) * LAST_STAND_MULTIPLIER) -
-          /* silence */ 1 -
-          /* summonerMagic */ 1;
+          Math.ceil(Math.floor((MONSTER_MAGIC + SUMMONER_MAGIC) / 2) * LAST_STAND_MULTIPLIER) -
+          /* silence */ 1;
         expect(monster.getPostAbilityAttackOfType(AttackType.MAGIC)).toBe(expectedMagic);
       });
     });
@@ -835,15 +852,15 @@ describe('GameMonster', () => {
       });
 
       it('returns correct ranged with all modifiers', () => {
+        const SUMMONER_RANGED = 3;
         monster.addAbility(Ability.LAST_STAND);
         monster.setIsOnlyMonster();
         monster.addDebuff(Ability.HALVING);
         monster.addDebuff(Ability.HEADWINDS);
-        monster.addSummonerRanged(3);
+        monster.addSummonerRanged(SUMMONER_RANGED);
         const expectedRanged =
-          Math.ceil(Math.floor(MONSTER_RANGED / 2) * LAST_STAND_MULTIPLIER) -
-          /* silence */ 1 +
-          /* summonerRanged */ Math.floor(3 / 2);
+          Math.ceil(Math.floor((MONSTER_RANGED + SUMMONER_RANGED) / 2) * LAST_STAND_MULTIPLIER) -
+          /* silence */ 1;
         expect(monster.getPostAbilityAttackOfType(AttackType.RANGED)).toBe(expectedRanged);
       });
     });
@@ -907,13 +924,13 @@ describe('GameMonster', () => {
         monster.addDebuff(Ability.DEMORALIZE);
         monster.addBuff(Ability.INSPIRE);
         monster.addBuff(Ability.INSPIRE);
-        monster.addSummonerMelee(-1);
+        const SUMMONER_MELEE = -1;
+        monster.addSummonerMelee(SUMMONER_MELEE);
         monster.health = MONSTER_HEALTH - 1;
         const expectedMelee = Math.ceil(
-          (Math.ceil(Math.floor(MONSTER_MELEE / 2) * LAST_STAND_MULTIPLIER) -
+          (Math.ceil(Math.floor((MONSTER_MELEE + SUMMONER_MELEE) / 2) * LAST_STAND_MULTIPLIER) -
             /* demoralize */ 1 +
-            /* inspire */ 2 -
-            /* summonerMelee */ 1) *
+            /* inspire */ 2) *
             ENRAGE_MULTIPLIER,
         );
         expect(monster.getPostAbilityAttackOfType(AttackType.MELEE)).toBe(expectedMelee);

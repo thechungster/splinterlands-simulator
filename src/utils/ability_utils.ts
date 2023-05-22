@@ -38,6 +38,7 @@ export const ENRAGE_MULTIPLIER = 1.5;
 /** Abilities that summoner gives to friendly team at the start of the game */
 export const SUMMONER_ABILITY_ABILITIES = [
   Ability.BLAST,
+  Ability.CAMOUFLAGE,
   Ability.DIVINE_SHIELD,
   Ability.FLYING,
   Ability.LAST_STAND,
